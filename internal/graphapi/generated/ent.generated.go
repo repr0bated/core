@@ -162116,6 +162116,8 @@ func (ec *executionContext) fieldContext_Query_workflowMetadata(_ context.Contex
 			switch field.Name {
 			case "objectTypes":
 				return ec.fieldContext_WorkflowMetadata_objectTypes(ctx, field)
+			case "extensions":
+				return ec.fieldContext_WorkflowMetadata_extensions(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type WorkflowMetadata", field.Name)
 		},
