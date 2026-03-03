@@ -96872,7 +96872,7 @@ func (ec *executionContext) _Hush_credentialSet(ctx context.Context, field graph
 		field,
 		ec.fieldContext_Hush_credentialSet,
 		func(ctx context.Context) (any, error) {
-			return obj.CredentialSet, nil
+			return nil, nil
 		},
 		nil,
 		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet,

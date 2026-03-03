@@ -33069,7 +33069,7 @@ func (ec *executionContext) _HushHistory_credentialSet(ctx context.Context, fiel
 		field,
 		ec.fieldContext_HushHistory_credentialSet,
 		func(ctx context.Context) (any, error) {
-			return obj.CredentialSet, nil
+			return nil, nil
 		},
 		nil,
 		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet,
