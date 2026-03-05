@@ -7937,6 +7937,8 @@ type AssetHistoryMutation struct {
 	cpe                            *string
 	categories                     *[]string
 	appendcategories               []string
+	integration_id                 *string
+	observed_at                    *models.DateTime
 	clearedFields                  map[string]struct{}
 	done                           bool
 	oldValue                       func(context.Context) (*AssetHistory, error)
@@ -10485,6 +10487,104 @@ func (m *AssetHistoryMutation) ResetCategories() {
 	delete(m.clearedFields, assethistory.FieldCategories)
 }
 
+// SetIntegrationID sets the "integration_id" field.
+func (m *AssetHistoryMutation) SetIntegrationID(s string) {
+	m.integration_id = &s
+}
+
+// IntegrationID returns the value of the "integration_id" field in the mutation.
+func (m *AssetHistoryMutation) IntegrationID() (r string, exists bool) {
+	v := m.integration_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIntegrationID returns the old "integration_id" field's value of the AssetHistory entity.
+// If the AssetHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AssetHistoryMutation) OldIntegrationID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIntegrationID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIntegrationID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIntegrationID: %w", err)
+	}
+	return oldValue.IntegrationID, nil
+}
+
+// ClearIntegrationID clears the value of the "integration_id" field.
+func (m *AssetHistoryMutation) ClearIntegrationID() {
+	m.integration_id = nil
+	m.clearedFields[assethistory.FieldIntegrationID] = struct{}{}
+}
+
+// IntegrationIDCleared returns if the "integration_id" field was cleared in this mutation.
+func (m *AssetHistoryMutation) IntegrationIDCleared() bool {
+	_, ok := m.clearedFields[assethistory.FieldIntegrationID]
+	return ok
+}
+
+// ResetIntegrationID resets all changes to the "integration_id" field.
+func (m *AssetHistoryMutation) ResetIntegrationID() {
+	m.integration_id = nil
+	delete(m.clearedFields, assethistory.FieldIntegrationID)
+}
+
+// SetObservedAt sets the "observed_at" field.
+func (m *AssetHistoryMutation) SetObservedAt(mt models.DateTime) {
+	m.observed_at = &mt
+}
+
+// ObservedAt returns the value of the "observed_at" field in the mutation.
+func (m *AssetHistoryMutation) ObservedAt() (r models.DateTime, exists bool) {
+	v := m.observed_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldObservedAt returns the old "observed_at" field's value of the AssetHistory entity.
+// If the AssetHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AssetHistoryMutation) OldObservedAt(ctx context.Context) (v *models.DateTime, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldObservedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldObservedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldObservedAt: %w", err)
+	}
+	return oldValue.ObservedAt, nil
+}
+
+// ClearObservedAt clears the value of the "observed_at" field.
+func (m *AssetHistoryMutation) ClearObservedAt() {
+	m.observed_at = nil
+	m.clearedFields[assethistory.FieldObservedAt] = struct{}{}
+}
+
+// ObservedAtCleared returns if the "observed_at" field was cleared in this mutation.
+func (m *AssetHistoryMutation) ObservedAtCleared() bool {
+	_, ok := m.clearedFields[assethistory.FieldObservedAt]
+	return ok
+}
+
+// ResetObservedAt resets all changes to the "observed_at" field.
+func (m *AssetHistoryMutation) ResetObservedAt() {
+	m.observed_at = nil
+	delete(m.clearedFields, assethistory.FieldObservedAt)
+}
+
 // Where appends a list predicates to the AssetHistoryMutation builder.
 func (m *AssetHistoryMutation) Where(ps ...predicate.AssetHistory) {
 	m.predicates = append(m.predicates, ps...)
@@ -10519,7 +10619,7 @@ func (m *AssetHistoryMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AssetHistoryMutation) Fields() []string {
-	fields := make([]string, 0, 50)
+	fields := make([]string, 0, 52)
 	if m.history_time != nil {
 		fields = append(fields, assethistory.FieldHistoryTime)
 	}
@@ -10670,6 +10770,12 @@ func (m *AssetHistoryMutation) Fields() []string {
 	if m.categories != nil {
 		fields = append(fields, assethistory.FieldCategories)
 	}
+	if m.integration_id != nil {
+		fields = append(fields, assethistory.FieldIntegrationID)
+	}
+	if m.observed_at != nil {
+		fields = append(fields, assethistory.FieldObservedAt)
+	}
 	return fields
 }
 
@@ -10778,6 +10884,10 @@ func (m *AssetHistoryMutation) Field(name string) (ent.Value, bool) {
 		return m.Cpe()
 	case assethistory.FieldCategories:
 		return m.Categories()
+	case assethistory.FieldIntegrationID:
+		return m.IntegrationID()
+	case assethistory.FieldObservedAt:
+		return m.ObservedAt()
 	}
 	return nil, false
 }
@@ -10887,6 +10997,10 @@ func (m *AssetHistoryMutation) OldField(ctx context.Context, name string) (ent.V
 		return m.OldCpe(ctx)
 	case assethistory.FieldCategories:
 		return m.OldCategories(ctx)
+	case assethistory.FieldIntegrationID:
+		return m.OldIntegrationID(ctx)
+	case assethistory.FieldObservedAt:
+		return m.OldObservedAt(ctx)
 	}
 	return nil, fmt.Errorf("unknown AssetHistory field %s", name)
 }
@@ -11246,6 +11360,20 @@ func (m *AssetHistoryMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCategories(v)
 		return nil
+	case assethistory.FieldIntegrationID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIntegrationID(v)
+		return nil
+	case assethistory.FieldObservedAt:
+		v, ok := value.(models.DateTime)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetObservedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown AssetHistory field %s", name)
 }
@@ -11426,6 +11554,12 @@ func (m *AssetHistoryMutation) ClearedFields() []string {
 	if m.FieldCleared(assethistory.FieldCategories) {
 		fields = append(fields, assethistory.FieldCategories)
 	}
+	if m.FieldCleared(assethistory.FieldIntegrationID) {
+		fields = append(fields, assethistory.FieldIntegrationID)
+	}
+	if m.FieldCleared(assethistory.FieldObservedAt) {
+		fields = append(fields, assethistory.FieldObservedAt)
+	}
 	return fields
 }
 
@@ -11574,6 +11708,12 @@ func (m *AssetHistoryMutation) ClearField(name string) error {
 		return nil
 	case assethistory.FieldCategories:
 		m.ClearCategories()
+		return nil
+	case assethistory.FieldIntegrationID:
+		m.ClearIntegrationID()
+		return nil
+	case assethistory.FieldObservedAt:
+		m.ClearObservedAt()
 		return nil
 	}
 	return fmt.Errorf("unknown AssetHistory nullable field %s", name)
@@ -11732,6 +11872,12 @@ func (m *AssetHistoryMutation) ResetField(name string) error {
 		return nil
 	case assethistory.FieldCategories:
 		m.ResetCategories()
+		return nil
+	case assethistory.FieldIntegrationID:
+		m.ResetIntegrationID()
+		return nil
+	case assethistory.FieldObservedAt:
+		m.ResetObservedAt()
 		return nil
 	}
 	return fmt.Errorf("unknown AssetHistory field %s", name)
@@ -16824,32 +16970,35 @@ func (m *CampaignTargetHistoryMutation) ResetEdge(name string) error {
 // ContactHistoryMutation represents an operation that mutates the ContactHistory nodes in the graph.
 type ContactHistoryMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *string
-	history_time  *time.Time
-	ref           *string
-	operation     *history.OpType
-	created_at    *time.Time
-	updated_at    *time.Time
-	created_by    *string
-	updated_by    *string
-	deleted_at    *time.Time
-	deleted_by    *string
-	tags          *[]string
-	appendtags    []string
-	owner_id      *string
-	full_name     *string
-	title         *string
-	company       *string
-	email         *string
-	phone_number  *string
-	address       *string
-	status        *enums.UserStatus
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*ContactHistory, error)
-	predicates    []predicate.ContactHistory
+	op             Op
+	typ            string
+	id             *string
+	history_time   *time.Time
+	ref            *string
+	operation      *history.OpType
+	created_at     *time.Time
+	updated_at     *time.Time
+	created_by     *string
+	updated_by     *string
+	deleted_at     *time.Time
+	deleted_by     *string
+	tags           *[]string
+	appendtags     []string
+	owner_id       *string
+	full_name      *string
+	title          *string
+	company        *string
+	email          *string
+	phone_number   *string
+	address        *string
+	status         *enums.UserStatus
+	external_id    *string
+	integration_id *string
+	observed_at    *models.DateTime
+	clearedFields  map[string]struct{}
+	done           bool
+	oldValue       func(context.Context) (*ContactHistory, error)
+	predicates     []predicate.ContactHistory
 }
 
 var _ ent.Mutation = (*ContactHistoryMutation)(nil)
@@ -17815,6 +17964,153 @@ func (m *ContactHistoryMutation) ResetStatus() {
 	m.status = nil
 }
 
+// SetExternalID sets the "external_id" field.
+func (m *ContactHistoryMutation) SetExternalID(s string) {
+	m.external_id = &s
+}
+
+// ExternalID returns the value of the "external_id" field in the mutation.
+func (m *ContactHistoryMutation) ExternalID() (r string, exists bool) {
+	v := m.external_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExternalID returns the old "external_id" field's value of the ContactHistory entity.
+// If the ContactHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ContactHistoryMutation) OldExternalID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExternalID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExternalID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExternalID: %w", err)
+	}
+	return oldValue.ExternalID, nil
+}
+
+// ClearExternalID clears the value of the "external_id" field.
+func (m *ContactHistoryMutation) ClearExternalID() {
+	m.external_id = nil
+	m.clearedFields[contacthistory.FieldExternalID] = struct{}{}
+}
+
+// ExternalIDCleared returns if the "external_id" field was cleared in this mutation.
+func (m *ContactHistoryMutation) ExternalIDCleared() bool {
+	_, ok := m.clearedFields[contacthistory.FieldExternalID]
+	return ok
+}
+
+// ResetExternalID resets all changes to the "external_id" field.
+func (m *ContactHistoryMutation) ResetExternalID() {
+	m.external_id = nil
+	delete(m.clearedFields, contacthistory.FieldExternalID)
+}
+
+// SetIntegrationID sets the "integration_id" field.
+func (m *ContactHistoryMutation) SetIntegrationID(s string) {
+	m.integration_id = &s
+}
+
+// IntegrationID returns the value of the "integration_id" field in the mutation.
+func (m *ContactHistoryMutation) IntegrationID() (r string, exists bool) {
+	v := m.integration_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIntegrationID returns the old "integration_id" field's value of the ContactHistory entity.
+// If the ContactHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ContactHistoryMutation) OldIntegrationID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIntegrationID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIntegrationID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIntegrationID: %w", err)
+	}
+	return oldValue.IntegrationID, nil
+}
+
+// ClearIntegrationID clears the value of the "integration_id" field.
+func (m *ContactHistoryMutation) ClearIntegrationID() {
+	m.integration_id = nil
+	m.clearedFields[contacthistory.FieldIntegrationID] = struct{}{}
+}
+
+// IntegrationIDCleared returns if the "integration_id" field was cleared in this mutation.
+func (m *ContactHistoryMutation) IntegrationIDCleared() bool {
+	_, ok := m.clearedFields[contacthistory.FieldIntegrationID]
+	return ok
+}
+
+// ResetIntegrationID resets all changes to the "integration_id" field.
+func (m *ContactHistoryMutation) ResetIntegrationID() {
+	m.integration_id = nil
+	delete(m.clearedFields, contacthistory.FieldIntegrationID)
+}
+
+// SetObservedAt sets the "observed_at" field.
+func (m *ContactHistoryMutation) SetObservedAt(mt models.DateTime) {
+	m.observed_at = &mt
+}
+
+// ObservedAt returns the value of the "observed_at" field in the mutation.
+func (m *ContactHistoryMutation) ObservedAt() (r models.DateTime, exists bool) {
+	v := m.observed_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldObservedAt returns the old "observed_at" field's value of the ContactHistory entity.
+// If the ContactHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ContactHistoryMutation) OldObservedAt(ctx context.Context) (v *models.DateTime, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldObservedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldObservedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldObservedAt: %w", err)
+	}
+	return oldValue.ObservedAt, nil
+}
+
+// ClearObservedAt clears the value of the "observed_at" field.
+func (m *ContactHistoryMutation) ClearObservedAt() {
+	m.observed_at = nil
+	m.clearedFields[contacthistory.FieldObservedAt] = struct{}{}
+}
+
+// ObservedAtCleared returns if the "observed_at" field was cleared in this mutation.
+func (m *ContactHistoryMutation) ObservedAtCleared() bool {
+	_, ok := m.clearedFields[contacthistory.FieldObservedAt]
+	return ok
+}
+
+// ResetObservedAt resets all changes to the "observed_at" field.
+func (m *ContactHistoryMutation) ResetObservedAt() {
+	m.observed_at = nil
+	delete(m.clearedFields, contacthistory.FieldObservedAt)
+}
+
 // Where appends a list predicates to the ContactHistoryMutation builder.
 func (m *ContactHistoryMutation) Where(ps ...predicate.ContactHistory) {
 	m.predicates = append(m.predicates, ps...)
@@ -17849,7 +18145,7 @@ func (m *ContactHistoryMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *ContactHistoryMutation) Fields() []string {
-	fields := make([]string, 0, 18)
+	fields := make([]string, 0, 21)
 	if m.history_time != nil {
 		fields = append(fields, contacthistory.FieldHistoryTime)
 	}
@@ -17904,6 +18200,15 @@ func (m *ContactHistoryMutation) Fields() []string {
 	if m.status != nil {
 		fields = append(fields, contacthistory.FieldStatus)
 	}
+	if m.external_id != nil {
+		fields = append(fields, contacthistory.FieldExternalID)
+	}
+	if m.integration_id != nil {
+		fields = append(fields, contacthistory.FieldIntegrationID)
+	}
+	if m.observed_at != nil {
+		fields = append(fields, contacthistory.FieldObservedAt)
+	}
 	return fields
 }
 
@@ -17948,6 +18253,12 @@ func (m *ContactHistoryMutation) Field(name string) (ent.Value, bool) {
 		return m.Address()
 	case contacthistory.FieldStatus:
 		return m.Status()
+	case contacthistory.FieldExternalID:
+		return m.ExternalID()
+	case contacthistory.FieldIntegrationID:
+		return m.IntegrationID()
+	case contacthistory.FieldObservedAt:
+		return m.ObservedAt()
 	}
 	return nil, false
 }
@@ -17993,6 +18304,12 @@ func (m *ContactHistoryMutation) OldField(ctx context.Context, name string) (ent
 		return m.OldAddress(ctx)
 	case contacthistory.FieldStatus:
 		return m.OldStatus(ctx)
+	case contacthistory.FieldExternalID:
+		return m.OldExternalID(ctx)
+	case contacthistory.FieldIntegrationID:
+		return m.OldIntegrationID(ctx)
+	case contacthistory.FieldObservedAt:
+		return m.OldObservedAt(ctx)
 	}
 	return nil, fmt.Errorf("unknown ContactHistory field %s", name)
 }
@@ -18128,6 +18445,27 @@ func (m *ContactHistoryMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetStatus(v)
 		return nil
+	case contacthistory.FieldExternalID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExternalID(v)
+		return nil
+	case contacthistory.FieldIntegrationID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIntegrationID(v)
+		return nil
+	case contacthistory.FieldObservedAt:
+		v, ok := value.(models.DateTime)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetObservedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown ContactHistory field %s", name)
 }
@@ -18203,6 +18541,15 @@ func (m *ContactHistoryMutation) ClearedFields() []string {
 	if m.FieldCleared(contacthistory.FieldAddress) {
 		fields = append(fields, contacthistory.FieldAddress)
 	}
+	if m.FieldCleared(contacthistory.FieldExternalID) {
+		fields = append(fields, contacthistory.FieldExternalID)
+	}
+	if m.FieldCleared(contacthistory.FieldIntegrationID) {
+		fields = append(fields, contacthistory.FieldIntegrationID)
+	}
+	if m.FieldCleared(contacthistory.FieldObservedAt) {
+		fields = append(fields, contacthistory.FieldObservedAt)
+	}
 	return fields
 }
 
@@ -18261,6 +18608,15 @@ func (m *ContactHistoryMutation) ClearField(name string) error {
 		return nil
 	case contacthistory.FieldAddress:
 		m.ClearAddress()
+		return nil
+	case contacthistory.FieldExternalID:
+		m.ClearExternalID()
+		return nil
+	case contacthistory.FieldIntegrationID:
+		m.ClearIntegrationID()
+		return nil
+	case contacthistory.FieldObservedAt:
+		m.ClearObservedAt()
 		return nil
 	}
 	return fmt.Errorf("unknown ContactHistory nullable field %s", name)
@@ -18323,6 +18679,15 @@ func (m *ContactHistoryMutation) ResetField(name string) error {
 		return nil
 	case contacthistory.FieldStatus:
 		m.ResetStatus()
+		return nil
+	case contacthistory.FieldExternalID:
+		m.ResetExternalID()
+		return nil
+	case contacthistory.FieldIntegrationID:
+		m.ResetIntegrationID()
+		return nil
+	case contacthistory.FieldObservedAt:
+		m.ResetObservedAt()
 		return nil
 	}
 	return fmt.Errorf("unknown ContactHistory field %s", name)
@@ -44415,6 +44780,8 @@ type EntityHistoryMutation struct {
 	next_review_at                            *models.DateTime
 	contract_renewal_at                       *models.DateTime
 	vendor_metadata                           *map[string]interface{}
+	external_id                               *string
+	observed_at                               *models.DateTime
 	clearedFields                             map[string]struct{}
 	done                                      bool
 	oldValue                                  func(context.Context) (*EntityHistory, error)
@@ -47680,6 +48047,104 @@ func (m *EntityHistoryMutation) ResetVendorMetadata() {
 	delete(m.clearedFields, entityhistory.FieldVendorMetadata)
 }
 
+// SetExternalID sets the "external_id" field.
+func (m *EntityHistoryMutation) SetExternalID(s string) {
+	m.external_id = &s
+}
+
+// ExternalID returns the value of the "external_id" field in the mutation.
+func (m *EntityHistoryMutation) ExternalID() (r string, exists bool) {
+	v := m.external_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExternalID returns the old "external_id" field's value of the EntityHistory entity.
+// If the EntityHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *EntityHistoryMutation) OldExternalID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExternalID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExternalID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExternalID: %w", err)
+	}
+	return oldValue.ExternalID, nil
+}
+
+// ClearExternalID clears the value of the "external_id" field.
+func (m *EntityHistoryMutation) ClearExternalID() {
+	m.external_id = nil
+	m.clearedFields[entityhistory.FieldExternalID] = struct{}{}
+}
+
+// ExternalIDCleared returns if the "external_id" field was cleared in this mutation.
+func (m *EntityHistoryMutation) ExternalIDCleared() bool {
+	_, ok := m.clearedFields[entityhistory.FieldExternalID]
+	return ok
+}
+
+// ResetExternalID resets all changes to the "external_id" field.
+func (m *EntityHistoryMutation) ResetExternalID() {
+	m.external_id = nil
+	delete(m.clearedFields, entityhistory.FieldExternalID)
+}
+
+// SetObservedAt sets the "observed_at" field.
+func (m *EntityHistoryMutation) SetObservedAt(mt models.DateTime) {
+	m.observed_at = &mt
+}
+
+// ObservedAt returns the value of the "observed_at" field in the mutation.
+func (m *EntityHistoryMutation) ObservedAt() (r models.DateTime, exists bool) {
+	v := m.observed_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldObservedAt returns the old "observed_at" field's value of the EntityHistory entity.
+// If the EntityHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *EntityHistoryMutation) OldObservedAt(ctx context.Context) (v *models.DateTime, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldObservedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldObservedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldObservedAt: %w", err)
+	}
+	return oldValue.ObservedAt, nil
+}
+
+// ClearObservedAt clears the value of the "observed_at" field.
+func (m *EntityHistoryMutation) ClearObservedAt() {
+	m.observed_at = nil
+	m.clearedFields[entityhistory.FieldObservedAt] = struct{}{}
+}
+
+// ObservedAtCleared returns if the "observed_at" field was cleared in this mutation.
+func (m *EntityHistoryMutation) ObservedAtCleared() bool {
+	_, ok := m.clearedFields[entityhistory.FieldObservedAt]
+	return ok
+}
+
+// ResetObservedAt resets all changes to the "observed_at" field.
+func (m *EntityHistoryMutation) ResetObservedAt() {
+	m.observed_at = nil
+	delete(m.clearedFields, entityhistory.FieldObservedAt)
+}
+
 // Where appends a list predicates to the EntityHistoryMutation builder.
 func (m *EntityHistoryMutation) Where(ps ...predicate.EntityHistory) {
 	m.predicates = append(m.predicates, ps...)
@@ -47714,7 +48179,7 @@ func (m *EntityHistoryMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *EntityHistoryMutation) Fields() []string {
-	fields := make([]string, 0, 62)
+	fields := make([]string, 0, 64)
 	if m.history_time != nil {
 		fields = append(fields, entityhistory.FieldHistoryTime)
 	}
@@ -47901,6 +48366,12 @@ func (m *EntityHistoryMutation) Fields() []string {
 	if m.vendor_metadata != nil {
 		fields = append(fields, entityhistory.FieldVendorMetadata)
 	}
+	if m.external_id != nil {
+		fields = append(fields, entityhistory.FieldExternalID)
+	}
+	if m.observed_at != nil {
+		fields = append(fields, entityhistory.FieldObservedAt)
+	}
 	return fields
 }
 
@@ -48033,6 +48504,10 @@ func (m *EntityHistoryMutation) Field(name string) (ent.Value, bool) {
 		return m.ContractRenewalAt()
 	case entityhistory.FieldVendorMetadata:
 		return m.VendorMetadata()
+	case entityhistory.FieldExternalID:
+		return m.ExternalID()
+	case entityhistory.FieldObservedAt:
+		return m.ObservedAt()
 	}
 	return nil, false
 }
@@ -48166,6 +48641,10 @@ func (m *EntityHistoryMutation) OldField(ctx context.Context, name string) (ent.
 		return m.OldContractRenewalAt(ctx)
 	case entityhistory.FieldVendorMetadata:
 		return m.OldVendorMetadata(ctx)
+	case entityhistory.FieldExternalID:
+		return m.OldExternalID(ctx)
+	case entityhistory.FieldObservedAt:
+		return m.OldObservedAt(ctx)
 	}
 	return nil, fmt.Errorf("unknown EntityHistory field %s", name)
 }
@@ -48609,6 +49088,20 @@ func (m *EntityHistoryMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetVendorMetadata(v)
 		return nil
+	case entityhistory.FieldExternalID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExternalID(v)
+		return nil
+	case entityhistory.FieldObservedAt:
+		v, ok := value.(models.DateTime)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetObservedAt(v)
+		return nil
 	}
 	return fmt.Errorf("unknown EntityHistory field %s", name)
 }
@@ -48858,6 +49351,12 @@ func (m *EntityHistoryMutation) ClearedFields() []string {
 	if m.FieldCleared(entityhistory.FieldVendorMetadata) {
 		fields = append(fields, entityhistory.FieldVendorMetadata)
 	}
+	if m.FieldCleared(entityhistory.FieldExternalID) {
+		fields = append(fields, entityhistory.FieldExternalID)
+	}
+	if m.FieldCleared(entityhistory.FieldObservedAt) {
+		fields = append(fields, entityhistory.FieldObservedAt)
+	}
 	return fields
 }
 
@@ -49052,6 +49551,12 @@ func (m *EntityHistoryMutation) ClearField(name string) error {
 	case entityhistory.FieldVendorMetadata:
 		m.ClearVendorMetadata()
 		return nil
+	case entityhistory.FieldExternalID:
+		m.ClearExternalID()
+		return nil
+	case entityhistory.FieldObservedAt:
+		m.ClearObservedAt()
+		return nil
 	}
 	return fmt.Errorf("unknown EntityHistory nullable field %s", name)
 }
@@ -49245,6 +49750,12 @@ func (m *EntityHistoryMutation) ResetField(name string) error {
 		return nil
 	case entityhistory.FieldVendorMetadata:
 		m.ResetVendorMetadata()
+		return nil
+	case entityhistory.FieldExternalID:
+		m.ResetExternalID()
+		return nil
+	case entityhistory.FieldObservedAt:
+		m.ResetObservedAt()
 		return nil
 	}
 	return fmt.Errorf("unknown EntityHistory field %s", name)
@@ -113348,6 +113859,9 @@ type RiskHistoryMutation struct {
 	environment_id            *string
 	scope_name                *string
 	scope_id                  *string
+	external_id               *string
+	integration_id            *string
+	observed_at               *models.DateTime
 	external_uuid             *string
 	name                      *string
 	status                    *enums.RiskStatus
@@ -114433,6 +114947,153 @@ func (m *RiskHistoryMutation) ResetScopeID() {
 	delete(m.clearedFields, riskhistory.FieldScopeID)
 }
 
+// SetExternalID sets the "external_id" field.
+func (m *RiskHistoryMutation) SetExternalID(s string) {
+	m.external_id = &s
+}
+
+// ExternalID returns the value of the "external_id" field in the mutation.
+func (m *RiskHistoryMutation) ExternalID() (r string, exists bool) {
+	v := m.external_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldExternalID returns the old "external_id" field's value of the RiskHistory entity.
+// If the RiskHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RiskHistoryMutation) OldExternalID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldExternalID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldExternalID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldExternalID: %w", err)
+	}
+	return oldValue.ExternalID, nil
+}
+
+// ClearExternalID clears the value of the "external_id" field.
+func (m *RiskHistoryMutation) ClearExternalID() {
+	m.external_id = nil
+	m.clearedFields[riskhistory.FieldExternalID] = struct{}{}
+}
+
+// ExternalIDCleared returns if the "external_id" field was cleared in this mutation.
+func (m *RiskHistoryMutation) ExternalIDCleared() bool {
+	_, ok := m.clearedFields[riskhistory.FieldExternalID]
+	return ok
+}
+
+// ResetExternalID resets all changes to the "external_id" field.
+func (m *RiskHistoryMutation) ResetExternalID() {
+	m.external_id = nil
+	delete(m.clearedFields, riskhistory.FieldExternalID)
+}
+
+// SetIntegrationID sets the "integration_id" field.
+func (m *RiskHistoryMutation) SetIntegrationID(s string) {
+	m.integration_id = &s
+}
+
+// IntegrationID returns the value of the "integration_id" field in the mutation.
+func (m *RiskHistoryMutation) IntegrationID() (r string, exists bool) {
+	v := m.integration_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIntegrationID returns the old "integration_id" field's value of the RiskHistory entity.
+// If the RiskHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RiskHistoryMutation) OldIntegrationID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIntegrationID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIntegrationID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIntegrationID: %w", err)
+	}
+	return oldValue.IntegrationID, nil
+}
+
+// ClearIntegrationID clears the value of the "integration_id" field.
+func (m *RiskHistoryMutation) ClearIntegrationID() {
+	m.integration_id = nil
+	m.clearedFields[riskhistory.FieldIntegrationID] = struct{}{}
+}
+
+// IntegrationIDCleared returns if the "integration_id" field was cleared in this mutation.
+func (m *RiskHistoryMutation) IntegrationIDCleared() bool {
+	_, ok := m.clearedFields[riskhistory.FieldIntegrationID]
+	return ok
+}
+
+// ResetIntegrationID resets all changes to the "integration_id" field.
+func (m *RiskHistoryMutation) ResetIntegrationID() {
+	m.integration_id = nil
+	delete(m.clearedFields, riskhistory.FieldIntegrationID)
+}
+
+// SetObservedAt sets the "observed_at" field.
+func (m *RiskHistoryMutation) SetObservedAt(mt models.DateTime) {
+	m.observed_at = &mt
+}
+
+// ObservedAt returns the value of the "observed_at" field in the mutation.
+func (m *RiskHistoryMutation) ObservedAt() (r models.DateTime, exists bool) {
+	v := m.observed_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldObservedAt returns the old "observed_at" field's value of the RiskHistory entity.
+// If the RiskHistory object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RiskHistoryMutation) OldObservedAt(ctx context.Context) (v *models.DateTime, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldObservedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldObservedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldObservedAt: %w", err)
+	}
+	return oldValue.ObservedAt, nil
+}
+
+// ClearObservedAt clears the value of the "observed_at" field.
+func (m *RiskHistoryMutation) ClearObservedAt() {
+	m.observed_at = nil
+	m.clearedFields[riskhistory.FieldObservedAt] = struct{}{}
+}
+
+// ObservedAtCleared returns if the "observed_at" field was cleared in this mutation.
+func (m *RiskHistoryMutation) ObservedAtCleared() bool {
+	_, ok := m.clearedFields[riskhistory.FieldObservedAt]
+	return ok
+}
+
+// ResetObservedAt resets all changes to the "observed_at" field.
+func (m *RiskHistoryMutation) ResetObservedAt() {
+	m.observed_at = nil
+	delete(m.clearedFields, riskhistory.FieldObservedAt)
+}
+
 // SetExternalUUID sets the "external_uuid" field.
 func (m *RiskHistoryMutation) SetExternalUUID(s string) {
 	m.external_uuid = &s
@@ -115209,7 +115870,7 @@ func (m *RiskHistoryMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *RiskHistoryMutation) Fields() []string {
-	fields := make([]string, 0, 34)
+	fields := make([]string, 0, 37)
 	if m.history_time != nil {
 		fields = append(fields, riskhistory.FieldHistoryTime)
 	}
@@ -115269,6 +115930,15 @@ func (m *RiskHistoryMutation) Fields() []string {
 	}
 	if m.scope_id != nil {
 		fields = append(fields, riskhistory.FieldScopeID)
+	}
+	if m.external_id != nil {
+		fields = append(fields, riskhistory.FieldExternalID)
+	}
+	if m.integration_id != nil {
+		fields = append(fields, riskhistory.FieldIntegrationID)
+	}
+	if m.observed_at != nil {
+		fields = append(fields, riskhistory.FieldObservedAt)
 	}
 	if m.external_uuid != nil {
 		fields = append(fields, riskhistory.FieldExternalUUID)
@@ -115360,6 +116030,12 @@ func (m *RiskHistoryMutation) Field(name string) (ent.Value, bool) {
 		return m.ScopeName()
 	case riskhistory.FieldScopeID:
 		return m.ScopeID()
+	case riskhistory.FieldExternalID:
+		return m.ExternalID()
+	case riskhistory.FieldIntegrationID:
+		return m.IntegrationID()
+	case riskhistory.FieldObservedAt:
+		return m.ObservedAt()
 	case riskhistory.FieldExternalUUID:
 		return m.ExternalUUID()
 	case riskhistory.FieldName:
@@ -115437,6 +116113,12 @@ func (m *RiskHistoryMutation) OldField(ctx context.Context, name string) (ent.Va
 		return m.OldScopeName(ctx)
 	case riskhistory.FieldScopeID:
 		return m.OldScopeID(ctx)
+	case riskhistory.FieldExternalID:
+		return m.OldExternalID(ctx)
+	case riskhistory.FieldIntegrationID:
+		return m.OldIntegrationID(ctx)
+	case riskhistory.FieldObservedAt:
+		return m.OldObservedAt(ctx)
 	case riskhistory.FieldExternalUUID:
 		return m.OldExternalUUID(ctx)
 	case riskhistory.FieldName:
@@ -115613,6 +116295,27 @@ func (m *RiskHistoryMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetScopeID(v)
+		return nil
+	case riskhistory.FieldExternalID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetExternalID(v)
+		return nil
+	case riskhistory.FieldIntegrationID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIntegrationID(v)
+		return nil
+	case riskhistory.FieldObservedAt:
+		v, ok := value.(models.DateTime)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetObservedAt(v)
 		return nil
 	case riskhistory.FieldExternalUUID:
 		v, ok := value.(string)
@@ -115808,6 +116511,15 @@ func (m *RiskHistoryMutation) ClearedFields() []string {
 	if m.FieldCleared(riskhistory.FieldScopeID) {
 		fields = append(fields, riskhistory.FieldScopeID)
 	}
+	if m.FieldCleared(riskhistory.FieldExternalID) {
+		fields = append(fields, riskhistory.FieldExternalID)
+	}
+	if m.FieldCleared(riskhistory.FieldIntegrationID) {
+		fields = append(fields, riskhistory.FieldIntegrationID)
+	}
+	if m.FieldCleared(riskhistory.FieldObservedAt) {
+		fields = append(fields, riskhistory.FieldObservedAt)
+	}
 	if m.FieldCleared(riskhistory.FieldExternalUUID) {
 		fields = append(fields, riskhistory.FieldExternalUUID)
 	}
@@ -115911,6 +116623,15 @@ func (m *RiskHistoryMutation) ClearField(name string) error {
 		return nil
 	case riskhistory.FieldScopeID:
 		m.ClearScopeID()
+		return nil
+	case riskhistory.FieldExternalID:
+		m.ClearExternalID()
+		return nil
+	case riskhistory.FieldIntegrationID:
+		m.ClearIntegrationID()
+		return nil
+	case riskhistory.FieldObservedAt:
+		m.ClearObservedAt()
 		return nil
 	case riskhistory.FieldExternalUUID:
 		m.ClearExternalUUID()
@@ -116018,6 +116739,15 @@ func (m *RiskHistoryMutation) ResetField(name string) error {
 		return nil
 	case riskhistory.FieldScopeID:
 		m.ResetScopeID()
+		return nil
+	case riskhistory.FieldExternalID:
+		m.ResetExternalID()
+		return nil
+	case riskhistory.FieldIntegrationID:
+		m.ResetIntegrationID()
+		return nil
+	case riskhistory.FieldObservedAt:
+		m.ResetObservedAt()
 		return nil
 	case riskhistory.FieldExternalUUID:
 		m.ResetExternalUUID()

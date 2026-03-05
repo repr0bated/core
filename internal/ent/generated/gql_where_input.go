@@ -5748,6 +5748,35 @@ type AssetWhereInput struct {
 	PurchaseDateIsNil  bool              `json:"purchaseDateIsNil,omitempty"`
 	PurchaseDateNotNil bool              `json:"purchaseDateNotNil,omitempty"`
 
+	// "integration_id" field predicates.
+	IntegrationID             *string  `json:"integrationID,omitempty"`
+	IntegrationIDNEQ          *string  `json:"integrationIDNEQ,omitempty"`
+	IntegrationIDIn           []string `json:"integrationIDIn,omitempty"`
+	IntegrationIDNotIn        []string `json:"integrationIDNotIn,omitempty"`
+	IntegrationIDGT           *string  `json:"integrationIDGT,omitempty"`
+	IntegrationIDGTE          *string  `json:"integrationIDGTE,omitempty"`
+	IntegrationIDLT           *string  `json:"integrationIDLT,omitempty"`
+	IntegrationIDLTE          *string  `json:"integrationIDLTE,omitempty"`
+	IntegrationIDContains     *string  `json:"integrationIDContains,omitempty"`
+	IntegrationIDHasPrefix    *string  `json:"integrationIDHasPrefix,omitempty"`
+	IntegrationIDHasSuffix    *string  `json:"integrationIDHasSuffix,omitempty"`
+	IntegrationIDIsNil        bool     `json:"integrationIDIsNil,omitempty"`
+	IntegrationIDNotNil       bool     `json:"integrationIDNotNil,omitempty"`
+	IntegrationIDEqualFold    *string  `json:"integrationIDEqualFold,omitempty"`
+	IntegrationIDContainsFold *string  `json:"integrationIDContainsFold,omitempty"`
+
+	// "observed_at" field predicates.
+	ObservedAt       *models.DateTime  `json:"observedAt,omitempty"`
+	ObservedAtNEQ    *models.DateTime  `json:"observedAtNEQ,omitempty"`
+	ObservedAtIn     []models.DateTime `json:"observedAtIn,omitempty"`
+	ObservedAtNotIn  []models.DateTime `json:"observedAtNotIn,omitempty"`
+	ObservedAtGT     *models.DateTime  `json:"observedAtGT,omitempty"`
+	ObservedAtGTE    *models.DateTime  `json:"observedAtGTE,omitempty"`
+	ObservedAtLT     *models.DateTime  `json:"observedAtLT,omitempty"`
+	ObservedAtLTE    *models.DateTime  `json:"observedAtLTE,omitempty"`
+	ObservedAtIsNil  bool              `json:"observedAtIsNil,omitempty"`
+	ObservedAtNotNil bool              `json:"observedAtNotNil,omitempty"`
+
 	// "tags" JSON-string-array predicates.
 	TagsHas *string `json:"tagsHas,omitempty"`
 
@@ -7639,6 +7668,81 @@ func (i *AssetWhereInput) P() (predicate.Asset, error) {
 	}
 	if i.PurchaseDateNotNil {
 		predicates = append(predicates, asset.PurchaseDateNotNil())
+	}
+	if i.IntegrationID != nil {
+		predicates = append(predicates, asset.IntegrationIDEQ(*i.IntegrationID))
+	}
+	if i.IntegrationIDNEQ != nil {
+		predicates = append(predicates, asset.IntegrationIDNEQ(*i.IntegrationIDNEQ))
+	}
+	if len(i.IntegrationIDIn) > 0 {
+		predicates = append(predicates, asset.IntegrationIDIn(i.IntegrationIDIn...))
+	}
+	if len(i.IntegrationIDNotIn) > 0 {
+		predicates = append(predicates, asset.IntegrationIDNotIn(i.IntegrationIDNotIn...))
+	}
+	if i.IntegrationIDGT != nil {
+		predicates = append(predicates, asset.IntegrationIDGT(*i.IntegrationIDGT))
+	}
+	if i.IntegrationIDGTE != nil {
+		predicates = append(predicates, asset.IntegrationIDGTE(*i.IntegrationIDGTE))
+	}
+	if i.IntegrationIDLT != nil {
+		predicates = append(predicates, asset.IntegrationIDLT(*i.IntegrationIDLT))
+	}
+	if i.IntegrationIDLTE != nil {
+		predicates = append(predicates, asset.IntegrationIDLTE(*i.IntegrationIDLTE))
+	}
+	if i.IntegrationIDContains != nil {
+		predicates = append(predicates, asset.IntegrationIDContains(*i.IntegrationIDContains))
+	}
+	if i.IntegrationIDHasPrefix != nil {
+		predicates = append(predicates, asset.IntegrationIDHasPrefix(*i.IntegrationIDHasPrefix))
+	}
+	if i.IntegrationIDHasSuffix != nil {
+		predicates = append(predicates, asset.IntegrationIDHasSuffix(*i.IntegrationIDHasSuffix))
+	}
+	if i.IntegrationIDIsNil {
+		predicates = append(predicates, asset.IntegrationIDIsNil())
+	}
+	if i.IntegrationIDNotNil {
+		predicates = append(predicates, asset.IntegrationIDNotNil())
+	}
+	if i.IntegrationIDEqualFold != nil {
+		predicates = append(predicates, asset.IntegrationIDEqualFold(*i.IntegrationIDEqualFold))
+	}
+	if i.IntegrationIDContainsFold != nil {
+		predicates = append(predicates, asset.IntegrationIDContainsFold(*i.IntegrationIDContainsFold))
+	}
+	if i.ObservedAt != nil {
+		predicates = append(predicates, asset.ObservedAtEQ(*i.ObservedAt))
+	}
+	if i.ObservedAtNEQ != nil {
+		predicates = append(predicates, asset.ObservedAtNEQ(*i.ObservedAtNEQ))
+	}
+	if len(i.ObservedAtIn) > 0 {
+		predicates = append(predicates, asset.ObservedAtIn(i.ObservedAtIn...))
+	}
+	if len(i.ObservedAtNotIn) > 0 {
+		predicates = append(predicates, asset.ObservedAtNotIn(i.ObservedAtNotIn...))
+	}
+	if i.ObservedAtGT != nil {
+		predicates = append(predicates, asset.ObservedAtGT(*i.ObservedAtGT))
+	}
+	if i.ObservedAtGTE != nil {
+		predicates = append(predicates, asset.ObservedAtGTE(*i.ObservedAtGTE))
+	}
+	if i.ObservedAtLT != nil {
+		predicates = append(predicates, asset.ObservedAtLT(*i.ObservedAtLT))
+	}
+	if i.ObservedAtLTE != nil {
+		predicates = append(predicates, asset.ObservedAtLTE(*i.ObservedAtLTE))
+	}
+	if i.ObservedAtIsNil {
+		predicates = append(predicates, asset.ObservedAtIsNil())
+	}
+	if i.ObservedAtNotNil {
+		predicates = append(predicates, asset.ObservedAtNotNil())
 	}
 
 	if i.TagsHas != nil {
@@ -11457,6 +11561,52 @@ type ContactWhereInput struct {
 	StatusIn    []enums.UserStatus `json:"statusIn,omitempty"`
 	StatusNotIn []enums.UserStatus `json:"statusNotIn,omitempty"`
 
+	// "external_id" field predicates.
+	ExternalID             *string  `json:"externalID,omitempty"`
+	ExternalIDNEQ          *string  `json:"externalIDNEQ,omitempty"`
+	ExternalIDIn           []string `json:"externalIDIn,omitempty"`
+	ExternalIDNotIn        []string `json:"externalIDNotIn,omitempty"`
+	ExternalIDGT           *string  `json:"externalIDGT,omitempty"`
+	ExternalIDGTE          *string  `json:"externalIDGTE,omitempty"`
+	ExternalIDLT           *string  `json:"externalIDLT,omitempty"`
+	ExternalIDLTE          *string  `json:"externalIDLTE,omitempty"`
+	ExternalIDContains     *string  `json:"externalIDContains,omitempty"`
+	ExternalIDHasPrefix    *string  `json:"externalIDHasPrefix,omitempty"`
+	ExternalIDHasSuffix    *string  `json:"externalIDHasSuffix,omitempty"`
+	ExternalIDIsNil        bool     `json:"externalIDIsNil,omitempty"`
+	ExternalIDNotNil       bool     `json:"externalIDNotNil,omitempty"`
+	ExternalIDEqualFold    *string  `json:"externalIDEqualFold,omitempty"`
+	ExternalIDContainsFold *string  `json:"externalIDContainsFold,omitempty"`
+
+	// "integration_id" field predicates.
+	IntegrationID             *string  `json:"integrationID,omitempty"`
+	IntegrationIDNEQ          *string  `json:"integrationIDNEQ,omitempty"`
+	IntegrationIDIn           []string `json:"integrationIDIn,omitempty"`
+	IntegrationIDNotIn        []string `json:"integrationIDNotIn,omitempty"`
+	IntegrationIDGT           *string  `json:"integrationIDGT,omitempty"`
+	IntegrationIDGTE          *string  `json:"integrationIDGTE,omitempty"`
+	IntegrationIDLT           *string  `json:"integrationIDLT,omitempty"`
+	IntegrationIDLTE          *string  `json:"integrationIDLTE,omitempty"`
+	IntegrationIDContains     *string  `json:"integrationIDContains,omitempty"`
+	IntegrationIDHasPrefix    *string  `json:"integrationIDHasPrefix,omitempty"`
+	IntegrationIDHasSuffix    *string  `json:"integrationIDHasSuffix,omitempty"`
+	IntegrationIDIsNil        bool     `json:"integrationIDIsNil,omitempty"`
+	IntegrationIDNotNil       bool     `json:"integrationIDNotNil,omitempty"`
+	IntegrationIDEqualFold    *string  `json:"integrationIDEqualFold,omitempty"`
+	IntegrationIDContainsFold *string  `json:"integrationIDContainsFold,omitempty"`
+
+	// "observed_at" field predicates.
+	ObservedAt       *models.DateTime  `json:"observedAt,omitempty"`
+	ObservedAtNEQ    *models.DateTime  `json:"observedAtNEQ,omitempty"`
+	ObservedAtIn     []models.DateTime `json:"observedAtIn,omitempty"`
+	ObservedAtNotIn  []models.DateTime `json:"observedAtNotIn,omitempty"`
+	ObservedAtGT     *models.DateTime  `json:"observedAtGT,omitempty"`
+	ObservedAtGTE    *models.DateTime  `json:"observedAtGTE,omitempty"`
+	ObservedAtLT     *models.DateTime  `json:"observedAtLT,omitempty"`
+	ObservedAtLTE    *models.DateTime  `json:"observedAtLTE,omitempty"`
+	ObservedAtIsNil  bool              `json:"observedAtIsNil,omitempty"`
+	ObservedAtNotNil bool              `json:"observedAtNotNil,omitempty"`
+
 	// "tags" JSON-string-array predicates.
 	TagsHas *string `json:"tagsHas,omitempty"`
 
@@ -12058,6 +12208,126 @@ func (i *ContactWhereInput) P() (predicate.Contact, error) {
 	}
 	if len(i.StatusNotIn) > 0 {
 		predicates = append(predicates, contact.StatusNotIn(i.StatusNotIn...))
+	}
+	if i.ExternalID != nil {
+		predicates = append(predicates, contact.ExternalIDEQ(*i.ExternalID))
+	}
+	if i.ExternalIDNEQ != nil {
+		predicates = append(predicates, contact.ExternalIDNEQ(*i.ExternalIDNEQ))
+	}
+	if len(i.ExternalIDIn) > 0 {
+		predicates = append(predicates, contact.ExternalIDIn(i.ExternalIDIn...))
+	}
+	if len(i.ExternalIDNotIn) > 0 {
+		predicates = append(predicates, contact.ExternalIDNotIn(i.ExternalIDNotIn...))
+	}
+	if i.ExternalIDGT != nil {
+		predicates = append(predicates, contact.ExternalIDGT(*i.ExternalIDGT))
+	}
+	if i.ExternalIDGTE != nil {
+		predicates = append(predicates, contact.ExternalIDGTE(*i.ExternalIDGTE))
+	}
+	if i.ExternalIDLT != nil {
+		predicates = append(predicates, contact.ExternalIDLT(*i.ExternalIDLT))
+	}
+	if i.ExternalIDLTE != nil {
+		predicates = append(predicates, contact.ExternalIDLTE(*i.ExternalIDLTE))
+	}
+	if i.ExternalIDContains != nil {
+		predicates = append(predicates, contact.ExternalIDContains(*i.ExternalIDContains))
+	}
+	if i.ExternalIDHasPrefix != nil {
+		predicates = append(predicates, contact.ExternalIDHasPrefix(*i.ExternalIDHasPrefix))
+	}
+	if i.ExternalIDHasSuffix != nil {
+		predicates = append(predicates, contact.ExternalIDHasSuffix(*i.ExternalIDHasSuffix))
+	}
+	if i.ExternalIDIsNil {
+		predicates = append(predicates, contact.ExternalIDIsNil())
+	}
+	if i.ExternalIDNotNil {
+		predicates = append(predicates, contact.ExternalIDNotNil())
+	}
+	if i.ExternalIDEqualFold != nil {
+		predicates = append(predicates, contact.ExternalIDEqualFold(*i.ExternalIDEqualFold))
+	}
+	if i.ExternalIDContainsFold != nil {
+		predicates = append(predicates, contact.ExternalIDContainsFold(*i.ExternalIDContainsFold))
+	}
+	if i.IntegrationID != nil {
+		predicates = append(predicates, contact.IntegrationIDEQ(*i.IntegrationID))
+	}
+	if i.IntegrationIDNEQ != nil {
+		predicates = append(predicates, contact.IntegrationIDNEQ(*i.IntegrationIDNEQ))
+	}
+	if len(i.IntegrationIDIn) > 0 {
+		predicates = append(predicates, contact.IntegrationIDIn(i.IntegrationIDIn...))
+	}
+	if len(i.IntegrationIDNotIn) > 0 {
+		predicates = append(predicates, contact.IntegrationIDNotIn(i.IntegrationIDNotIn...))
+	}
+	if i.IntegrationIDGT != nil {
+		predicates = append(predicates, contact.IntegrationIDGT(*i.IntegrationIDGT))
+	}
+	if i.IntegrationIDGTE != nil {
+		predicates = append(predicates, contact.IntegrationIDGTE(*i.IntegrationIDGTE))
+	}
+	if i.IntegrationIDLT != nil {
+		predicates = append(predicates, contact.IntegrationIDLT(*i.IntegrationIDLT))
+	}
+	if i.IntegrationIDLTE != nil {
+		predicates = append(predicates, contact.IntegrationIDLTE(*i.IntegrationIDLTE))
+	}
+	if i.IntegrationIDContains != nil {
+		predicates = append(predicates, contact.IntegrationIDContains(*i.IntegrationIDContains))
+	}
+	if i.IntegrationIDHasPrefix != nil {
+		predicates = append(predicates, contact.IntegrationIDHasPrefix(*i.IntegrationIDHasPrefix))
+	}
+	if i.IntegrationIDHasSuffix != nil {
+		predicates = append(predicates, contact.IntegrationIDHasSuffix(*i.IntegrationIDHasSuffix))
+	}
+	if i.IntegrationIDIsNil {
+		predicates = append(predicates, contact.IntegrationIDIsNil())
+	}
+	if i.IntegrationIDNotNil {
+		predicates = append(predicates, contact.IntegrationIDNotNil())
+	}
+	if i.IntegrationIDEqualFold != nil {
+		predicates = append(predicates, contact.IntegrationIDEqualFold(*i.IntegrationIDEqualFold))
+	}
+	if i.IntegrationIDContainsFold != nil {
+		predicates = append(predicates, contact.IntegrationIDContainsFold(*i.IntegrationIDContainsFold))
+	}
+	if i.ObservedAt != nil {
+		predicates = append(predicates, contact.ObservedAtEQ(*i.ObservedAt))
+	}
+	if i.ObservedAtNEQ != nil {
+		predicates = append(predicates, contact.ObservedAtNEQ(*i.ObservedAtNEQ))
+	}
+	if len(i.ObservedAtIn) > 0 {
+		predicates = append(predicates, contact.ObservedAtIn(i.ObservedAtIn...))
+	}
+	if len(i.ObservedAtNotIn) > 0 {
+		predicates = append(predicates, contact.ObservedAtNotIn(i.ObservedAtNotIn...))
+	}
+	if i.ObservedAtGT != nil {
+		predicates = append(predicates, contact.ObservedAtGT(*i.ObservedAtGT))
+	}
+	if i.ObservedAtGTE != nil {
+		predicates = append(predicates, contact.ObservedAtGTE(*i.ObservedAtGTE))
+	}
+	if i.ObservedAtLT != nil {
+		predicates = append(predicates, contact.ObservedAtLT(*i.ObservedAtLT))
+	}
+	if i.ObservedAtLTE != nil {
+		predicates = append(predicates, contact.ObservedAtLTE(*i.ObservedAtLTE))
+	}
+	if i.ObservedAtIsNil {
+		predicates = append(predicates, contact.ObservedAtIsNil())
+	}
+	if i.ObservedAtNotNil {
+		predicates = append(predicates, contact.ObservedAtNotNil())
 	}
 
 	if i.TagsHas != nil {
@@ -32046,6 +32316,35 @@ type EntityWhereInput struct {
 	ContractRenewalAtIsNil  bool              `json:"contractRenewalAtIsNil,omitempty"`
 	ContractRenewalAtNotNil bool              `json:"contractRenewalAtNotNil,omitempty"`
 
+	// "external_id" field predicates.
+	ExternalID             *string  `json:"externalID,omitempty"`
+	ExternalIDNEQ          *string  `json:"externalIDNEQ,omitempty"`
+	ExternalIDIn           []string `json:"externalIDIn,omitempty"`
+	ExternalIDNotIn        []string `json:"externalIDNotIn,omitempty"`
+	ExternalIDGT           *string  `json:"externalIDGT,omitempty"`
+	ExternalIDGTE          *string  `json:"externalIDGTE,omitempty"`
+	ExternalIDLT           *string  `json:"externalIDLT,omitempty"`
+	ExternalIDLTE          *string  `json:"externalIDLTE,omitempty"`
+	ExternalIDContains     *string  `json:"externalIDContains,omitempty"`
+	ExternalIDHasPrefix    *string  `json:"externalIDHasPrefix,omitempty"`
+	ExternalIDHasSuffix    *string  `json:"externalIDHasSuffix,omitempty"`
+	ExternalIDIsNil        bool     `json:"externalIDIsNil,omitempty"`
+	ExternalIDNotNil       bool     `json:"externalIDNotNil,omitempty"`
+	ExternalIDEqualFold    *string  `json:"externalIDEqualFold,omitempty"`
+	ExternalIDContainsFold *string  `json:"externalIDContainsFold,omitempty"`
+
+	// "observed_at" field predicates.
+	ObservedAt       *models.DateTime  `json:"observedAt,omitempty"`
+	ObservedAtNEQ    *models.DateTime  `json:"observedAtNEQ,omitempty"`
+	ObservedAtIn     []models.DateTime `json:"observedAtIn,omitempty"`
+	ObservedAtNotIn  []models.DateTime `json:"observedAtNotIn,omitempty"`
+	ObservedAtGT     *models.DateTime  `json:"observedAtGT,omitempty"`
+	ObservedAtGTE    *models.DateTime  `json:"observedAtGTE,omitempty"`
+	ObservedAtLT     *models.DateTime  `json:"observedAtLT,omitempty"`
+	ObservedAtLTE    *models.DateTime  `json:"observedAtLTE,omitempty"`
+	ObservedAtIsNil  bool              `json:"observedAtIsNil,omitempty"`
+	ObservedAtNotNil bool              `json:"observedAtNotNil,omitempty"`
+
 	// "tags" JSON-string-array predicates.
 	TagsHas *string `json:"tagsHas,omitempty"`
 
@@ -34086,6 +34385,81 @@ func (i *EntityWhereInput) P() (predicate.Entity, error) {
 	}
 	if i.ContractRenewalAtNotNil {
 		predicates = append(predicates, entity.ContractRenewalAtNotNil())
+	}
+	if i.ExternalID != nil {
+		predicates = append(predicates, entity.ExternalIDEQ(*i.ExternalID))
+	}
+	if i.ExternalIDNEQ != nil {
+		predicates = append(predicates, entity.ExternalIDNEQ(*i.ExternalIDNEQ))
+	}
+	if len(i.ExternalIDIn) > 0 {
+		predicates = append(predicates, entity.ExternalIDIn(i.ExternalIDIn...))
+	}
+	if len(i.ExternalIDNotIn) > 0 {
+		predicates = append(predicates, entity.ExternalIDNotIn(i.ExternalIDNotIn...))
+	}
+	if i.ExternalIDGT != nil {
+		predicates = append(predicates, entity.ExternalIDGT(*i.ExternalIDGT))
+	}
+	if i.ExternalIDGTE != nil {
+		predicates = append(predicates, entity.ExternalIDGTE(*i.ExternalIDGTE))
+	}
+	if i.ExternalIDLT != nil {
+		predicates = append(predicates, entity.ExternalIDLT(*i.ExternalIDLT))
+	}
+	if i.ExternalIDLTE != nil {
+		predicates = append(predicates, entity.ExternalIDLTE(*i.ExternalIDLTE))
+	}
+	if i.ExternalIDContains != nil {
+		predicates = append(predicates, entity.ExternalIDContains(*i.ExternalIDContains))
+	}
+	if i.ExternalIDHasPrefix != nil {
+		predicates = append(predicates, entity.ExternalIDHasPrefix(*i.ExternalIDHasPrefix))
+	}
+	if i.ExternalIDHasSuffix != nil {
+		predicates = append(predicates, entity.ExternalIDHasSuffix(*i.ExternalIDHasSuffix))
+	}
+	if i.ExternalIDIsNil {
+		predicates = append(predicates, entity.ExternalIDIsNil())
+	}
+	if i.ExternalIDNotNil {
+		predicates = append(predicates, entity.ExternalIDNotNil())
+	}
+	if i.ExternalIDEqualFold != nil {
+		predicates = append(predicates, entity.ExternalIDEqualFold(*i.ExternalIDEqualFold))
+	}
+	if i.ExternalIDContainsFold != nil {
+		predicates = append(predicates, entity.ExternalIDContainsFold(*i.ExternalIDContainsFold))
+	}
+	if i.ObservedAt != nil {
+		predicates = append(predicates, entity.ObservedAtEQ(*i.ObservedAt))
+	}
+	if i.ObservedAtNEQ != nil {
+		predicates = append(predicates, entity.ObservedAtNEQ(*i.ObservedAtNEQ))
+	}
+	if len(i.ObservedAtIn) > 0 {
+		predicates = append(predicates, entity.ObservedAtIn(i.ObservedAtIn...))
+	}
+	if len(i.ObservedAtNotIn) > 0 {
+		predicates = append(predicates, entity.ObservedAtNotIn(i.ObservedAtNotIn...))
+	}
+	if i.ObservedAtGT != nil {
+		predicates = append(predicates, entity.ObservedAtGT(*i.ObservedAtGT))
+	}
+	if i.ObservedAtGTE != nil {
+		predicates = append(predicates, entity.ObservedAtGTE(*i.ObservedAtGTE))
+	}
+	if i.ObservedAtLT != nil {
+		predicates = append(predicates, entity.ObservedAtLT(*i.ObservedAtLT))
+	}
+	if i.ObservedAtLTE != nil {
+		predicates = append(predicates, entity.ObservedAtLTE(*i.ObservedAtLTE))
+	}
+	if i.ObservedAtIsNil {
+		predicates = append(predicates, entity.ObservedAtIsNil())
+	}
+	if i.ObservedAtNotNil {
+		predicates = append(predicates, entity.ObservedAtNotNil())
 	}
 
 	if i.TagsHas != nil {
@@ -85100,6 +85474,52 @@ type RiskWhereInput struct {
 	ScopeIDEqualFold    *string  `json:"scopeIDEqualFold,omitempty"`
 	ScopeIDContainsFold *string  `json:"scopeIDContainsFold,omitempty"`
 
+	// "external_id" field predicates.
+	ExternalID             *string  `json:"externalID,omitempty"`
+	ExternalIDNEQ          *string  `json:"externalIDNEQ,omitempty"`
+	ExternalIDIn           []string `json:"externalIDIn,omitempty"`
+	ExternalIDNotIn        []string `json:"externalIDNotIn,omitempty"`
+	ExternalIDGT           *string  `json:"externalIDGT,omitempty"`
+	ExternalIDGTE          *string  `json:"externalIDGTE,omitempty"`
+	ExternalIDLT           *string  `json:"externalIDLT,omitempty"`
+	ExternalIDLTE          *string  `json:"externalIDLTE,omitempty"`
+	ExternalIDContains     *string  `json:"externalIDContains,omitempty"`
+	ExternalIDHasPrefix    *string  `json:"externalIDHasPrefix,omitempty"`
+	ExternalIDHasSuffix    *string  `json:"externalIDHasSuffix,omitempty"`
+	ExternalIDIsNil        bool     `json:"externalIDIsNil,omitempty"`
+	ExternalIDNotNil       bool     `json:"externalIDNotNil,omitempty"`
+	ExternalIDEqualFold    *string  `json:"externalIDEqualFold,omitempty"`
+	ExternalIDContainsFold *string  `json:"externalIDContainsFold,omitempty"`
+
+	// "integration_id" field predicates.
+	IntegrationID             *string  `json:"integrationID,omitempty"`
+	IntegrationIDNEQ          *string  `json:"integrationIDNEQ,omitempty"`
+	IntegrationIDIn           []string `json:"integrationIDIn,omitempty"`
+	IntegrationIDNotIn        []string `json:"integrationIDNotIn,omitempty"`
+	IntegrationIDGT           *string  `json:"integrationIDGT,omitempty"`
+	IntegrationIDGTE          *string  `json:"integrationIDGTE,omitempty"`
+	IntegrationIDLT           *string  `json:"integrationIDLT,omitempty"`
+	IntegrationIDLTE          *string  `json:"integrationIDLTE,omitempty"`
+	IntegrationIDContains     *string  `json:"integrationIDContains,omitempty"`
+	IntegrationIDHasPrefix    *string  `json:"integrationIDHasPrefix,omitempty"`
+	IntegrationIDHasSuffix    *string  `json:"integrationIDHasSuffix,omitempty"`
+	IntegrationIDIsNil        bool     `json:"integrationIDIsNil,omitempty"`
+	IntegrationIDNotNil       bool     `json:"integrationIDNotNil,omitempty"`
+	IntegrationIDEqualFold    *string  `json:"integrationIDEqualFold,omitempty"`
+	IntegrationIDContainsFold *string  `json:"integrationIDContainsFold,omitempty"`
+
+	// "observed_at" field predicates.
+	ObservedAt       *models.DateTime  `json:"observedAt,omitempty"`
+	ObservedAtNEQ    *models.DateTime  `json:"observedAtNEQ,omitempty"`
+	ObservedAtIn     []models.DateTime `json:"observedAtIn,omitempty"`
+	ObservedAtNotIn  []models.DateTime `json:"observedAtNotIn,omitempty"`
+	ObservedAtGT     *models.DateTime  `json:"observedAtGT,omitempty"`
+	ObservedAtGTE    *models.DateTime  `json:"observedAtGTE,omitempty"`
+	ObservedAtLT     *models.DateTime  `json:"observedAtLT,omitempty"`
+	ObservedAtLTE    *models.DateTime  `json:"observedAtLTE,omitempty"`
+	ObservedAtIsNil  bool              `json:"observedAtIsNil,omitempty"`
+	ObservedAtNotNil bool              `json:"observedAtNotNil,omitempty"`
+
 	// "external_uuid" field predicates.
 	ExternalUUID             *string  `json:"externalUUID,omitempty"`
 	ExternalUUIDNEQ          *string  `json:"externalUUIDNEQ,omitempty"`
@@ -86043,6 +86463,126 @@ func (i *RiskWhereInput) P() (predicate.Risk, error) {
 	}
 	if i.ScopeIDContainsFold != nil {
 		predicates = append(predicates, risk.ScopeIDContainsFold(*i.ScopeIDContainsFold))
+	}
+	if i.ExternalID != nil {
+		predicates = append(predicates, risk.ExternalIDEQ(*i.ExternalID))
+	}
+	if i.ExternalIDNEQ != nil {
+		predicates = append(predicates, risk.ExternalIDNEQ(*i.ExternalIDNEQ))
+	}
+	if len(i.ExternalIDIn) > 0 {
+		predicates = append(predicates, risk.ExternalIDIn(i.ExternalIDIn...))
+	}
+	if len(i.ExternalIDNotIn) > 0 {
+		predicates = append(predicates, risk.ExternalIDNotIn(i.ExternalIDNotIn...))
+	}
+	if i.ExternalIDGT != nil {
+		predicates = append(predicates, risk.ExternalIDGT(*i.ExternalIDGT))
+	}
+	if i.ExternalIDGTE != nil {
+		predicates = append(predicates, risk.ExternalIDGTE(*i.ExternalIDGTE))
+	}
+	if i.ExternalIDLT != nil {
+		predicates = append(predicates, risk.ExternalIDLT(*i.ExternalIDLT))
+	}
+	if i.ExternalIDLTE != nil {
+		predicates = append(predicates, risk.ExternalIDLTE(*i.ExternalIDLTE))
+	}
+	if i.ExternalIDContains != nil {
+		predicates = append(predicates, risk.ExternalIDContains(*i.ExternalIDContains))
+	}
+	if i.ExternalIDHasPrefix != nil {
+		predicates = append(predicates, risk.ExternalIDHasPrefix(*i.ExternalIDHasPrefix))
+	}
+	if i.ExternalIDHasSuffix != nil {
+		predicates = append(predicates, risk.ExternalIDHasSuffix(*i.ExternalIDHasSuffix))
+	}
+	if i.ExternalIDIsNil {
+		predicates = append(predicates, risk.ExternalIDIsNil())
+	}
+	if i.ExternalIDNotNil {
+		predicates = append(predicates, risk.ExternalIDNotNil())
+	}
+	if i.ExternalIDEqualFold != nil {
+		predicates = append(predicates, risk.ExternalIDEqualFold(*i.ExternalIDEqualFold))
+	}
+	if i.ExternalIDContainsFold != nil {
+		predicates = append(predicates, risk.ExternalIDContainsFold(*i.ExternalIDContainsFold))
+	}
+	if i.IntegrationID != nil {
+		predicates = append(predicates, risk.IntegrationIDEQ(*i.IntegrationID))
+	}
+	if i.IntegrationIDNEQ != nil {
+		predicates = append(predicates, risk.IntegrationIDNEQ(*i.IntegrationIDNEQ))
+	}
+	if len(i.IntegrationIDIn) > 0 {
+		predicates = append(predicates, risk.IntegrationIDIn(i.IntegrationIDIn...))
+	}
+	if len(i.IntegrationIDNotIn) > 0 {
+		predicates = append(predicates, risk.IntegrationIDNotIn(i.IntegrationIDNotIn...))
+	}
+	if i.IntegrationIDGT != nil {
+		predicates = append(predicates, risk.IntegrationIDGT(*i.IntegrationIDGT))
+	}
+	if i.IntegrationIDGTE != nil {
+		predicates = append(predicates, risk.IntegrationIDGTE(*i.IntegrationIDGTE))
+	}
+	if i.IntegrationIDLT != nil {
+		predicates = append(predicates, risk.IntegrationIDLT(*i.IntegrationIDLT))
+	}
+	if i.IntegrationIDLTE != nil {
+		predicates = append(predicates, risk.IntegrationIDLTE(*i.IntegrationIDLTE))
+	}
+	if i.IntegrationIDContains != nil {
+		predicates = append(predicates, risk.IntegrationIDContains(*i.IntegrationIDContains))
+	}
+	if i.IntegrationIDHasPrefix != nil {
+		predicates = append(predicates, risk.IntegrationIDHasPrefix(*i.IntegrationIDHasPrefix))
+	}
+	if i.IntegrationIDHasSuffix != nil {
+		predicates = append(predicates, risk.IntegrationIDHasSuffix(*i.IntegrationIDHasSuffix))
+	}
+	if i.IntegrationIDIsNil {
+		predicates = append(predicates, risk.IntegrationIDIsNil())
+	}
+	if i.IntegrationIDNotNil {
+		predicates = append(predicates, risk.IntegrationIDNotNil())
+	}
+	if i.IntegrationIDEqualFold != nil {
+		predicates = append(predicates, risk.IntegrationIDEqualFold(*i.IntegrationIDEqualFold))
+	}
+	if i.IntegrationIDContainsFold != nil {
+		predicates = append(predicates, risk.IntegrationIDContainsFold(*i.IntegrationIDContainsFold))
+	}
+	if i.ObservedAt != nil {
+		predicates = append(predicates, risk.ObservedAtEQ(*i.ObservedAt))
+	}
+	if i.ObservedAtNEQ != nil {
+		predicates = append(predicates, risk.ObservedAtNEQ(*i.ObservedAtNEQ))
+	}
+	if len(i.ObservedAtIn) > 0 {
+		predicates = append(predicates, risk.ObservedAtIn(i.ObservedAtIn...))
+	}
+	if len(i.ObservedAtNotIn) > 0 {
+		predicates = append(predicates, risk.ObservedAtNotIn(i.ObservedAtNotIn...))
+	}
+	if i.ObservedAtGT != nil {
+		predicates = append(predicates, risk.ObservedAtGT(*i.ObservedAtGT))
+	}
+	if i.ObservedAtGTE != nil {
+		predicates = append(predicates, risk.ObservedAtGTE(*i.ObservedAtGTE))
+	}
+	if i.ObservedAtLT != nil {
+		predicates = append(predicates, risk.ObservedAtLT(*i.ObservedAtLT))
+	}
+	if i.ObservedAtLTE != nil {
+		predicates = append(predicates, risk.ObservedAtLTE(*i.ObservedAtLTE))
+	}
+	if i.ObservedAtIsNil {
+		predicates = append(predicates, risk.ObservedAtIsNil())
+	}
+	if i.ObservedAtNotNil {
+		predicates = append(predicates, risk.ObservedAtNotNil())
 	}
 	if i.ExternalUUID != nil {
 		predicates = append(predicates, risk.ExternalUUIDEQ(*i.ExternalUUID))

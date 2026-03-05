@@ -7,12 +7,12 @@ import (
 	"strings"
 
 	"github.com/theopenlane/core/internal/ent/generated"
+	"github.com/theopenlane/core/internal/ent/generated/predicate"
 	"github.com/theopenlane/core/internal/ent/generated/control"
 	"github.com/theopenlane/core/internal/ent/generated/entity"
 	"github.com/theopenlane/core/internal/ent/generated/group"
 	"github.com/theopenlane/core/internal/ent/generated/identityholder"
 	"github.com/theopenlane/core/internal/ent/generated/platform"
-	"github.com/theopenlane/core/internal/ent/generated/predicate"
 	"github.com/theopenlane/core/internal/ent/generated/template"
 	"github.com/theopenlane/core/internal/ent/generated/user"
 )
@@ -453,7 +453,8 @@ type CSVSchemaInfo struct {
 var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	"APIToken": {
 		SchemaName: "APIToken",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"ActionPlan": {
 		SchemaName: "ActionPlan",
@@ -607,7 +608,8 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"Contact": {
 		SchemaName: "Contact",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Control": {
 		SchemaName: "Control",
@@ -640,23 +642,28 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"ControlImplementation": {
 		SchemaName: "ControlImplementation",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"ControlObjective": {
 		SchemaName: "ControlObjective",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"CustomDomain": {
 		SchemaName: "CustomDomain",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"CustomTypeEnum": {
 		SchemaName: "CustomTypeEnum",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"DNSVerification": {
 		SchemaName: "DNSVerification",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"DirectoryAccount": {
 		SchemaName: "DirectoryAccount",
@@ -673,31 +680,38 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"DirectoryGroup": {
 		SchemaName: "DirectoryGroup",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"DirectoryMembership": {
 		SchemaName: "DirectoryMembership",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"DirectorySyncRun": {
 		SchemaName: "DirectorySyncRun",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Discussion": {
 		SchemaName: "Discussion",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"DocumentData": {
 		SchemaName: "DocumentData",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"EmailBranding": {
 		SchemaName: "EmailBranding",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"EmailTemplate": {
 		SchemaName: "EmailTemplate",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Entity": {
 		SchemaName: "Entity",
@@ -738,11 +752,13 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"EntityType": {
 		SchemaName: "EntityType",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Event": {
 		SchemaName: "Event",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Evidence": {
 		SchemaName: "Evidence",
@@ -759,35 +775,43 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"Export": {
 		SchemaName: "Export",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"File": {
 		SchemaName: "File",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Finding": {
 		SchemaName: "Finding",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"FindingControl": {
 		SchemaName: "FindingControl",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Group": {
 		SchemaName: "Group",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"GroupMembership": {
 		SchemaName: "GroupMembership",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"GroupSetting": {
 		SchemaName: "GroupSetting",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Hush": {
 		SchemaName: "Hush",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"IdentityHolder": {
 		SchemaName: "IdentityHolder",
@@ -857,71 +881,88 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"Invite": {
 		SchemaName: "Invite",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"JobResult": {
 		SchemaName: "JobResult",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"JobRunner": {
 		SchemaName: "JobRunner",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"JobRunnerRegistrationToken": {
 		SchemaName: "JobRunnerRegistrationToken",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"JobRunnerToken": {
 		SchemaName: "JobRunnerToken",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"JobTemplate": {
 		SchemaName: "JobTemplate",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"MappableDomain": {
 		SchemaName: "MappableDomain",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"MappedControl": {
 		SchemaName: "MappedControl",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Narrative": {
 		SchemaName: "Narrative",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Notification": {
 		SchemaName: "Notification",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"NotificationPreference": {
 		SchemaName: "NotificationPreference",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"NotificationTemplate": {
 		SchemaName: "NotificationTemplate",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Onboarding": {
 		SchemaName: "Onboarding",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"OrgMembership": {
 		SchemaName: "OrgMembership",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Organization": {
 		SchemaName: "Organization",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"OrganizationSetting": {
 		SchemaName: "OrganizationSetting",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"PersonalAccessToken": {
 		SchemaName: "PersonalAccessToken",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Platform": {
 		SchemaName: "Platform",
@@ -1044,7 +1085,8 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"ProgramMembership": {
 		SchemaName: "ProgramMembership",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Remediation": {
 		SchemaName: "Remediation",
@@ -1182,11 +1224,13 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"ScheduledJobRun": {
 		SchemaName: "ScheduledJobRun",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Standard": {
 		SchemaName: "Standard",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Subcontrol": {
 		SchemaName: "Subcontrol",
@@ -1219,23 +1263,28 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"Subprocessor": {
 		SchemaName: "Subprocessor",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Subscriber": {
 		SchemaName: "Subscriber",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"SystemDetail": {
 		SchemaName: "SystemDetail",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TFASetting": {
 		SchemaName: "TFASetting",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TagDefinition": {
 		SchemaName: "TagDefinition",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Task": {
 		SchemaName: "Task",
@@ -1268,51 +1317,63 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"Template": {
 		SchemaName: "Template",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TrustCenter": {
 		SchemaName: "TrustCenter",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TrustCenterCompliance": {
 		SchemaName: "TrustCenterCompliance",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TrustCenterDoc": {
 		SchemaName: "TrustCenterDoc",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TrustCenterEntity": {
 		SchemaName: "TrustCenterEntity",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TrustCenterFAQ": {
 		SchemaName: "TrustCenterFAQ",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TrustCenterNDARequest": {
 		SchemaName: "TrustCenterNDARequest",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TrustCenterSetting": {
 		SchemaName: "TrustCenterSetting",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TrustCenterSubprocessor": {
 		SchemaName: "TrustCenterSubprocessor",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"TrustCenterWatermarkConfig": {
 		SchemaName: "TrustCenterWatermarkConfig",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"User": {
 		SchemaName: "User",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"UserSetting": {
 		SchemaName: "UserSetting",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 	"Vulnerability": {
 		SchemaName: "Vulnerability",
@@ -1329,7 +1390,8 @@ var CSVReferenceRegistry = map[string]CSVSchemaInfo{
 	},
 	"WorkflowDefinition": {
 		SchemaName: "WorkflowDefinition",
-		Rules:      []CSVReferenceRule{},
+		Rules: []CSVReferenceRule{
+		},
 	},
 }
 
@@ -1360,7 +1422,7 @@ func (APITokenCSVInput) CSVInputWrapper() {}
 // APITokenCSVUpdateInput wraps UpdateAPITokenInput with CSV reference columns for bulk updates.
 type APITokenCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateAPITokenInput
 }
 
@@ -1369,10 +1431,10 @@ func (APITokenCSVUpdateInput) CSVInputWrapper() {}
 
 // ActionPlanCSVInput wraps CreateActionPlanInput with CSV reference columns.
 type ActionPlanCSVInput struct {
-	Input                     generated.CreateActionPlanInput
-	ApproverGroupName         string   `csv:"ApproverGroupName"`
-	ControlRefCodes           []string `csv:"ControlRefCodes"`
-	DocumentDelegateGroupName string   `csv:"DocumentDelegateGroupName"`
+	Input generated.CreateActionPlanInput
+	ApproverGroupName string `csv:"ApproverGroupName"`
+	ControlRefCodes []string `csv:"ControlRefCodes"`
+	DocumentDelegateGroupName string `csv:"DocumentDelegateGroupName"`
 }
 
 // CSVInputWrapper marks ActionPlanCSVInput for CSV header preprocessing.
@@ -1381,11 +1443,11 @@ func (ActionPlanCSVInput) CSVInputWrapper() {}
 // ActionPlanCSVUpdateInput wraps UpdateActionPlanInput with CSV reference columns for bulk updates.
 type ActionPlanCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                        string `csv:"ID"`
-	Input                     generated.UpdateActionPlanInput
-	ApproverGroupName         string   `csv:"ApproverGroupName"`
-	ControlRefCodes           []string `csv:"ControlRefCodes"`
-	DocumentDelegateGroupName string   `csv:"DocumentDelegateGroupName"`
+	ID string `csv:"ID"`
+	Input generated.UpdateActionPlanInput
+	ApproverGroupName string `csv:"ApproverGroupName"`
+	ControlRefCodes []string `csv:"ControlRefCodes"`
+	DocumentDelegateGroupName string `csv:"DocumentDelegateGroupName"`
 }
 
 // CSVInputWrapper marks ActionPlanCSVUpdateInput for CSV header preprocessing.
@@ -1393,7 +1455,7 @@ func (ActionPlanCSVUpdateInput) CSVInputWrapper() {}
 
 // AssessmentCSVInput wraps CreateAssessmentInput with CSV reference columns.
 type AssessmentCSVInput struct {
-	Input                 generated.CreateAssessmentInput
+	Input generated.CreateAssessmentInput
 	AssessmentTemplateRef string `csv:"AssessmentTemplateRef"`
 }
 
@@ -1403,8 +1465,8 @@ func (AssessmentCSVInput) CSVInputWrapper() {}
 // AssessmentCSVUpdateInput wraps UpdateAssessmentInput with CSV reference columns for bulk updates.
 type AssessmentCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                    string `csv:"ID"`
-	Input                 generated.UpdateAssessmentInput
+	ID string `csv:"ID"`
+	Input generated.UpdateAssessmentInput
 	AssessmentTemplateRef string `csv:"AssessmentTemplateRef"`
 }
 
@@ -1413,9 +1475,9 @@ func (AssessmentCSVUpdateInput) CSVInputWrapper() {}
 
 // AssessmentResponseCSVInput wraps CreateAssessmentResponseInput with CSV reference columns.
 type AssessmentResponseCSVInput struct {
-	Input                         generated.CreateAssessmentResponseInput
+	Input generated.CreateAssessmentResponseInput
 	AssessmentIdentityHolderEmail string `csv:"AssessmentIdentityHolderEmail"`
-	AssessmentResponseEntityName  string `csv:"AssessmentResponseEntityName"`
+	AssessmentResponseEntityName string `csv:"AssessmentResponseEntityName"`
 }
 
 // CSVInputWrapper marks AssessmentResponseCSVInput for CSV header preprocessing.
@@ -1423,10 +1485,10 @@ func (AssessmentResponseCSVInput) CSVInputWrapper() {}
 
 // AssetCSVInput wraps CreateAssetInput with CSV reference columns.
 type AssetCSVInput struct {
-	Input                  generated.CreateAssetInput
+	Input generated.CreateAssetInput
 	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
 	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
-	SourcePlatformName     string `csv:"SourcePlatformName"`
+	SourcePlatformName string `csv:"SourcePlatformName"`
 }
 
 // CSVInputWrapper marks AssetCSVInput for CSV header preprocessing.
@@ -1435,11 +1497,11 @@ func (AssetCSVInput) CSVInputWrapper() {}
 // AssetCSVUpdateInput wraps UpdateAssetInput with CSV reference columns for bulk updates.
 type AssetCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                     string `csv:"ID"`
-	Input                  generated.UpdateAssetInput
+	ID string `csv:"ID"`
+	Input generated.UpdateAssetInput
 	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
 	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
-	SourcePlatformName     string `csv:"SourcePlatformName"`
+	SourcePlatformName string `csv:"SourcePlatformName"`
 }
 
 // CSVInputWrapper marks AssetCSVUpdateInput for CSV header preprocessing.
@@ -1447,9 +1509,9 @@ func (AssetCSVUpdateInput) CSVInputWrapper() {}
 
 // CampaignCSVInput wraps CreateCampaignInput with CSV reference columns.
 type CampaignCSVInput struct {
-	Input                  generated.CreateCampaignInput
-	CampaignEntityName     string `csv:"CampaignEntityName"`
-	CampaignTemplateRef    string `csv:"CampaignTemplateRef"`
+	Input generated.CreateCampaignInput
+	CampaignEntityName string `csv:"CampaignEntityName"`
+	CampaignTemplateRef string `csv:"CampaignTemplateRef"`
 	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
 	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
 }
@@ -1460,10 +1522,10 @@ func (CampaignCSVInput) CSVInputWrapper() {}
 // CampaignCSVUpdateInput wraps UpdateCampaignInput with CSV reference columns for bulk updates.
 type CampaignCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                     string `csv:"ID"`
-	Input                  generated.UpdateCampaignInput
-	CampaignEntityName     string `csv:"CampaignEntityName"`
-	CampaignTemplateRef    string `csv:"CampaignTemplateRef"`
+	ID string `csv:"ID"`
+	Input generated.UpdateCampaignInput
+	CampaignEntityName string `csv:"CampaignEntityName"`
+	CampaignTemplateRef string `csv:"CampaignTemplateRef"`
 	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
 	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
 }
@@ -1473,7 +1535,7 @@ func (CampaignCSVUpdateInput) CSVInputWrapper() {}
 
 // CampaignTargetCSVInput wraps CreateCampaignTargetInput with CSV reference columns.
 type CampaignTargetCSVInput struct {
-	Input                   generated.CreateCampaignTargetInput
+	Input generated.CreateCampaignTargetInput
 	CampaignTargetGroupName string `csv:"CampaignTargetGroupName"`
 	CampaignTargetUserEmail string `csv:"CampaignTargetUserEmail"`
 }
@@ -1484,8 +1546,8 @@ func (CampaignTargetCSVInput) CSVInputWrapper() {}
 // CampaignTargetCSVUpdateInput wraps UpdateCampaignTargetInput with CSV reference columns for bulk updates.
 type CampaignTargetCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                      string `csv:"ID"`
-	Input                   generated.UpdateCampaignTargetInput
+	ID string `csv:"ID"`
+	Input generated.UpdateCampaignTargetInput
 	CampaignTargetGroupName string `csv:"CampaignTargetGroupName"`
 	CampaignTargetUserEmail string `csv:"CampaignTargetUserEmail"`
 }
@@ -1504,7 +1566,7 @@ func (ContactCSVInput) CSVInputWrapper() {}
 // ContactCSVUpdateInput wraps UpdateContactInput with CSV reference columns for bulk updates.
 type ContactCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateContactInput
 }
 
@@ -1513,9 +1575,9 @@ func (ContactCSVUpdateInput) CSVInputWrapper() {}
 
 // ControlCSVInput wraps CreateControlInput with CSV reference columns.
 type ControlCSVInput struct {
-	Input                      generated.CreateControlInput
-	ControlDelegateGroupName   string `csv:"ControlDelegateGroupName"`
-	ControlOwnerGroupName      string `csv:"ControlOwnerGroupName"`
+	Input generated.CreateControlInput
+	ControlDelegateGroupName string `csv:"ControlDelegateGroupName"`
+	ControlOwnerGroupName string `csv:"ControlOwnerGroupName"`
 	ResponsiblePartyEntityName string `csv:"ResponsiblePartyEntityName"`
 }
 
@@ -1525,10 +1587,10 @@ func (ControlCSVInput) CSVInputWrapper() {}
 // ControlCSVUpdateInput wraps UpdateControlInput with CSV reference columns for bulk updates.
 type ControlCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                         string `csv:"ID"`
-	Input                      generated.UpdateControlInput
-	ControlDelegateGroupName   string `csv:"ControlDelegateGroupName"`
-	ControlOwnerGroupName      string `csv:"ControlOwnerGroupName"`
+	ID string `csv:"ID"`
+	Input generated.UpdateControlInput
+	ControlDelegateGroupName string `csv:"ControlDelegateGroupName"`
+	ControlOwnerGroupName string `csv:"ControlOwnerGroupName"`
 	ResponsiblePartyEntityName string `csv:"ResponsiblePartyEntityName"`
 }
 
@@ -1546,7 +1608,7 @@ func (ControlImplementationCSVInput) CSVInputWrapper() {}
 // ControlImplementationCSVUpdateInput wraps UpdateControlImplementationInput with CSV reference columns for bulk updates.
 type ControlImplementationCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateControlImplementationInput
 }
 
@@ -1564,7 +1626,7 @@ func (ControlObjectiveCSVInput) CSVInputWrapper() {}
 // ControlObjectiveCSVUpdateInput wraps UpdateControlObjectiveInput with CSV reference columns for bulk updates.
 type ControlObjectiveCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateControlObjectiveInput
 }
 
@@ -1582,7 +1644,7 @@ func (CustomDomainCSVInput) CSVInputWrapper() {}
 // CustomDomainCSVUpdateInput wraps UpdateCustomDomainInput with CSV reference columns for bulk updates.
 type CustomDomainCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateCustomDomainInput
 }
 
@@ -1600,7 +1662,7 @@ func (CustomTypeEnumCSVInput) CSVInputWrapper() {}
 // CustomTypeEnumCSVUpdateInput wraps UpdateCustomTypeEnumInput with CSV reference columns for bulk updates.
 type CustomTypeEnumCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateCustomTypeEnumInput
 }
 
@@ -1618,7 +1680,7 @@ func (DNSVerificationCSVInput) CSVInputWrapper() {}
 // DNSVerificationCSVUpdateInput wraps UpdateDNSVerificationInput with CSV reference columns for bulk updates.
 type DNSVerificationCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateDNSVerificationInput
 }
 
@@ -1627,7 +1689,7 @@ func (DNSVerificationCSVUpdateInput) CSVInputWrapper() {}
 
 // DirectoryAccountCSVInput wraps CreateDirectoryAccountInput with CSV reference columns.
 type DirectoryAccountCSVInput struct {
-	Input                               generated.CreateDirectoryAccountInput
+	Input generated.CreateDirectoryAccountInput
 	DirectoryAccountIdentityHolderEmail string `csv:"DirectoryAccountIdentityHolderEmail"`
 }
 
@@ -1637,8 +1699,8 @@ func (DirectoryAccountCSVInput) CSVInputWrapper() {}
 // DirectoryAccountCSVUpdateInput wraps UpdateDirectoryAccountInput with CSV reference columns for bulk updates.
 type DirectoryAccountCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                                  string `csv:"ID"`
-	Input                               generated.UpdateDirectoryAccountInput
+	ID string `csv:"ID"`
+	Input generated.UpdateDirectoryAccountInput
 	DirectoryAccountIdentityHolderEmail string `csv:"DirectoryAccountIdentityHolderEmail"`
 }
 
@@ -1656,7 +1718,7 @@ func (DirectoryGroupCSVInput) CSVInputWrapper() {}
 // DirectoryGroupCSVUpdateInput wraps UpdateDirectoryGroupInput with CSV reference columns for bulk updates.
 type DirectoryGroupCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateDirectoryGroupInput
 }
 
@@ -1674,7 +1736,7 @@ func (DirectoryMembershipCSVInput) CSVInputWrapper() {}
 // DirectoryMembershipCSVUpdateInput wraps UpdateDirectoryMembershipInput with CSV reference columns for bulk updates.
 type DirectoryMembershipCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateDirectoryMembershipInput
 }
 
@@ -1692,7 +1754,7 @@ func (DirectorySyncRunCSVInput) CSVInputWrapper() {}
 // DirectorySyncRunCSVUpdateInput wraps UpdateDirectorySyncRunInput with CSV reference columns for bulk updates.
 type DirectorySyncRunCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateDirectorySyncRunInput
 }
 
@@ -1710,7 +1772,7 @@ func (DiscussionCSVInput) CSVInputWrapper() {}
 // DiscussionCSVUpdateInput wraps UpdateDiscussionInput with CSV reference columns for bulk updates.
 type DiscussionCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateDiscussionInput
 }
 
@@ -1728,7 +1790,7 @@ func (DocumentDataCSVInput) CSVInputWrapper() {}
 // DocumentDataCSVUpdateInput wraps UpdateDocumentDataInput with CSV reference columns for bulk updates.
 type DocumentDataCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateDocumentDataInput
 }
 
@@ -1746,7 +1808,7 @@ func (EmailBrandingCSVInput) CSVInputWrapper() {}
 // EmailBrandingCSVUpdateInput wraps UpdateEmailBrandingInput with CSV reference columns for bulk updates.
 type EmailBrandingCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateEmailBrandingInput
 }
 
@@ -1764,7 +1826,7 @@ func (EmailTemplateCSVInput) CSVInputWrapper() {}
 // EmailTemplateCSVUpdateInput wraps UpdateEmailTemplateInput with CSV reference columns for bulk updates.
 type EmailTemplateCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateEmailTemplateInput
 }
 
@@ -1773,11 +1835,11 @@ func (EmailTemplateCSVUpdateInput) CSVInputWrapper() {}
 
 // EntityCSVInput wraps CreateEntityInput with CSV reference columns.
 type EntityCSVInput struct {
-	Input                  generated.CreateEntityInput
+	Input generated.CreateEntityInput
 	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
 	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
-	ReviewedByGroupName    string `csv:"ReviewedByGroupName"`
-	ReviewedByUserEmail    string `csv:"ReviewedByUserEmail"`
+	ReviewedByGroupName string `csv:"ReviewedByGroupName"`
+	ReviewedByUserEmail string `csv:"ReviewedByUserEmail"`
 }
 
 // CSVInputWrapper marks EntityCSVInput for CSV header preprocessing.
@@ -1786,12 +1848,12 @@ func (EntityCSVInput) CSVInputWrapper() {}
 // EntityCSVUpdateInput wraps UpdateEntityInput with CSV reference columns for bulk updates.
 type EntityCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                     string `csv:"ID"`
-	Input                  generated.UpdateEntityInput
+	ID string `csv:"ID"`
+	Input generated.UpdateEntityInput
 	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
 	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
-	ReviewedByGroupName    string `csv:"ReviewedByGroupName"`
-	ReviewedByUserEmail    string `csv:"ReviewedByUserEmail"`
+	ReviewedByGroupName string `csv:"ReviewedByGroupName"`
+	ReviewedByUserEmail string `csv:"ReviewedByUserEmail"`
 }
 
 // CSVInputWrapper marks EntityCSVUpdateInput for CSV header preprocessing.
@@ -1808,7 +1870,7 @@ func (EntityTypeCSVInput) CSVInputWrapper() {}
 // EntityTypeCSVUpdateInput wraps UpdateEntityTypeInput with CSV reference columns for bulk updates.
 type EntityTypeCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateEntityTypeInput
 }
 
@@ -1826,7 +1888,7 @@ func (EventCSVInput) CSVInputWrapper() {}
 // EventCSVUpdateInput wraps UpdateEventInput with CSV reference columns for bulk updates.
 type EventCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateEventInput
 }
 
@@ -1835,7 +1897,7 @@ func (EventCSVUpdateInput) CSVInputWrapper() {}
 
 // EvidenceCSVInput wraps CreateEvidenceInput with CSV reference columns.
 type EvidenceCSVInput struct {
-	Input           generated.CreateEvidenceInput
+	Input generated.CreateEvidenceInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -1845,8 +1907,8 @@ func (EvidenceCSVInput) CSVInputWrapper() {}
 // EvidenceCSVUpdateInput wraps UpdateEvidenceInput with CSV reference columns for bulk updates.
 type EvidenceCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID              string `csv:"ID"`
-	Input           generated.UpdateEvidenceInput
+	ID string `csv:"ID"`
+	Input generated.UpdateEvidenceInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -1864,7 +1926,7 @@ func (ExportCSVInput) CSVInputWrapper() {}
 // ExportCSVUpdateInput wraps UpdateExportInput with CSV reference columns for bulk updates.
 type ExportCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateExportInput
 }
 
@@ -1882,7 +1944,7 @@ func (FileCSVInput) CSVInputWrapper() {}
 // FileCSVUpdateInput wraps UpdateFileInput with CSV reference columns for bulk updates.
 type FileCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateFileInput
 }
 
@@ -1900,7 +1962,7 @@ func (FindingCSVInput) CSVInputWrapper() {}
 // FindingCSVUpdateInput wraps UpdateFindingInput with CSV reference columns for bulk updates.
 type FindingCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateFindingInput
 }
 
@@ -1918,7 +1980,7 @@ func (FindingControlCSVInput) CSVInputWrapper() {}
 // FindingControlCSVUpdateInput wraps UpdateFindingControlInput with CSV reference columns for bulk updates.
 type FindingControlCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateFindingControlInput
 }
 
@@ -1936,7 +1998,7 @@ func (GroupCSVInput) CSVInputWrapper() {}
 // GroupCSVUpdateInput wraps UpdateGroupInput with CSV reference columns for bulk updates.
 type GroupCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateGroupInput
 }
 
@@ -1954,7 +2016,7 @@ func (GroupMembershipCSVInput) CSVInputWrapper() {}
 // GroupMembershipCSVUpdateInput wraps UpdateGroupMembershipInput with CSV reference columns for bulk updates.
 type GroupMembershipCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateGroupMembershipInput
 }
 
@@ -1972,7 +2034,7 @@ func (GroupSettingCSVInput) CSVInputWrapper() {}
 // GroupSettingCSVUpdateInput wraps UpdateGroupSettingInput with CSV reference columns for bulk updates.
 type GroupSettingCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateGroupSettingInput
 }
 
@@ -1990,7 +2052,7 @@ func (HushCSVInput) CSVInputWrapper() {}
 // HushCSVUpdateInput wraps UpdateHushInput with CSV reference columns for bulk updates.
 type HushCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateHushInput
 }
 
@@ -1999,11 +2061,11 @@ func (HushCSVUpdateInput) CSVInputWrapper() {}
 
 // IdentityHolderCSVInput wraps CreateIdentityHolderInput with CSV reference columns.
 type IdentityHolderCSVInput struct {
-	Input                   generated.CreateIdentityHolderInput
-	EmployerEntityName      string `csv:"EmployerEntityName"`
+	Input generated.CreateIdentityHolderInput
+	EmployerEntityName string `csv:"EmployerEntityName"`
 	IdentityHolderUserEmail string `csv:"IdentityHolderUserEmail"`
-	InternalOwnerGroupName  string `csv:"InternalOwnerGroupName"`
-	InternalOwnerUserEmail  string `csv:"InternalOwnerUserEmail"`
+	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
+	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
 }
 
 // CSVInputWrapper marks IdentityHolderCSVInput for CSV header preprocessing.
@@ -2012,12 +2074,12 @@ func (IdentityHolderCSVInput) CSVInputWrapper() {}
 // IdentityHolderCSVUpdateInput wraps UpdateIdentityHolderInput with CSV reference columns for bulk updates.
 type IdentityHolderCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                      string `csv:"ID"`
-	Input                   generated.UpdateIdentityHolderInput
-	EmployerEntityName      string `csv:"EmployerEntityName"`
+	ID string `csv:"ID"`
+	Input generated.UpdateIdentityHolderInput
+	EmployerEntityName string `csv:"EmployerEntityName"`
 	IdentityHolderUserEmail string `csv:"IdentityHolderUserEmail"`
-	InternalOwnerGroupName  string `csv:"InternalOwnerGroupName"`
-	InternalOwnerUserEmail  string `csv:"InternalOwnerUserEmail"`
+	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
+	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
 }
 
 // CSVInputWrapper marks IdentityHolderCSVUpdateInput for CSV header preprocessing.
@@ -2025,10 +2087,10 @@ func (IdentityHolderCSVUpdateInput) CSVInputWrapper() {}
 
 // InternalPolicyCSVInput wraps CreateInternalPolicyInput with CSV reference columns.
 type InternalPolicyCSVInput struct {
-	Input                     generated.CreateInternalPolicyInput
-	ApproverGroupName         string   `csv:"ApproverGroupName"`
-	ControlRefCodes           []string `csv:"ControlRefCodes"`
-	DocumentDelegateGroupName string   `csv:"DocumentDelegateGroupName"`
+	Input generated.CreateInternalPolicyInput
+	ApproverGroupName string `csv:"ApproverGroupName"`
+	ControlRefCodes []string `csv:"ControlRefCodes"`
+	DocumentDelegateGroupName string `csv:"DocumentDelegateGroupName"`
 }
 
 // CSVInputWrapper marks InternalPolicyCSVInput for CSV header preprocessing.
@@ -2037,11 +2099,11 @@ func (InternalPolicyCSVInput) CSVInputWrapper() {}
 // InternalPolicyCSVUpdateInput wraps UpdateInternalPolicyInput with CSV reference columns for bulk updates.
 type InternalPolicyCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                        string `csv:"ID"`
-	Input                     generated.UpdateInternalPolicyInput
-	ApproverGroupName         string   `csv:"ApproverGroupName"`
-	ControlRefCodes           []string `csv:"ControlRefCodes"`
-	DocumentDelegateGroupName string   `csv:"DocumentDelegateGroupName"`
+	ID string `csv:"ID"`
+	Input generated.UpdateInternalPolicyInput
+	ApproverGroupName string `csv:"ApproverGroupName"`
+	ControlRefCodes []string `csv:"ControlRefCodes"`
+	DocumentDelegateGroupName string `csv:"DocumentDelegateGroupName"`
 }
 
 // CSVInputWrapper marks InternalPolicyCSVUpdateInput for CSV header preprocessing.
@@ -2058,7 +2120,7 @@ func (InviteCSVInput) CSVInputWrapper() {}
 // InviteCSVUpdateInput wraps UpdateInviteInput with CSV reference columns for bulk updates.
 type InviteCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateInviteInput
 }
 
@@ -2076,7 +2138,7 @@ func (JobResultCSVInput) CSVInputWrapper() {}
 // JobResultCSVUpdateInput wraps UpdateJobResultInput with CSV reference columns for bulk updates.
 type JobResultCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateJobResultInput
 }
 
@@ -2094,7 +2156,7 @@ func (JobRunnerCSVInput) CSVInputWrapper() {}
 // JobRunnerCSVUpdateInput wraps UpdateJobRunnerInput with CSV reference columns for bulk updates.
 type JobRunnerCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateJobRunnerInput
 }
 
@@ -2112,7 +2174,7 @@ func (JobRunnerRegistrationTokenCSVInput) CSVInputWrapper() {}
 // JobRunnerRegistrationTokenCSVUpdateInput wraps UpdateJobRunnerRegistrationTokenInput with CSV reference columns for bulk updates.
 type JobRunnerRegistrationTokenCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateJobRunnerRegistrationTokenInput
 }
 
@@ -2130,7 +2192,7 @@ func (JobRunnerTokenCSVInput) CSVInputWrapper() {}
 // JobRunnerTokenCSVUpdateInput wraps UpdateJobRunnerTokenInput with CSV reference columns for bulk updates.
 type JobRunnerTokenCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateJobRunnerTokenInput
 }
 
@@ -2148,7 +2210,7 @@ func (JobTemplateCSVInput) CSVInputWrapper() {}
 // JobTemplateCSVUpdateInput wraps UpdateJobTemplateInput with CSV reference columns for bulk updates.
 type JobTemplateCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateJobTemplateInput
 }
 
@@ -2166,7 +2228,7 @@ func (MappableDomainCSVInput) CSVInputWrapper() {}
 // MappableDomainCSVUpdateInput wraps UpdateMappableDomainInput with CSV reference columns for bulk updates.
 type MappableDomainCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateMappableDomainInput
 }
 
@@ -2184,7 +2246,7 @@ func (MappedControlCSVInput) CSVInputWrapper() {}
 // MappedControlCSVUpdateInput wraps UpdateMappedControlInput with CSV reference columns for bulk updates.
 type MappedControlCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateMappedControlInput
 }
 
@@ -2202,7 +2264,7 @@ func (NarrativeCSVInput) CSVInputWrapper() {}
 // NarrativeCSVUpdateInput wraps UpdateNarrativeInput with CSV reference columns for bulk updates.
 type NarrativeCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateNarrativeInput
 }
 
@@ -2220,7 +2282,7 @@ func (NotificationCSVInput) CSVInputWrapper() {}
 // NotificationCSVUpdateInput wraps UpdateNotificationInput with CSV reference columns for bulk updates.
 type NotificationCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateNotificationInput
 }
 
@@ -2238,7 +2300,7 @@ func (NotificationPreferenceCSVInput) CSVInputWrapper() {}
 // NotificationPreferenceCSVUpdateInput wraps UpdateNotificationPreferenceInput with CSV reference columns for bulk updates.
 type NotificationPreferenceCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateNotificationPreferenceInput
 }
 
@@ -2256,7 +2318,7 @@ func (NotificationTemplateCSVInput) CSVInputWrapper() {}
 // NotificationTemplateCSVUpdateInput wraps UpdateNotificationTemplateInput with CSV reference columns for bulk updates.
 type NotificationTemplateCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateNotificationTemplateInput
 }
 
@@ -2282,7 +2344,7 @@ func (OrgMembershipCSVInput) CSVInputWrapper() {}
 // OrgMembershipCSVUpdateInput wraps UpdateOrgMembershipInput with CSV reference columns for bulk updates.
 type OrgMembershipCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateOrgMembershipInput
 }
 
@@ -2300,7 +2362,7 @@ func (OrganizationCSVInput) CSVInputWrapper() {}
 // OrganizationCSVUpdateInput wraps UpdateOrganizationInput with CSV reference columns for bulk updates.
 type OrganizationCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateOrganizationInput
 }
 
@@ -2318,7 +2380,7 @@ func (OrganizationSettingCSVInput) CSVInputWrapper() {}
 // OrganizationSettingCSVUpdateInput wraps UpdateOrganizationSettingInput with CSV reference columns for bulk updates.
 type OrganizationSettingCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateOrganizationSettingInput
 }
 
@@ -2336,7 +2398,7 @@ func (PersonalAccessTokenCSVInput) CSVInputWrapper() {}
 // PersonalAccessTokenCSVUpdateInput wraps UpdatePersonalAccessTokenInput with CSV reference columns for bulk updates.
 type PersonalAccessTokenCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdatePersonalAccessTokenInput
 }
 
@@ -2345,14 +2407,14 @@ func (PersonalAccessTokenCSVUpdateInput) CSVInputWrapper() {}
 
 // PlatformCSVInput wraps CreatePlatformInput with CSV reference columns.
 type PlatformCSVInput struct {
-	Input                   generated.CreatePlatformInput
-	BusinessOwnerGroupName  string `csv:"BusinessOwnerGroupName"`
-	BusinessOwnerUserEmail  string `csv:"BusinessOwnerUserEmail"`
-	InternalOwnerGroupName  string `csv:"InternalOwnerGroupName"`
-	InternalOwnerUserEmail  string `csv:"InternalOwnerUserEmail"`
-	PlatformOwnerEmail      string `csv:"PlatformOwnerEmail"`
-	SecurityOwnerGroupName  string `csv:"SecurityOwnerGroupName"`
-	SecurityOwnerUserEmail  string `csv:"SecurityOwnerUserEmail"`
+	Input generated.CreatePlatformInput
+	BusinessOwnerGroupName string `csv:"BusinessOwnerGroupName"`
+	BusinessOwnerUserEmail string `csv:"BusinessOwnerUserEmail"`
+	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
+	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
+	PlatformOwnerEmail string `csv:"PlatformOwnerEmail"`
+	SecurityOwnerGroupName string `csv:"SecurityOwnerGroupName"`
+	SecurityOwnerUserEmail string `csv:"SecurityOwnerUserEmail"`
 	TechnicalOwnerGroupName string `csv:"TechnicalOwnerGroupName"`
 	TechnicalOwnerUserEmail string `csv:"TechnicalOwnerUserEmail"`
 }
@@ -2363,15 +2425,15 @@ func (PlatformCSVInput) CSVInputWrapper() {}
 // PlatformCSVUpdateInput wraps UpdatePlatformInput with CSV reference columns for bulk updates.
 type PlatformCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                      string `csv:"ID"`
-	Input                   generated.UpdatePlatformInput
-	BusinessOwnerGroupName  string `csv:"BusinessOwnerGroupName"`
-	BusinessOwnerUserEmail  string `csv:"BusinessOwnerUserEmail"`
-	InternalOwnerGroupName  string `csv:"InternalOwnerGroupName"`
-	InternalOwnerUserEmail  string `csv:"InternalOwnerUserEmail"`
-	PlatformOwnerEmail      string `csv:"PlatformOwnerEmail"`
-	SecurityOwnerGroupName  string `csv:"SecurityOwnerGroupName"`
-	SecurityOwnerUserEmail  string `csv:"SecurityOwnerUserEmail"`
+	ID string `csv:"ID"`
+	Input generated.UpdatePlatformInput
+	BusinessOwnerGroupName string `csv:"BusinessOwnerGroupName"`
+	BusinessOwnerUserEmail string `csv:"BusinessOwnerUserEmail"`
+	InternalOwnerGroupName string `csv:"InternalOwnerGroupName"`
+	InternalOwnerUserEmail string `csv:"InternalOwnerUserEmail"`
+	PlatformOwnerEmail string `csv:"PlatformOwnerEmail"`
+	SecurityOwnerGroupName string `csv:"SecurityOwnerGroupName"`
+	SecurityOwnerUserEmail string `csv:"SecurityOwnerUserEmail"`
 	TechnicalOwnerGroupName string `csv:"TechnicalOwnerGroupName"`
 	TechnicalOwnerUserEmail string `csv:"TechnicalOwnerUserEmail"`
 }
@@ -2381,8 +2443,8 @@ func (PlatformCSVUpdateInput) CSVInputWrapper() {}
 
 // ProcedureCSVInput wraps CreateProcedureInput with CSV reference columns.
 type ProcedureCSVInput struct {
-	Input                     generated.CreateProcedureInput
-	ApproverGroupName         string `csv:"ApproverGroupName"`
+	Input generated.CreateProcedureInput
+	ApproverGroupName string `csv:"ApproverGroupName"`
 	DocumentDelegateGroupName string `csv:"DocumentDelegateGroupName"`
 }
 
@@ -2392,9 +2454,9 @@ func (ProcedureCSVInput) CSVInputWrapper() {}
 // ProcedureCSVUpdateInput wraps UpdateProcedureInput with CSV reference columns for bulk updates.
 type ProcedureCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                        string `csv:"ID"`
-	Input                     generated.UpdateProcedureInput
-	ApproverGroupName         string `csv:"ApproverGroupName"`
+	ID string `csv:"ID"`
+	Input generated.UpdateProcedureInput
+	ApproverGroupName string `csv:"ApproverGroupName"`
 	DocumentDelegateGroupName string `csv:"DocumentDelegateGroupName"`
 }
 
@@ -2403,9 +2465,9 @@ func (ProcedureCSVUpdateInput) CSVInputWrapper() {}
 
 // ProgramCSVInput wraps CreateProgramInput with CSV reference columns.
 type ProgramCSVInput struct {
-	Input             generated.CreateProgramInput
-	ControlRefCodes   []string `csv:"ControlRefCodes"`
-	ProgramOwnerEmail string   `csv:"ProgramOwnerEmail"`
+	Input generated.CreateProgramInput
+	ControlRefCodes []string `csv:"ControlRefCodes"`
+	ProgramOwnerEmail string `csv:"ProgramOwnerEmail"`
 }
 
 // CSVInputWrapper marks ProgramCSVInput for CSV header preprocessing.
@@ -2414,10 +2476,10 @@ func (ProgramCSVInput) CSVInputWrapper() {}
 // ProgramCSVUpdateInput wraps UpdateProgramInput with CSV reference columns for bulk updates.
 type ProgramCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                string `csv:"ID"`
-	Input             generated.UpdateProgramInput
-	ControlRefCodes   []string `csv:"ControlRefCodes"`
-	ProgramOwnerEmail string   `csv:"ProgramOwnerEmail"`
+	ID string `csv:"ID"`
+	Input generated.UpdateProgramInput
+	ControlRefCodes []string `csv:"ControlRefCodes"`
+	ProgramOwnerEmail string `csv:"ProgramOwnerEmail"`
 }
 
 // CSVInputWrapper marks ProgramCSVUpdateInput for CSV header preprocessing.
@@ -2434,7 +2496,7 @@ func (ProgramMembershipCSVInput) CSVInputWrapper() {}
 // ProgramMembershipCSVUpdateInput wraps UpdateProgramMembershipInput with CSV reference columns for bulk updates.
 type ProgramMembershipCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateProgramMembershipInput
 }
 
@@ -2443,7 +2505,7 @@ func (ProgramMembershipCSVUpdateInput) CSVInputWrapper() {}
 
 // RemediationCSVInput wraps CreateRemediationInput with CSV reference columns.
 type RemediationCSVInput struct {
-	Input           generated.CreateRemediationInput
+	Input generated.CreateRemediationInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2453,8 +2515,8 @@ func (RemediationCSVInput) CSVInputWrapper() {}
 // RemediationCSVUpdateInput wraps UpdateRemediationInput with CSV reference columns for bulk updates.
 type RemediationCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID              string `csv:"ID"`
-	Input           generated.UpdateRemediationInput
+	ID string `csv:"ID"`
+	Input generated.UpdateRemediationInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2463,7 +2525,7 @@ func (RemediationCSVUpdateInput) CSVInputWrapper() {}
 
 // ReviewCSVInput wraps CreateReviewInput with CSV reference columns.
 type ReviewCSVInput struct {
-	Input           generated.CreateReviewInput
+	Input generated.CreateReviewInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2473,8 +2535,8 @@ func (ReviewCSVInput) CSVInputWrapper() {}
 // ReviewCSVUpdateInput wraps UpdateReviewInput with CSV reference columns for bulk updates.
 type ReviewCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID              string `csv:"ID"`
-	Input           generated.UpdateReviewInput
+	ID string `csv:"ID"`
+	Input generated.UpdateReviewInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2483,10 +2545,10 @@ func (ReviewCSVUpdateInput) CSVInputWrapper() {}
 
 // RiskCSVInput wraps CreateRiskInput with CSV reference columns.
 type RiskCSVInput struct {
-	Input                 generated.CreateRiskInput
-	ControlRefCodes       []string `csv:"ControlRefCodes"`
-	RiskDelegateGroupName string   `csv:"RiskDelegateGroupName"`
-	StakeholderGroupName  string   `csv:"StakeholderGroupName"`
+	Input generated.CreateRiskInput
+	ControlRefCodes []string `csv:"ControlRefCodes"`
+	RiskDelegateGroupName string `csv:"RiskDelegateGroupName"`
+	StakeholderGroupName string `csv:"StakeholderGroupName"`
 }
 
 // CSVInputWrapper marks RiskCSVInput for CSV header preprocessing.
@@ -2495,11 +2557,11 @@ func (RiskCSVInput) CSVInputWrapper() {}
 // RiskCSVUpdateInput wraps UpdateRiskInput with CSV reference columns for bulk updates.
 type RiskCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                    string `csv:"ID"`
-	Input                 generated.UpdateRiskInput
-	ControlRefCodes       []string `csv:"ControlRefCodes"`
-	RiskDelegateGroupName string   `csv:"RiskDelegateGroupName"`
-	StakeholderGroupName  string   `csv:"StakeholderGroupName"`
+	ID string `csv:"ID"`
+	Input generated.UpdateRiskInput
+	ControlRefCodes []string `csv:"ControlRefCodes"`
+	RiskDelegateGroupName string `csv:"RiskDelegateGroupName"`
+	StakeholderGroupName string `csv:"StakeholderGroupName"`
 }
 
 // CSVInputWrapper marks RiskCSVUpdateInput for CSV header preprocessing.
@@ -2525,14 +2587,14 @@ func (SLADefinitionCSVUpdateInput) CSVInputWrapper() {}
 
 // ScanCSVInput wraps CreateScanInput with CSV reference columns.
 type ScanCSVInput struct {
-	Input                   generated.CreateScanInput
-	AssignedToGroupName     string `csv:"AssignedToGroupName"`
-	AssignedToUserEmail     string `csv:"AssignedToUserEmail"`
+	Input generated.CreateScanInput
+	AssignedToGroupName string `csv:"AssignedToGroupName"`
+	AssignedToUserEmail string `csv:"AssignedToUserEmail"`
 	GeneratedByPlatformName string `csv:"GeneratedByPlatformName"`
-	PerformedByGroupName    string `csv:"PerformedByGroupName"`
-	PerformedByUserEmail    string `csv:"PerformedByUserEmail"`
-	ReviewedByGroupName     string `csv:"ReviewedByGroupName"`
-	ReviewedByUserEmail     string `csv:"ReviewedByUserEmail"`
+	PerformedByGroupName string `csv:"PerformedByGroupName"`
+	PerformedByUserEmail string `csv:"PerformedByUserEmail"`
+	ReviewedByGroupName string `csv:"ReviewedByGroupName"`
+	ReviewedByUserEmail string `csv:"ReviewedByUserEmail"`
 }
 
 // CSVInputWrapper marks ScanCSVInput for CSV header preprocessing.
@@ -2541,15 +2603,15 @@ func (ScanCSVInput) CSVInputWrapper() {}
 // ScanCSVUpdateInput wraps UpdateScanInput with CSV reference columns for bulk updates.
 type ScanCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                      string `csv:"ID"`
-	Input                   generated.UpdateScanInput
-	AssignedToGroupName     string `csv:"AssignedToGroupName"`
-	AssignedToUserEmail     string `csv:"AssignedToUserEmail"`
+	ID string `csv:"ID"`
+	Input generated.UpdateScanInput
+	AssignedToGroupName string `csv:"AssignedToGroupName"`
+	AssignedToUserEmail string `csv:"AssignedToUserEmail"`
 	GeneratedByPlatformName string `csv:"GeneratedByPlatformName"`
-	PerformedByGroupName    string `csv:"PerformedByGroupName"`
-	PerformedByUserEmail    string `csv:"PerformedByUserEmail"`
-	ReviewedByGroupName     string `csv:"ReviewedByGroupName"`
-	ReviewedByUserEmail     string `csv:"ReviewedByUserEmail"`
+	PerformedByGroupName string `csv:"PerformedByGroupName"`
+	PerformedByUserEmail string `csv:"PerformedByUserEmail"`
+	ReviewedByGroupName string `csv:"ReviewedByGroupName"`
+	ReviewedByUserEmail string `csv:"ReviewedByUserEmail"`
 }
 
 // CSVInputWrapper marks ScanCSVUpdateInput for CSV header preprocessing.
@@ -2557,7 +2619,7 @@ func (ScanCSVUpdateInput) CSVInputWrapper() {}
 
 // ScheduledJobCSVInput wraps CreateScheduledJobInput with CSV reference columns.
 type ScheduledJobCSVInput struct {
-	Input           generated.CreateScheduledJobInput
+	Input generated.CreateScheduledJobInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2567,8 +2629,8 @@ func (ScheduledJobCSVInput) CSVInputWrapper() {}
 // ScheduledJobCSVUpdateInput wraps UpdateScheduledJobInput with CSV reference columns for bulk updates.
 type ScheduledJobCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID              string `csv:"ID"`
-	Input           generated.UpdateScheduledJobInput
+	ID string `csv:"ID"`
+	Input generated.UpdateScheduledJobInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2586,7 +2648,7 @@ func (ScheduledJobRunCSVInput) CSVInputWrapper() {}
 // ScheduledJobRunCSVUpdateInput wraps UpdateScheduledJobRunInput with CSV reference columns for bulk updates.
 type ScheduledJobRunCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateScheduledJobRunInput
 }
 
@@ -2604,7 +2666,7 @@ func (StandardCSVInput) CSVInputWrapper() {}
 // StandardCSVUpdateInput wraps UpdateStandardInput with CSV reference columns for bulk updates.
 type StandardCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateStandardInput
 }
 
@@ -2613,9 +2675,9 @@ func (StandardCSVUpdateInput) CSVInputWrapper() {}
 
 // SubcontrolCSVInput wraps CreateSubcontrolInput with CSV reference columns.
 type SubcontrolCSVInput struct {
-	Input                      generated.CreateSubcontrolInput
-	ControlDelegateGroupName   string `csv:"ControlDelegateGroupName"`
-	ControlOwnerGroupName      string `csv:"ControlOwnerGroupName"`
+	Input generated.CreateSubcontrolInput
+	ControlDelegateGroupName string `csv:"ControlDelegateGroupName"`
+	ControlOwnerGroupName string `csv:"ControlOwnerGroupName"`
 	ResponsiblePartyEntityName string `csv:"ResponsiblePartyEntityName"`
 }
 
@@ -2625,10 +2687,10 @@ func (SubcontrolCSVInput) CSVInputWrapper() {}
 // SubcontrolCSVUpdateInput wraps UpdateSubcontrolInput with CSV reference columns for bulk updates.
 type SubcontrolCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID                         string `csv:"ID"`
-	Input                      generated.UpdateSubcontrolInput
-	ControlDelegateGroupName   string `csv:"ControlDelegateGroupName"`
-	ControlOwnerGroupName      string `csv:"ControlOwnerGroupName"`
+	ID string `csv:"ID"`
+	Input generated.UpdateSubcontrolInput
+	ControlDelegateGroupName string `csv:"ControlDelegateGroupName"`
+	ControlOwnerGroupName string `csv:"ControlOwnerGroupName"`
 	ResponsiblePartyEntityName string `csv:"ResponsiblePartyEntityName"`
 }
 
@@ -2646,7 +2708,7 @@ func (SubprocessorCSVInput) CSVInputWrapper() {}
 // SubprocessorCSVUpdateInput wraps UpdateSubprocessorInput with CSV reference columns for bulk updates.
 type SubprocessorCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateSubprocessorInput
 }
 
@@ -2664,7 +2726,7 @@ func (SubscriberCSVInput) CSVInputWrapper() {}
 // SubscriberCSVUpdateInput wraps UpdateSubscriberInput with CSV reference columns for bulk updates.
 type SubscriberCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateSubscriberInput
 }
 
@@ -2682,7 +2744,7 @@ func (SystemDetailCSVInput) CSVInputWrapper() {}
 // SystemDetailCSVUpdateInput wraps UpdateSystemDetailInput with CSV reference columns for bulk updates.
 type SystemDetailCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateSystemDetailInput
 }
 
@@ -2700,7 +2762,7 @@ func (TFASettingCSVInput) CSVInputWrapper() {}
 // TFASettingCSVUpdateInput wraps UpdateTFASettingInput with CSV reference columns for bulk updates.
 type TFASettingCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTFASettingInput
 }
 
@@ -2718,7 +2780,7 @@ func (TagDefinitionCSVInput) CSVInputWrapper() {}
 // TagDefinitionCSVUpdateInput wraps UpdateTagDefinitionInput with CSV reference columns for bulk updates.
 type TagDefinitionCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTagDefinitionInput
 }
 
@@ -2727,9 +2789,9 @@ func (TagDefinitionCSVUpdateInput) CSVInputWrapper() {}
 
 // TaskCSVInput wraps CreateTaskInput with CSV reference columns.
 type TaskCSVInput struct {
-	Input           generated.CreateTaskInput
-	AssigneeEmail   string   `csv:"AssigneeEmail"`
-	AssignerEmail   string   `csv:"AssignerEmail"`
+	Input generated.CreateTaskInput
+	AssigneeEmail string `csv:"AssigneeEmail"`
+	AssignerEmail string `csv:"AssignerEmail"`
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2739,10 +2801,10 @@ func (TaskCSVInput) CSVInputWrapper() {}
 // TaskCSVUpdateInput wraps UpdateTaskInput with CSV reference columns for bulk updates.
 type TaskCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID              string `csv:"ID"`
-	Input           generated.UpdateTaskInput
-	AssigneeEmail   string   `csv:"AssigneeEmail"`
-	AssignerEmail   string   `csv:"AssignerEmail"`
+	ID string `csv:"ID"`
+	Input generated.UpdateTaskInput
+	AssigneeEmail string `csv:"AssigneeEmail"`
+	AssignerEmail string `csv:"AssignerEmail"`
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2760,7 +2822,7 @@ func (TemplateCSVInput) CSVInputWrapper() {}
 // TemplateCSVUpdateInput wraps UpdateTemplateInput with CSV reference columns for bulk updates.
 type TemplateCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTemplateInput
 }
 
@@ -2778,7 +2840,7 @@ func (TrustCenterCSVInput) CSVInputWrapper() {}
 // TrustCenterCSVUpdateInput wraps UpdateTrustCenterInput with CSV reference columns for bulk updates.
 type TrustCenterCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTrustCenterInput
 }
 
@@ -2796,7 +2858,7 @@ func (TrustCenterComplianceCSVInput) CSVInputWrapper() {}
 // TrustCenterComplianceCSVUpdateInput wraps UpdateTrustCenterComplianceInput with CSV reference columns for bulk updates.
 type TrustCenterComplianceCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTrustCenterComplianceInput
 }
 
@@ -2814,7 +2876,7 @@ func (TrustCenterDocCSVInput) CSVInputWrapper() {}
 // TrustCenterDocCSVUpdateInput wraps UpdateTrustCenterDocInput with CSV reference columns for bulk updates.
 type TrustCenterDocCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTrustCenterDocInput
 }
 
@@ -2832,7 +2894,7 @@ func (TrustCenterEntityCSVInput) CSVInputWrapper() {}
 // TrustCenterEntityCSVUpdateInput wraps UpdateTrustCenterEntityInput with CSV reference columns for bulk updates.
 type TrustCenterEntityCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTrustCenterEntityInput
 }
 
@@ -2850,7 +2912,7 @@ func (TrustCenterFAQCSVInput) CSVInputWrapper() {}
 // TrustCenterFAQCSVUpdateInput wraps UpdateTrustCenterFAQInput with CSV reference columns for bulk updates.
 type TrustCenterFAQCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTrustCenterFAQInput
 }
 
@@ -2868,7 +2930,7 @@ func (TrustCenterNDARequestCSVInput) CSVInputWrapper() {}
 // TrustCenterNDARequestCSVUpdateInput wraps UpdateTrustCenterNDARequestInput with CSV reference columns for bulk updates.
 type TrustCenterNDARequestCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTrustCenterNDARequestInput
 }
 
@@ -2886,7 +2948,7 @@ func (TrustCenterSettingCSVInput) CSVInputWrapper() {}
 // TrustCenterSettingCSVUpdateInput wraps UpdateTrustCenterSettingInput with CSV reference columns for bulk updates.
 type TrustCenterSettingCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTrustCenterSettingInput
 }
 
@@ -2904,7 +2966,7 @@ func (TrustCenterSubprocessorCSVInput) CSVInputWrapper() {}
 // TrustCenterSubprocessorCSVUpdateInput wraps UpdateTrustCenterSubprocessorInput with CSV reference columns for bulk updates.
 type TrustCenterSubprocessorCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTrustCenterSubprocessorInput
 }
 
@@ -2922,7 +2984,7 @@ func (TrustCenterWatermarkConfigCSVInput) CSVInputWrapper() {}
 // TrustCenterWatermarkConfigCSVUpdateInput wraps UpdateTrustCenterWatermarkConfigInput with CSV reference columns for bulk updates.
 type TrustCenterWatermarkConfigCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateTrustCenterWatermarkConfigInput
 }
 
@@ -2940,7 +3002,7 @@ func (UserCSVInput) CSVInputWrapper() {}
 // UserCSVUpdateInput wraps UpdateUserInput with CSV reference columns for bulk updates.
 type UserCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateUserInput
 }
 
@@ -2958,7 +3020,7 @@ func (UserSettingCSVInput) CSVInputWrapper() {}
 // UserSettingCSVUpdateInput wraps UpdateUserSettingInput with CSV reference columns for bulk updates.
 type UserSettingCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateUserSettingInput
 }
 
@@ -2967,7 +3029,7 @@ func (UserSettingCSVUpdateInput) CSVInputWrapper() {}
 
 // VulnerabilityCSVInput wraps CreateVulnerabilityInput with CSV reference columns.
 type VulnerabilityCSVInput struct {
-	Input           generated.CreateVulnerabilityInput
+	Input generated.CreateVulnerabilityInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2977,8 +3039,8 @@ func (VulnerabilityCSVInput) CSVInputWrapper() {}
 // VulnerabilityCSVUpdateInput wraps UpdateVulnerabilityInput with CSV reference columns for bulk updates.
 type VulnerabilityCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID              string `csv:"ID"`
-	Input           generated.UpdateVulnerabilityInput
+	ID string `csv:"ID"`
+	Input generated.UpdateVulnerabilityInput
 	ControlRefCodes []string `csv:"ControlRefCodes"`
 }
 
@@ -2996,7 +3058,7 @@ func (WorkflowDefinitionCSVInput) CSVInputWrapper() {}
 // WorkflowDefinitionCSVUpdateInput wraps UpdateWorkflowDefinitionInput with CSV reference columns for bulk updates.
 type WorkflowDefinitionCSVUpdateInput struct {
 	// ID is the entity ID to update
-	ID    string `csv:"ID"`
+	ID string `csv:"ID"`
 	Input generated.UpdateWorkflowDefinitionInput
 }
 
