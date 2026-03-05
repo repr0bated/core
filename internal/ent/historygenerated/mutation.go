@@ -14,7 +14,6 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/theopenlane/core/common/enums"
-	"github.com/theopenlane/core/common/integrations/state"
 	"github.com/theopenlane/core/common/models"
 	"github.com/theopenlane/core/common/openapi"
 	"github.com/theopenlane/core/internal/ent/historygenerated/actionplanhistory"
@@ -95,6 +94,7 @@ import (
 	"github.com/theopenlane/core/internal/ent/historygenerated/workfloweventhistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/workflowinstancehistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/workflowobjectrefhistory"
+	"github.com/theopenlane/core/internal/integrations/state"
 	"github.com/theopenlane/entx/history"
 )
 

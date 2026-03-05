@@ -12,7 +12,6 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"github.com/theopenlane/core/common/enums"
-	"github.com/theopenlane/core/common/integrations/state"
 	"github.com/theopenlane/core/common/models"
 	"github.com/theopenlane/core/common/openapi"
 	"github.com/theopenlane/core/internal/ent/generated/actionplan"
@@ -121,6 +120,7 @@ import (
 	"github.com/theopenlane/core/internal/ent/generated/workflowinstance"
 	"github.com/theopenlane/core/internal/ent/generated/workflowobjectref"
 	"github.com/theopenlane/core/internal/ent/generated/workflowproposal"
+	"github.com/theopenlane/core/internal/integrations/state"
 )
 
 const (
