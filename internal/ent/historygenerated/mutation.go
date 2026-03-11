@@ -15,7 +15,6 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/theopenlane/core/common/enums"
 	"github.com/theopenlane/core/common/models"
-	"github.com/theopenlane/core/common/openapi"
 	"github.com/theopenlane/core/internal/ent/historygenerated/actionplanhistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/assessmenthistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/assessmentresponsehistory"
@@ -94,7 +93,8 @@ import (
 	"github.com/theopenlane/core/internal/ent/historygenerated/workfloweventhistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/workflowinstancehistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/workflowobjectrefhistory"
-	"github.com/theopenlane/core/internal/integrations/state"
+	integrationtypes "github.com/theopenlane/core/internal/integrations/types"
+
 	"github.com/theopenlane/entx/history"
 )
 
@@ -66595,7 +66595,7 @@ type HushHistoryMutation struct {
 	kind               *string
 	secret_name        *string
 	secret_value       *string
-	credential_set     *models.CredentialSet
+	credential_set     *integrationtypes.CredentialSet
 	metadata           *map[string]interface{}
 	last_used_at       *time.Time
 	expires_at         *time.Time
@@ -67553,12 +67553,12 @@ func (m *HushHistoryMutation) ResetSecretValue() {
 }
 
 // SetCredentialSet sets the "credential_set" field.
-func (m *HushHistoryMutation) SetCredentialSet(ms models.CredentialSet) {
+func (m *HushHistoryMutation) SetCredentialSet(ms integrationtypes.CredentialSet) {
 	m.credential_set = &ms
 }
 
 // CredentialSet returns the value of the "credential_set" field in the mutation.
-func (m *HushHistoryMutation) CredentialSet() (r models.CredentialSet, exists bool) {
+func (m *HushHistoryMutation) CredentialSet() (r integrationtypes.CredentialSet, exists bool) {
 	v := m.credential_set
 	if v == nil {
 		return
@@ -67569,7 +67569,7 @@ func (m *HushHistoryMutation) CredentialSet() (r models.CredentialSet, exists bo
 // OldCredentialSet returns the old "credential_set" field's value of the HushHistory entity.
 // If the HushHistory object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *HushHistoryMutation) OldCredentialSet(ctx context.Context) (v models.CredentialSet, err error) {
+func (m *HushHistoryMutation) OldCredentialSet(ctx context.Context) (v integrationtypes.CredentialSet, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCredentialSet is only allowed on UpdateOne operations")
 	}
@@ -68090,7 +68090,7 @@ func (m *HushHistoryMutation) SetField(name string, value ent.Value) error {
 		m.SetSecretValue(v)
 		return nil
 	case hushhistory.FieldCredentialSet:
-		v, ok := value.(models.CredentialSet)
+		v, ok := value.(integrationtypes.CredentialSet)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -72649,12 +72649,12 @@ func (m *IntegrationHistoryMutation) ResetPlatformID() {
 }
 
 // SetProviderMetadata sets the "provider_metadata" field.
-func (m *IntegrationHistoryMutation) SetProviderMetadata(opm openapi.IntegrationProviderMetadata) {
+func (m *IntegrationHistoryMutation) SetProviderMetadata(opm integrationtypes.IntegrationProviderMetadata) {
 	m.provider_metadata = &opm
 }
 
 // ProviderMetadata returns the value of the "provider_metadata" field in the mutation.
-func (m *IntegrationHistoryMutation) ProviderMetadata() (r openapi.IntegrationProviderMetadata, exists bool) {
+func (m *IntegrationHistoryMutation) ProviderMetadata() (r integrationtypes.IntegrationProviderMetadata, exists bool) {
 	v := m.provider_metadata
 	if v == nil {
 		return
@@ -72665,7 +72665,7 @@ func (m *IntegrationHistoryMutation) ProviderMetadata() (r openapi.IntegrationPr
 // OldProviderMetadata returns the old "provider_metadata" field's value of the IntegrationHistory entity.
 // If the IntegrationHistory object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *IntegrationHistoryMutation) OldProviderMetadata(ctx context.Context) (v openapi.IntegrationProviderMetadata, err error) {
+func (m *IntegrationHistoryMutation) OldProviderMetadata(ctx context.Context) (v integrationtypes.IntegrationProviderMetadata, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldProviderMetadata is only allowed on UpdateOne operations")
 	}
@@ -72698,12 +72698,12 @@ func (m *IntegrationHistoryMutation) ResetProviderMetadata() {
 }
 
 // SetConfig sets the "config" field.
-func (m *IntegrationHistoryMutation) SetConfig(oc openapi.IntegrationConfig) {
+func (m *IntegrationHistoryMutation) SetConfig(oc integrationtypes.IntegrationConfig) {
 	m._config = &oc
 }
 
 // Config returns the value of the "config" field in the mutation.
-func (m *IntegrationHistoryMutation) Config() (r openapi.IntegrationConfig, exists bool) {
+func (m *IntegrationHistoryMutation) Config() (r integrationtypes.IntegrationConfig, exists bool) {
 	v := m._config
 	if v == nil {
 		return
@@ -72714,7 +72714,7 @@ func (m *IntegrationHistoryMutation) Config() (r openapi.IntegrationConfig, exis
 // OldConfig returns the old "config" field's value of the IntegrationHistory entity.
 // If the IntegrationHistory object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *IntegrationHistoryMutation) OldConfig(ctx context.Context) (v openapi.IntegrationConfig, err error) {
+func (m *IntegrationHistoryMutation) OldConfig(ctx context.Context) (v integrationtypes.IntegrationConfig, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldConfig is only allowed on UpdateOne operations")
 	}
@@ -72747,12 +72747,12 @@ func (m *IntegrationHistoryMutation) ResetConfig() {
 }
 
 // SetProviderState sets the "provider_state" field.
-func (m *IntegrationHistoryMutation) SetProviderState(sps state.IntegrationProviderState) {
+func (m *IntegrationHistoryMutation) SetProviderState(sps integrationtypes.IntegrationProviderState) {
 	m.provider_state = &sps
 }
 
 // ProviderState returns the value of the "provider_state" field in the mutation.
-func (m *IntegrationHistoryMutation) ProviderState() (r state.IntegrationProviderState, exists bool) {
+func (m *IntegrationHistoryMutation) ProviderState() (r integrationtypes.IntegrationProviderState, exists bool) {
 	v := m.provider_state
 	if v == nil {
 		return
@@ -72763,7 +72763,7 @@ func (m *IntegrationHistoryMutation) ProviderState() (r state.IntegrationProvide
 // OldProviderState returns the old "provider_state" field's value of the IntegrationHistory entity.
 // If the IntegrationHistory object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *IntegrationHistoryMutation) OldProviderState(ctx context.Context) (v state.IntegrationProviderState, err error) {
+func (m *IntegrationHistoryMutation) OldProviderState(ctx context.Context) (v integrationtypes.IntegrationProviderState, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldProviderState is only allowed on UpdateOne operations")
 	}
@@ -73579,21 +73579,21 @@ func (m *IntegrationHistoryMutation) SetField(name string, value ent.Value) erro
 		m.SetPlatformID(v)
 		return nil
 	case integrationhistory.FieldProviderMetadata:
-		v, ok := value.(openapi.IntegrationProviderMetadata)
+		v, ok := value.(integrationtypes.IntegrationProviderMetadata)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetProviderMetadata(v)
 		return nil
 	case integrationhistory.FieldConfig:
-		v, ok := value.(openapi.IntegrationConfig)
+		v, ok := value.(integrationtypes.IntegrationConfig)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetConfig(v)
 		return nil
 	case integrationhistory.FieldProviderState:
-		v, ok := value.(state.IntegrationProviderState)
+		v, ok := value.(integrationtypes.IntegrationProviderState)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

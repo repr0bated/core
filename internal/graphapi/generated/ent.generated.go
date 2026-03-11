@@ -97126,7 +97126,7 @@ func (ec *executionContext) _Hush_credentialSet(ctx context.Context, field graph
 			return obj.CredentialSet, nil
 		},
 		nil,
-		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet,
+		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋinternalᚋintegrationsᚋtypesᚐCredentialSet,
 		true,
 		false,
 	)
@@ -254823,7 +254823,7 @@ func (ec *executionContext) unmarshalInputCreateHushInput(ctx context.Context, o
 			it.SecretValue = data
 		case "credentialSet":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("credentialSet"))
-			data, err := ec.unmarshalOCredentialSet2ᚖgithubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet(ctx, v)
+			data, err := ec.unmarshalOCredentialSet2ᚖgithubᚗcomᚋtheopenlaneᚋcoreᚋinternalᚋintegrationsᚋtypesᚐCredentialSet(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -409775,7 +409775,7 @@ func (ec *executionContext) unmarshalInputUpdateHushInput(ctx context.Context, o
 			it.ClearKind = data
 		case "credentialSet":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("credentialSet"))
-			data, err := ec.unmarshalOCredentialSet2ᚖgithubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet(ctx, v)
+			data, err := ec.unmarshalOCredentialSet2ᚖgithubᚗcomᚋtheopenlaneᚋcoreᚋinternalᚋintegrationsᚋtypesᚐCredentialSet(ctx, v)
 			if err != nil {
 				return it, err
 			}

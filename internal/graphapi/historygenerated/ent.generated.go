@@ -33289,7 +33289,7 @@ func (ec *executionContext) _HushHistory_credentialSet(ctx context.Context, fiel
 			return obj.CredentialSet, nil
 		},
 		nil,
-		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet,
+		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋinternalᚋintegrationsᚋtypesᚐCredentialSet,
 		true,
 		false,
 	)
