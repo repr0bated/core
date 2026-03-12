@@ -13,7 +13,6 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/theopenlane/core/common/enums"
 	"github.com/theopenlane/core/common/models"
-	integrationtypes "github.com/theopenlane/core/internal/integrations/types"
 	"github.com/theopenlane/core/internal/ent/generated/actionplan"
 	"github.com/theopenlane/core/internal/ent/generated/apitoken"
 	"github.com/theopenlane/core/internal/ent/generated/assessment"
@@ -120,6 +119,7 @@ import (
 	"github.com/theopenlane/core/internal/ent/generated/workflowinstance"
 	"github.com/theopenlane/core/internal/ent/generated/workflowobjectref"
 	"github.com/theopenlane/core/internal/ent/generated/workflowproposal"
+	integrationtypes "github.com/theopenlane/core/internal/integrations/types"
 )
 
 const (
@@ -99293,7 +99293,7 @@ type HushMutation struct {
 	kind                *string
 	secret_name         *string
 	secret_value        *string
-	credential_set      *integrationtypes.CredentialSet
+	credential_set      *models.CredentialSet
 	metadata            *map[string]interface{}
 	last_used_at        *time.Time
 	expires_at          *time.Time
@@ -100141,12 +100141,12 @@ func (m *HushMutation) ResetSecretValue() {
 }
 
 // SetCredentialSet sets the "credential_set" field.
-func (m *HushMutation) SetCredentialSet(ms integrationtypes.CredentialSet) {
+func (m *HushMutation) SetCredentialSet(ms models.CredentialSet) {
 	m.credential_set = &ms
 }
 
 // CredentialSet returns the value of the "credential_set" field in the mutation.
-func (m *HushMutation) CredentialSet() (r integrationtypes.CredentialSet, exists bool) {
+func (m *HushMutation) CredentialSet() (r models.CredentialSet, exists bool) {
 	v := m.credential_set
 	if v == nil {
 		return
@@ -100157,7 +100157,7 @@ func (m *HushMutation) CredentialSet() (r integrationtypes.CredentialSet, exists
 // OldCredentialSet returns the old "credential_set" field's value of the Hush entity.
 // If the Hush object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *HushMutation) OldCredentialSet(ctx context.Context) (v integrationtypes.CredentialSet, err error) {
+func (m *HushMutation) OldCredentialSet(ctx context.Context) (v models.CredentialSet, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCredentialSet is only allowed on UpdateOne operations")
 	}
@@ -100825,7 +100825,7 @@ func (m *HushMutation) SetField(name string, value ent.Value) error {
 		m.SetSecretValue(v)
 		return nil
 	case hush.FieldCredentialSet:
-		v, ok := value.(integrationtypes.CredentialSet)
+		v, ok := value.(models.CredentialSet)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

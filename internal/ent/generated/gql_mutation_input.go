@@ -7,7 +7,6 @@ import (
 
 	"github.com/theopenlane/core/common/enums"
 	"github.com/theopenlane/core/common/models"
-	integrationtypes "github.com/theopenlane/core/internal/integrations/types"
 )
 
 // CreateAPITokenInput represents a mutation input for creating apitokens.
@@ -11643,7 +11642,7 @@ type CreateHushInput struct {
 	Kind             *string
 	SecretName       *string
 	SecretValue      *string
-	CredentialSet    *integrationtypes.CredentialSet
+	CredentialSet    *models.CredentialSet
 	Metadata         map[string]interface{}
 	LastUsedAt       *time.Time
 	ExpiresAt        *time.Time
@@ -11718,7 +11717,7 @@ type UpdateHushInput struct {
 	ClearKind             bool
 	Kind                  *string
 	ClearCredentialSet    bool
-	CredentialSet         *integrationtypes.CredentialSet
+	CredentialSet         *models.CredentialSet
 	ClearMetadata         bool
 	Metadata              map[string]interface{}
 	ClearLastUsedAt       bool
