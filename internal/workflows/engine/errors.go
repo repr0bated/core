@@ -79,6 +79,24 @@ var (
 	ErrNotificationTemplateNotFound = errors.New("notification template not found")
 	// ErrNotificationTemplateReferenceConflict is returned when both template_id and template_key are provided
 	ErrNotificationTemplateReferenceConflict = errors.New("notification template reference conflict")
+	// ErrSendEmailTemplateRequired is returned when send_email action has no template reference
+	ErrSendEmailTemplateRequired = errors.New("send_email action requires template_id or template_key")
+	// ErrSendEmailTemplateReferenceConflict is returned when send_email action has both template_id and template_key
+	ErrSendEmailTemplateReferenceConflict = errors.New("send_email template reference conflict")
+	// ErrSendEmailNoRecipients is returned when send_email action resolves no recipient emails
+	ErrSendEmailNoRecipients = errors.New("send_email action has no resolved recipients")
+	// ErrSendEmailSenderMissing is returned when send_email action cannot resolve a sender address
+	ErrSendEmailSenderMissing = errors.New("send_email action sender address is missing")
+	// ErrSendEmailJobClientRequired is returned when the job queue client is missing for send_email actions
+	ErrSendEmailJobClientRequired = errors.New("send_email action requires job client")
+	// ErrSendEmailTemplateComposeFailed is returned when template composition fails for send_email
+	ErrSendEmailTemplateComposeFailed = errors.New("send_email template composition failed")
+	// ErrSendEmailQueueInsertFailed is returned when enqueueing a send_email job fails
+	ErrSendEmailQueueInsertFailed = errors.New("send_email queue insert failed")
+	// ErrSendEmailUserLookupFailed is returned when resolving target user emails fails
+	ErrSendEmailUserLookupFailed = errors.New("send_email user lookup failed")
+	// ErrSendEmailRecipientTemplateInvalid is returned when recipient expression rendering fails
+	ErrSendEmailRecipientTemplateInvalid = errors.New("send_email recipient template invalid")
 	// ErrNotificationTemplateDataInvalid is returned when template data fails schema validation
 	ErrNotificationTemplateDataInvalid = errors.New("notification template data invalid")
 	// ErrNotificationTemplateChannelMismatch is returned when template channel does not match requested channel
@@ -127,4 +145,6 @@ var (
 	ErrReviewNoTargets = errors.New("review action has no resolved targets")
 	// ErrTemplateRenderDepthExceeded is returned when template rendering exceeds the maximum depth
 	ErrTemplateRenderDepthExceeded = errors.New("template render depth exceeded")
+	// ErrFailedToLoadWorkflowDefinition is returned when the workflow definition cannot be loaded for an instance
+	ErrFailedToLoadWorkflowDefinition = errors.New("failed to load workflow definition")
 )
