@@ -230,6 +230,7 @@ func (EmailTemplate) Modules() []models.OrgModule {
 // Hooks of the EmailTemplate.
 func (EmailTemplate) Hooks() []ent.Hook {
 	return []ent.Hook{
+		hooks.HookExtractEmailTemplateVariables(),
 		hooks.HookEmailTemplateSanitize(),
 	}
 }

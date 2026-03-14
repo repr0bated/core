@@ -234,6 +234,7 @@ func (NotificationTemplate) Modules() []models.OrgModule {
 // Hooks of the NotificationTemplate.
 func (NotificationTemplate) Hooks() []ent.Hook {
 	return []ent.Hook{
+		hooks.HookExtractNotificationTemplateVariables(),
 		hooks.HookNotificationTemplateSanitize(),
 	}
 }
