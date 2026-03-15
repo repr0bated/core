@@ -93,7 +93,7 @@ import (
 	"github.com/theopenlane/core/internal/ent/historygenerated/workfloweventhistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/workflowinstancehistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/workflowobjectrefhistory"
-	integrationtypes "github.com/theopenlane/core/internal/integrations/types"
+	integrationtypes "github.com/theopenlane/core/internal/integrations/schema"
 
 	"github.com/theopenlane/entx/history"
 )
@@ -71424,9 +71424,9 @@ type IntegrationHistoryMutation struct {
 	kind                       *string
 	integration_type           *string
 	platform_id                *string
-	provider_metadata          *openapi.IntegrationProviderMetadata
-	_config                    *openapi.IntegrationConfig
-	provider_state             *state.IntegrationProviderState
+	provider_metadata          *integrationtypes.IntegrationProviderMetadata
+	_config                    *integrationtypes.IntegrationConfig
+	provider_state             *integrationtypes.IntegrationProviderState
 	metadata                   *map[string]interface{}
 	definition_id              *string
 	definition_version         *string
