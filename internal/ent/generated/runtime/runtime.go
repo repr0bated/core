@@ -674,6 +674,7 @@ func init() {
 	campaignMixinHooks5 := campaignMixin[5].Hooks()
 	campaignMixinHooks6 := campaignMixin[6].Hooks()
 	campaignMixinHooks8 := campaignMixin[8].Hooks()
+	campaignHooks := schema.Campaign{}.Hooks()
 
 	campaign.Hooks[1] = campaignMixinHooks0[0]
 
@@ -694,6 +695,8 @@ func init() {
 	campaign.Hooks[9] = campaignMixinHooks6[2]
 
 	campaign.Hooks[10] = campaignMixinHooks8[0]
+
+	campaign.Hooks[11] = campaignHooks[0]
 	campaignMixinInters1 := campaignMixin[1].Interceptors()
 	campaignMixinInters5 := campaignMixin[5].Interceptors()
 	campaign.Interceptors[0] = campaignMixinInters1[0]
@@ -2203,6 +2206,10 @@ func init() {
 	emailtemplate.Hooks[7] = emailtemplateMixinHooks6[1]
 
 	emailtemplate.Hooks[8] = emailtemplateHooks[0]
+
+	emailtemplate.Hooks[9] = emailtemplateHooks[1]
+
+	emailtemplate.Hooks[10] = emailtemplateHooks[2]
 	emailtemplateMixinInters1 := emailtemplateMixin[1].Interceptors()
 	emailtemplateMixinInters5 := emailtemplateMixin[5].Interceptors()
 	emailtemplate.Interceptors[0] = emailtemplateMixinInters1[0]
@@ -4816,6 +4823,10 @@ func init() {
 	notificationtemplate.Hooks[7] = notificationtemplateMixinHooks6[1]
 
 	notificationtemplate.Hooks[8] = notificationtemplateHooks[0]
+
+	notificationtemplate.Hooks[9] = notificationtemplateHooks[1]
+
+	notificationtemplate.Hooks[10] = notificationtemplateHooks[2]
 	notificationtemplateMixinInters1 := notificationtemplateMixin[1].Interceptors()
 	notificationtemplateMixinInters5 := notificationtemplateMixin[5].Interceptors()
 	notificationtemplate.Interceptors[0] = notificationtemplateMixinInters1[0]
