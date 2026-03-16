@@ -113,12 +113,7 @@ func RelationsForService() ([]string, error) {
 				continue
 			}
 
-			// for _, ref := range meta.GetDirectlyRelatedUserTypes() {
-			// if ref.Type == "service" {
 			relations = append(relations, rel)
-			// break
-			// }
-			// }
 		}
 	}
 
