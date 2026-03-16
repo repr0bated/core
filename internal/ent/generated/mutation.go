@@ -119,7 +119,7 @@ import (
 	"github.com/theopenlane/core/internal/ent/generated/workflowinstance"
 	"github.com/theopenlane/core/internal/ent/generated/workflowobjectref"
 	"github.com/theopenlane/core/internal/ent/generated/workflowproposal"
-	integrationtypes "github.com/theopenlane/core/internal/integrations/schema"
+	integrationtypes "github.com/theopenlane/core/common/openapi"
 )
 
 const (

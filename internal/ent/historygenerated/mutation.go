@@ -93,7 +93,7 @@ import (
 	"github.com/theopenlane/core/internal/ent/historygenerated/workfloweventhistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/workflowinstancehistory"
 	"github.com/theopenlane/core/internal/ent/historygenerated/workflowobjectrefhistory"
-	integrationtypes "github.com/theopenlane/core/internal/integrations/schema"
+	integrationtypes "github.com/theopenlane/core/common/openapi"
 
 	"github.com/theopenlane/entx/history"
 )
