@@ -33289,7 +33289,7 @@ func (ec *executionContext) _HushHistory_credentialSet(ctx context.Context, fiel
 			return obj.CredentialSet, nil
 		},
 		nil,
-		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋinternalᚋintegrationsᚋtypesᚐCredentialSet,
+		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet,
 		true,
 		false,
 	)
@@ -42710,6 +42710,35 @@ func (ec *executionContext) fieldContext_NotificationTemplateHistory_integration
 	return fc, nil
 }
 
+func (ec *executionContext) _NotificationTemplateHistory_destinations(ctx context.Context, field graphql.CollectedField, obj *historygenerated.NotificationTemplateHistory) (ret graphql.Marshaler) {
+	return graphql.ResolveField(
+		ctx,
+		ec.OperationContext,
+		field,
+		ec.fieldContext_NotificationTemplateHistory_destinations,
+		func(ctx context.Context) (any, error) {
+			return obj.Destinations, nil
+		},
+		nil,
+		ec.marshalOString2ᚕstringᚄ,
+		true,
+		false,
+	)
+}
+
+func (ec *executionContext) fieldContext_NotificationTemplateHistory_destinations(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "NotificationTemplateHistory",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _NotificationTemplateHistory_workflowDefinitionID(ctx context.Context, field graphql.CollectedField, obj *historygenerated.NotificationTemplateHistory) (ret graphql.Marshaler) {
 	return graphql.ResolveField(
 		ctx,
@@ -43256,6 +43285,8 @@ func (ec *executionContext) fieldContext_NotificationTemplateHistoryEdge_node(_ 
 				return ec.fieldContext_NotificationTemplateHistory_topicPattern(ctx, field)
 			case "integrationID":
 				return ec.fieldContext_NotificationTemplateHistory_integrationID(ctx, field)
+			case "destinations":
+				return ec.fieldContext_NotificationTemplateHistory_destinations(ctx, field)
 			case "workflowDefinitionID":
 				return ec.fieldContext_NotificationTemplateHistory_workflowDefinitionID(ctx, field)
 			case "emailTemplateID":
@@ -248643,6 +248674,8 @@ func (ec *executionContext) _NotificationTemplateHistory(ctx context.Context, se
 			}
 		case "integrationID":
 			out.Values[i] = ec._NotificationTemplateHistory_integrationID(ctx, field, obj)
+		case "destinations":
+			out.Values[i] = ec._NotificationTemplateHistory_destinations(ctx, field, obj)
 		case "workflowDefinitionID":
 			out.Values[i] = ec._NotificationTemplateHistory_workflowDefinitionID(ctx, field, obj)
 		case "emailTemplateID":

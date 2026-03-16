@@ -13,6 +13,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/theopenlane/core/common/enums"
 	"github.com/theopenlane/core/common/models"
+	"github.com/theopenlane/core/common/openapi"
 	"github.com/theopenlane/core/internal/ent/generated/actionplan"
 	"github.com/theopenlane/core/internal/ent/generated/apitoken"
 	"github.com/theopenlane/core/internal/ent/generated/assessment"
@@ -119,7 +120,6 @@ import (
 	"github.com/theopenlane/core/internal/ent/generated/workflowinstance"
 	"github.com/theopenlane/core/internal/ent/generated/workflowobjectref"
 	"github.com/theopenlane/core/internal/ent/generated/workflowproposal"
-	integrationtypes "github.com/theopenlane/core/common/openapi"
 )
 
 const (
@@ -107352,9 +107352,9 @@ type IntegrationMutation struct {
 	description                   *string
 	kind                          *string
 	integration_type              *string
-	provider_metadata             *integrationtypes.IntegrationProviderMetadata
-	_config                       *integrationtypes.IntegrationConfig
-	provider_state                *integrationtypes.IntegrationProviderState
+	provider_metadata             *openapi.IntegrationProviderMetadata
+	_config                       *openapi.IntegrationConfig
+	provider_state                *openapi.IntegrationProviderState
 	metadata                      *map[string]interface{}
 	definition_id                 *string
 	definition_version            *string
@@ -108518,12 +108518,12 @@ func (m *IntegrationMutation) ResetPlatformID() {
 }
 
 // SetProviderMetadata sets the "provider_metadata" field.
-func (m *IntegrationMutation) SetProviderMetadata(opm integrationtypes.IntegrationProviderMetadata) {
+func (m *IntegrationMutation) SetProviderMetadata(opm openapi.IntegrationProviderMetadata) {
 	m.provider_metadata = &opm
 }
 
 // ProviderMetadata returns the value of the "provider_metadata" field in the mutation.
-func (m *IntegrationMutation) ProviderMetadata() (r integrationtypes.IntegrationProviderMetadata, exists bool) {
+func (m *IntegrationMutation) ProviderMetadata() (r openapi.IntegrationProviderMetadata, exists bool) {
 	v := m.provider_metadata
 	if v == nil {
 		return
@@ -108534,7 +108534,7 @@ func (m *IntegrationMutation) ProviderMetadata() (r integrationtypes.Integration
 // OldProviderMetadata returns the old "provider_metadata" field's value of the Integration entity.
 // If the Integration object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *IntegrationMutation) OldProviderMetadata(ctx context.Context) (v integrationtypes.IntegrationProviderMetadata, err error) {
+func (m *IntegrationMutation) OldProviderMetadata(ctx context.Context) (v openapi.IntegrationProviderMetadata, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldProviderMetadata is only allowed on UpdateOne operations")
 	}
@@ -108567,12 +108567,12 @@ func (m *IntegrationMutation) ResetProviderMetadata() {
 }
 
 // SetConfig sets the "config" field.
-func (m *IntegrationMutation) SetConfig(oc integrationtypes.IntegrationConfig) {
+func (m *IntegrationMutation) SetConfig(oc openapi.IntegrationConfig) {
 	m._config = &oc
 }
 
 // Config returns the value of the "config" field in the mutation.
-func (m *IntegrationMutation) Config() (r integrationtypes.IntegrationConfig, exists bool) {
+func (m *IntegrationMutation) Config() (r openapi.IntegrationConfig, exists bool) {
 	v := m._config
 	if v == nil {
 		return
@@ -108583,7 +108583,7 @@ func (m *IntegrationMutation) Config() (r integrationtypes.IntegrationConfig, ex
 // OldConfig returns the old "config" field's value of the Integration entity.
 // If the Integration object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *IntegrationMutation) OldConfig(ctx context.Context) (v integrationtypes.IntegrationConfig, err error) {
+func (m *IntegrationMutation) OldConfig(ctx context.Context) (v openapi.IntegrationConfig, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldConfig is only allowed on UpdateOne operations")
 	}
@@ -108616,12 +108616,12 @@ func (m *IntegrationMutation) ResetConfig() {
 }
 
 // SetProviderState sets the "provider_state" field.
-func (m *IntegrationMutation) SetProviderState(sps integrationtypes.IntegrationProviderState) {
-	m.provider_state = &sps
+func (m *IntegrationMutation) SetProviderState(ops openapi.IntegrationProviderState) {
+	m.provider_state = &ops
 }
 
 // ProviderState returns the value of the "provider_state" field in the mutation.
-func (m *IntegrationMutation) ProviderState() (r integrationtypes.IntegrationProviderState, exists bool) {
+func (m *IntegrationMutation) ProviderState() (r openapi.IntegrationProviderState, exists bool) {
 	v := m.provider_state
 	if v == nil {
 		return
@@ -108632,7 +108632,7 @@ func (m *IntegrationMutation) ProviderState() (r integrationtypes.IntegrationPro
 // OldProviderState returns the old "provider_state" field's value of the Integration entity.
 // If the Integration object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *IntegrationMutation) OldProviderState(ctx context.Context) (v integrationtypes.IntegrationProviderState, err error) {
+func (m *IntegrationMutation) OldProviderState(ctx context.Context) (v openapi.IntegrationProviderState, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldProviderState is only allowed on UpdateOne operations")
 	}
@@ -110486,21 +110486,21 @@ func (m *IntegrationMutation) SetField(name string, value ent.Value) error {
 		m.SetPlatformID(v)
 		return nil
 	case integration.FieldProviderMetadata:
-		v, ok := value.(integrationtypes.IntegrationProviderMetadata)
+		v, ok := value.(openapi.IntegrationProviderMetadata)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetProviderMetadata(v)
 		return nil
 	case integration.FieldConfig:
-		v, ok := value.(integrationtypes.IntegrationConfig)
+		v, ok := value.(openapi.IntegrationConfig)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetConfig(v)
 		return nil
 	case integration.FieldProviderState:
-		v, ok := value.(integrationtypes.IntegrationProviderState)
+		v, ok := value.(openapi.IntegrationProviderState)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -140382,6 +140382,8 @@ type NotificationTemplateMutation struct {
 	format                     *enums.NotificationTemplateFormat
 	locale                     *string
 	topic_pattern              *string
+	destinations               *[]string
+	appenddestinations         []string
 	title_template             *string
 	subject_template           *string
 	body_template              *string
@@ -141368,6 +141370,71 @@ func (m *NotificationTemplateMutation) ResetIntegrationID() {
 	delete(m.clearedFields, notificationtemplate.FieldIntegrationID)
 }
 
+// SetDestinations sets the "destinations" field.
+func (m *NotificationTemplateMutation) SetDestinations(s []string) {
+	m.destinations = &s
+	m.appenddestinations = nil
+}
+
+// Destinations returns the value of the "destinations" field in the mutation.
+func (m *NotificationTemplateMutation) Destinations() (r []string, exists bool) {
+	v := m.destinations
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDestinations returns the old "destinations" field's value of the NotificationTemplate entity.
+// If the NotificationTemplate object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *NotificationTemplateMutation) OldDestinations(ctx context.Context) (v []string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDestinations is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDestinations requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDestinations: %w", err)
+	}
+	return oldValue.Destinations, nil
+}
+
+// AppendDestinations adds s to the "destinations" field.
+func (m *NotificationTemplateMutation) AppendDestinations(s []string) {
+	m.appenddestinations = append(m.appenddestinations, s...)
+}
+
+// AppendedDestinations returns the list of values that were appended to the "destinations" field in this mutation.
+func (m *NotificationTemplateMutation) AppendedDestinations() ([]string, bool) {
+	if len(m.appenddestinations) == 0 {
+		return nil, false
+	}
+	return m.appenddestinations, true
+}
+
+// ClearDestinations clears the value of the "destinations" field.
+func (m *NotificationTemplateMutation) ClearDestinations() {
+	m.destinations = nil
+	m.appenddestinations = nil
+	m.clearedFields[notificationtemplate.FieldDestinations] = struct{}{}
+}
+
+// DestinationsCleared returns if the "destinations" field was cleared in this mutation.
+func (m *NotificationTemplateMutation) DestinationsCleared() bool {
+	_, ok := m.clearedFields[notificationtemplate.FieldDestinations]
+	return ok
+}
+
+// ResetDestinations resets all changes to the "destinations" field.
+func (m *NotificationTemplateMutation) ResetDestinations() {
+	m.destinations = nil
+	m.appenddestinations = nil
+	delete(m.clearedFields, notificationtemplate.FieldDestinations)
+}
+
 // SetWorkflowDefinitionID sets the "workflow_definition_id" field.
 func (m *NotificationTemplateMutation) SetWorkflowDefinitionID(s string) {
 	m.workflow_definition = &s
@@ -142195,7 +142262,7 @@ func (m *NotificationTemplateMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *NotificationTemplateMutation) Fields() []string {
-	fields := make([]string, 0, 32)
+	fields := make([]string, 0, 33)
 	if m.created_at != nil {
 		fields = append(fields, notificationtemplate.FieldCreatedAt)
 	}
@@ -142252,6 +142319,9 @@ func (m *NotificationTemplateMutation) Fields() []string {
 	}
 	if m.integration != nil {
 		fields = append(fields, notificationtemplate.FieldIntegrationID)
+	}
+	if m.destinations != nil {
+		fields = append(fields, notificationtemplate.FieldDestinations)
 	}
 	if m.workflow_definition != nil {
 		fields = append(fields, notificationtemplate.FieldWorkflowDefinitionID)
@@ -142338,6 +142408,8 @@ func (m *NotificationTemplateMutation) Field(name string) (ent.Value, bool) {
 		return m.TopicPattern()
 	case notificationtemplate.FieldIntegrationID:
 		return m.IntegrationID()
+	case notificationtemplate.FieldDestinations:
+		return m.Destinations()
 	case notificationtemplate.FieldWorkflowDefinitionID:
 		return m.WorkflowDefinitionID()
 	case notificationtemplate.FieldEmailTemplateID:
@@ -142411,6 +142483,8 @@ func (m *NotificationTemplateMutation) OldField(ctx context.Context, name string
 		return m.OldTopicPattern(ctx)
 	case notificationtemplate.FieldIntegrationID:
 		return m.OldIntegrationID(ctx)
+	case notificationtemplate.FieldDestinations:
+		return m.OldDestinations(ctx)
 	case notificationtemplate.FieldWorkflowDefinitionID:
 		return m.OldWorkflowDefinitionID(ctx)
 	case notificationtemplate.FieldEmailTemplateID:
@@ -142578,6 +142652,13 @@ func (m *NotificationTemplateMutation) SetField(name string, value ent.Value) er
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetIntegrationID(v)
+		return nil
+	case notificationtemplate.FieldDestinations:
+		v, ok := value.([]string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDestinations(v)
 		return nil
 	case notificationtemplate.FieldWorkflowDefinitionID:
 		v, ok := value.(string)
@@ -142754,6 +142835,9 @@ func (m *NotificationTemplateMutation) ClearedFields() []string {
 	if m.FieldCleared(notificationtemplate.FieldIntegrationID) {
 		fields = append(fields, notificationtemplate.FieldIntegrationID)
 	}
+	if m.FieldCleared(notificationtemplate.FieldDestinations) {
+		fields = append(fields, notificationtemplate.FieldDestinations)
+	}
 	if m.FieldCleared(notificationtemplate.FieldWorkflowDefinitionID) {
 		fields = append(fields, notificationtemplate.FieldWorkflowDefinitionID)
 	}
@@ -142839,6 +142923,9 @@ func (m *NotificationTemplateMutation) ClearField(name string) error {
 		return nil
 	case notificationtemplate.FieldIntegrationID:
 		m.ClearIntegrationID()
+		return nil
+	case notificationtemplate.FieldDestinations:
+		m.ClearDestinations()
 		return nil
 	case notificationtemplate.FieldWorkflowDefinitionID:
 		m.ClearWorkflowDefinitionID()
@@ -142937,6 +143024,9 @@ func (m *NotificationTemplateMutation) ResetField(name string) error {
 		return nil
 	case notificationtemplate.FieldIntegrationID:
 		m.ResetIntegrationID()
+		return nil
+	case notificationtemplate.FieldDestinations:
+		m.ResetDestinations()
 		return nil
 	case notificationtemplate.FieldWorkflowDefinitionID:
 		m.ResetWorkflowDefinitionID()

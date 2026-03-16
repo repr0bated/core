@@ -14118,6 +14118,10 @@ func (m *NotificationTemplateMutation) CreateHistoryFromCreate(ctx context.Conte
 		create = create.SetIntegrationID(integrationID)
 	}
 
+	if destinations, exists := m.Destinations(); exists {
+		create = create.SetDestinations(destinations)
+	}
+
 	if workflowDefinitionID, exists := m.WorkflowDefinitionID(); exists {
 		create = create.SetWorkflowDefinitionID(workflowDefinitionID)
 	}
@@ -14315,6 +14319,12 @@ func (m *NotificationTemplateMutation) CreateHistoryFromUpdate(ctx context.Conte
 			create = create.SetIntegrationID(notificationtemplate.IntegrationID)
 		}
 
+		if destinations, exists := m.Destinations(); exists {
+			create = create.SetDestinations(destinations)
+		} else {
+			create = create.SetDestinations(notificationtemplate.Destinations)
+		}
+
 		if workflowDefinitionID, exists := m.WorkflowDefinitionID(); exists {
 			create = create.SetWorkflowDefinitionID(workflowDefinitionID)
 		} else {
@@ -14447,6 +14457,7 @@ func (m *NotificationTemplateMutation) CreateHistoryFromDelete(ctx context.Conte
 			SetLocale(notificationtemplate.Locale).
 			SetTopicPattern(notificationtemplate.TopicPattern).
 			SetIntegrationID(notificationtemplate.IntegrationID).
+			SetDestinations(notificationtemplate.Destinations).
 			SetWorkflowDefinitionID(notificationtemplate.WorkflowDefinitionID).
 			SetEmailTemplateID(notificationtemplate.EmailTemplateID).
 			SetTitleTemplate(notificationtemplate.TitleTemplate).

@@ -60,6 +60,9 @@ type IdentityHolderResolver interface {
 	ActiveWorkflowInstances(ctx context.Context, obj *generated.IdentityHolder) ([]*generated.WorkflowInstance, error)
 	WorkflowTimeline(ctx context.Context, obj *generated.IdentityHolder, after *entgql.Cursor[string], first *int, before *entgql.Cursor[string], last *int, orderBy []*generated.WorkflowEventOrder, where *generated.WorkflowEventWhereInput, includeEmitFailures *bool) (*generated.WorkflowEventConnection, error)
 }
+type IntegrationResolver interface {
+	WebhookURLs(ctx context.Context, obj *generated.Integration) (map[string]any, error)
+}
 type InternalPolicyResolver interface {
 	HasPendingWorkflow(ctx context.Context, obj *generated.InternalPolicy) (bool, error)
 	HasWorkflowHistory(ctx context.Context, obj *generated.InternalPolicy) (bool, error)
@@ -60995,6 +60998,8 @@ func (ec *executionContext) fieldContext_DirectoryAccount_integration(_ context.
 				return ec.fieldContext_Integration_emailTemplates(ctx, field)
 			case "entities":
 				return ec.fieldContext_Integration_entities(ctx, field)
+			case "webhookURLs":
+				return ec.fieldContext_Integration_webhookURLs(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Integration", field.Name)
 		},
@@ -63444,6 +63449,8 @@ func (ec *executionContext) fieldContext_DirectoryGroup_integration(_ context.Co
 				return ec.fieldContext_Integration_emailTemplates(ctx, field)
 			case "entities":
 				return ec.fieldContext_Integration_entities(ctx, field)
+			case "webhookURLs":
+				return ec.fieldContext_Integration_webhookURLs(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Integration", field.Name)
 		},
@@ -65379,6 +65386,8 @@ func (ec *executionContext) fieldContext_DirectoryMembership_integration(_ conte
 				return ec.fieldContext_Integration_emailTemplates(ctx, field)
 			case "entities":
 				return ec.fieldContext_Integration_entities(ctx, field)
+			case "webhookURLs":
+				return ec.fieldContext_Integration_webhookURLs(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Integration", field.Name)
 		},
@@ -67466,6 +67475,8 @@ func (ec *executionContext) fieldContext_DirectorySyncRun_integration(_ context.
 				return ec.fieldContext_Integration_emailTemplates(ctx, field)
 			case "entities":
 				return ec.fieldContext_Integration_entities(ctx, field)
+			case "webhookURLs":
+				return ec.fieldContext_Integration_webhookURLs(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Integration", field.Name)
 		},
@@ -73494,6 +73505,8 @@ func (ec *executionContext) fieldContext_EmailTemplate_integration(_ context.Con
 				return ec.fieldContext_Integration_emailTemplates(ctx, field)
 			case "entities":
 				return ec.fieldContext_Integration_entities(ctx, field)
+			case "webhookURLs":
+				return ec.fieldContext_Integration_webhookURLs(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Integration", field.Name)
 		},
@@ -97126,7 +97139,7 @@ func (ec *executionContext) _Hush_credentialSet(ctx context.Context, field graph
 			return obj.CredentialSet, nil
 		},
 		nil,
-		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋinternalᚋintegrationsᚋtypesᚐCredentialSet,
+		ec.marshalOCredentialSet2githubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet,
 		true,
 		false,
 	)
@@ -103513,6 +103526,35 @@ func (ec *executionContext) fieldContext_Integration_entities(ctx context.Contex
 	return fc, nil
 }
 
+func (ec *executionContext) _Integration_webhookURLs(ctx context.Context, field graphql.CollectedField, obj *generated.Integration) (ret graphql.Marshaler) {
+	return graphql.ResolveField(
+		ctx,
+		ec.OperationContext,
+		field,
+		ec.fieldContext_Integration_webhookURLs,
+		func(ctx context.Context) (any, error) {
+			return ec.Resolvers.Integration().WebhookURLs(ctx, obj)
+		},
+		nil,
+		ec.marshalOMap2map,
+		true,
+		false,
+	)
+}
+
+func (ec *executionContext) fieldContext_Integration_webhookURLs(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Integration",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Map does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _IntegrationConnection_edges(ctx context.Context, field graphql.CollectedField, obj *generated.IntegrationConnection) (ret graphql.Marshaler) {
 	return graphql.ResolveField(
 		ctx,
@@ -103732,6 +103774,8 @@ func (ec *executionContext) fieldContext_IntegrationEdge_node(_ context.Context,
 				return ec.fieldContext_Integration_emailTemplates(ctx, field)
 			case "entities":
 				return ec.fieldContext_Integration_entities(ctx, field)
+			case "webhookURLs":
+				return ec.fieldContext_Integration_webhookURLs(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Integration", field.Name)
 		},
@@ -118879,6 +118923,8 @@ func (ec *executionContext) fieldContext_Notification_notificationTemplate(_ con
 				return ec.fieldContext_NotificationTemplate_topicPattern(ctx, field)
 			case "integrationID":
 				return ec.fieldContext_NotificationTemplate_integrationID(ctx, field)
+			case "destinations":
+				return ec.fieldContext_NotificationTemplate_destinations(ctx, field)
 			case "workflowDefinitionID":
 				return ec.fieldContext_NotificationTemplate_workflowDefinitionID(ctx, field)
 			case "emailTemplateID":
@@ -120352,6 +120398,8 @@ func (ec *executionContext) fieldContext_NotificationPreference_notificationTemp
 				return ec.fieldContext_NotificationTemplate_topicPattern(ctx, field)
 			case "integrationID":
 				return ec.fieldContext_NotificationTemplate_integrationID(ctx, field)
+			case "destinations":
+				return ec.fieldContext_NotificationTemplate_destinations(ctx, field)
 			case "workflowDefinitionID":
 				return ec.fieldContext_NotificationTemplate_workflowDefinitionID(ctx, field)
 			case "emailTemplateID":
@@ -121176,6 +121224,35 @@ func (ec *executionContext) fieldContext_NotificationTemplate_integrationID(_ co
 	return fc, nil
 }
 
+func (ec *executionContext) _NotificationTemplate_destinations(ctx context.Context, field graphql.CollectedField, obj *generated.NotificationTemplate) (ret graphql.Marshaler) {
+	return graphql.ResolveField(
+		ctx,
+		ec.OperationContext,
+		field,
+		ec.fieldContext_NotificationTemplate_destinations,
+		func(ctx context.Context) (any, error) {
+			return obj.Destinations, nil
+		},
+		nil,
+		ec.marshalOString2ᚕstringᚄ,
+		true,
+		false,
+	)
+}
+
+func (ec *executionContext) fieldContext_NotificationTemplate_destinations(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "NotificationTemplate",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _NotificationTemplate_workflowDefinitionID(ctx context.Context, field graphql.CollectedField, obj *generated.NotificationTemplate) (ret graphql.Marshaler) {
 	return graphql.ResolveField(
 		ctx,
@@ -121934,6 +122011,8 @@ func (ec *executionContext) fieldContext_NotificationTemplate_integration(_ cont
 				return ec.fieldContext_Integration_emailTemplates(ctx, field)
 			case "entities":
 				return ec.fieldContext_Integration_entities(ctx, field)
+			case "webhookURLs":
+				return ec.fieldContext_Integration_webhookURLs(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Integration", field.Name)
 		},
@@ -122353,6 +122432,8 @@ func (ec *executionContext) fieldContext_NotificationTemplateEdge_node(_ context
 				return ec.fieldContext_NotificationTemplate_topicPattern(ctx, field)
 			case "integrationID":
 				return ec.fieldContext_NotificationTemplate_integrationID(ctx, field)
+			case "destinations":
+				return ec.fieldContext_NotificationTemplate_destinations(ctx, field)
 			case "workflowDefinitionID":
 				return ec.fieldContext_NotificationTemplate_workflowDefinitionID(ctx, field)
 			case "emailTemplateID":
@@ -154372,6 +154453,8 @@ func (ec *executionContext) fieldContext_Query_integration(ctx context.Context, 
 				return ec.fieldContext_Integration_emailTemplates(ctx, field)
 			case "entities":
 				return ec.fieldContext_Integration_entities(ctx, field)
+			case "webhookURLs":
+				return ec.fieldContext_Integration_webhookURLs(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Integration", field.Name)
 		},
@@ -155507,6 +155590,8 @@ func (ec *executionContext) fieldContext_Query_notificationTemplate(ctx context.
 				return ec.fieldContext_NotificationTemplate_topicPattern(ctx, field)
 			case "integrationID":
 				return ec.fieldContext_NotificationTemplate_integrationID(ctx, field)
+			case "destinations":
+				return ec.fieldContext_NotificationTemplate_destinations(ctx, field)
 			case "workflowDefinitionID":
 				return ec.fieldContext_NotificationTemplate_workflowDefinitionID(ctx, field)
 			case "emailTemplateID":
@@ -254823,7 +254908,7 @@ func (ec *executionContext) unmarshalInputCreateHushInput(ctx context.Context, o
 			it.SecretValue = data
 		case "credentialSet":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("credentialSet"))
-			data, err := ec.unmarshalOCredentialSet2ᚖgithubᚗcomᚋtheopenlaneᚋcoreᚋinternalᚋintegrationsᚋtypesᚐCredentialSet(ctx, v)
+			data, err := ec.unmarshalOCredentialSet2ᚖgithubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -256970,7 +257055,7 @@ func (ec *executionContext) unmarshalInputCreateNotificationTemplateInput(ctx co
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"revision", "internalNotes", "systemInternalID", "key", "name", "description", "channel", "format", "locale", "topicPattern", "titleTemplate", "subjectTemplate", "bodyTemplate", "blocks", "jsonconfig", "uischema", "metadata", "active", "version", "templateContext", "defaults", "ownerID", "integrationID", "workflowDefinitionID", "emailTemplateID", "notificationIDs"}
+	fieldsInOrder := [...]string{"revision", "internalNotes", "systemInternalID", "key", "name", "description", "channel", "format", "locale", "topicPattern", "destinations", "titleTemplate", "subjectTemplate", "bodyTemplate", "blocks", "jsonconfig", "uischema", "metadata", "active", "version", "templateContext", "defaults", "ownerID", "integrationID", "workflowDefinitionID", "emailTemplateID", "notificationIDs"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -257081,6 +257166,13 @@ func (ec *executionContext) unmarshalInputCreateNotificationTemplateInput(ctx co
 				return it, err
 			}
 			it.TopicPattern = data
+		case "destinations":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("destinations"))
+			data, err := ec.unmarshalOString2ᚕstringᚄ(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Destinations = data
 		case "titleTemplate":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("titleTemplate"))
 			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
@@ -409775,7 +409867,7 @@ func (ec *executionContext) unmarshalInputUpdateHushInput(ctx context.Context, o
 			it.ClearKind = data
 		case "credentialSet":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("credentialSet"))
-			data, err := ec.unmarshalOCredentialSet2ᚖgithubᚗcomᚋtheopenlaneᚋcoreᚋinternalᚋintegrationsᚋtypesᚐCredentialSet(ctx, v)
+			data, err := ec.unmarshalOCredentialSet2ᚖgithubᚗcomᚋtheopenlaneᚋcoreᚋcommonᚋmodelsᚐCredentialSet(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -413721,7 +413813,7 @@ func (ec *executionContext) unmarshalInputUpdateNotificationTemplateInput(ctx co
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"revision", "clearRevision", "internalNotes", "clearInternalNotes", "systemInternalID", "clearSystemInternalID", "key", "name", "description", "clearDescription", "channel", "format", "locale", "topicPattern", "titleTemplate", "clearTitleTemplate", "subjectTemplate", "clearSubjectTemplate", "bodyTemplate", "clearBodyTemplate", "blocks", "clearBlocks", "jsonconfig", "clearJsonconfig", "uischema", "clearUischema", "metadata", "clearMetadata", "active", "version", "templateContext", "clearTemplateContext", "defaults", "clearDefaults", "integrationID", "clearIntegration", "workflowDefinitionID", "clearWorkflowDefinition", "emailTemplateID", "clearEmailTemplate", "addNotificationIDs", "removeNotificationIDs", "clearNotifications"}
+	fieldsInOrder := [...]string{"revision", "clearRevision", "internalNotes", "clearInternalNotes", "systemInternalID", "clearSystemInternalID", "key", "name", "description", "clearDescription", "channel", "format", "locale", "topicPattern", "destinations", "appendDestinations", "clearDestinations", "titleTemplate", "clearTitleTemplate", "subjectTemplate", "clearSubjectTemplate", "bodyTemplate", "clearBodyTemplate", "blocks", "clearBlocks", "jsonconfig", "clearJsonconfig", "uischema", "clearUischema", "metadata", "clearMetadata", "active", "version", "templateContext", "clearTemplateContext", "defaults", "clearDefaults", "integrationID", "clearIntegration", "workflowDefinitionID", "clearWorkflowDefinition", "emailTemplateID", "clearEmailTemplate", "addNotificationIDs", "removeNotificationIDs", "clearNotifications"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -413875,6 +413967,27 @@ func (ec *executionContext) unmarshalInputUpdateNotificationTemplateInput(ctx co
 				return it, err
 			}
 			it.TopicPattern = data
+		case "destinations":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("destinations"))
+			data, err := ec.unmarshalOString2ᚕstringᚄ(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.Destinations = data
+		case "appendDestinations":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("appendDestinations"))
+			data, err := ec.unmarshalOString2ᚕstringᚄ(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.AppendDestinations = data
+		case "clearDestinations":
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("clearDestinations"))
+			data, err := ec.unmarshalOBoolean2bool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+			it.ClearDestinations = data
 		case "titleTemplate":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("titleTemplate"))
 			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
@@ -471818,6 +471931,39 @@ func (ec *executionContext) _Integration(ctx context.Context, sel ast.SelectionS
 			}
 
 			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+		case "webhookURLs":
+			field := field
+
+			innerFunc := func(ctx context.Context, _ *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Integration_webhookURLs(ctx, field, obj)
+				return res
+			}
+
+			if field.Deferrable != nil {
+				dfs, ok := deferred[field.Deferrable.Label]
+				di := 0
+				if ok {
+					dfs.AddField(field)
+					di = len(dfs.Values) - 1
+				} else {
+					dfs = graphql.NewFieldSet([]graphql.CollectedField{field})
+					deferred[field.Deferrable.Label] = dfs
+				}
+				dfs.Concurrently(di, func(ctx context.Context) graphql.Marshaler {
+					return innerFunc(ctx, dfs)
+				})
+
+				// don't run the out.Concurrently() call below
+				out.Values[i] = graphql.Null
+				continue
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -476695,6 +476841,8 @@ func (ec *executionContext) _NotificationTemplate(ctx context.Context, sel ast.S
 			}
 		case "integrationID":
 			out.Values[i] = ec._NotificationTemplate_integrationID(ctx, field, obj)
+		case "destinations":
+			out.Values[i] = ec._NotificationTemplate_destinations(ctx, field, obj)
 		case "workflowDefinitionID":
 			out.Values[i] = ec._NotificationTemplate_workflowDefinitionID(ctx, field, obj)
 		case "emailTemplateID":

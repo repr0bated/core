@@ -2064,6 +2064,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			notificationtemplate.FieldLocale:               {Type: field.TypeString, Column: notificationtemplate.FieldLocale},
 			notificationtemplate.FieldTopicPattern:         {Type: field.TypeString, Column: notificationtemplate.FieldTopicPattern},
 			notificationtemplate.FieldIntegrationID:        {Type: field.TypeString, Column: notificationtemplate.FieldIntegrationID},
+			notificationtemplate.FieldDestinations:         {Type: field.TypeJSON, Column: notificationtemplate.FieldDestinations},
 			notificationtemplate.FieldWorkflowDefinitionID: {Type: field.TypeString, Column: notificationtemplate.FieldWorkflowDefinitionID},
 			notificationtemplate.FieldEmailTemplateID:      {Type: field.TypeString, Column: notificationtemplate.FieldEmailTemplateID},
 			notificationtemplate.FieldTitleTemplate:        {Type: field.TypeString, Column: notificationtemplate.FieldTitleTemplate},
@@ -32607,6 +32608,11 @@ func (f *NotificationTemplateFilter) WhereTopicPattern(p entql.StringP) {
 // WhereIntegrationID applies the entql string predicate on the integration_id field.
 func (f *NotificationTemplateFilter) WhereIntegrationID(p entql.StringP) {
 	f.Where(p.Field(notificationtemplate.FieldIntegrationID))
+}
+
+// WhereDestinations applies the entql json.RawMessage predicate on the destinations field.
+func (f *NotificationTemplateFilter) WhereDestinations(p entql.BytesP) {
+	f.Where(p.Field(notificationtemplate.FieldDestinations))
 }
 
 // WhereWorkflowDefinitionID applies the entql string predicate on the workflow_definition_id field.
