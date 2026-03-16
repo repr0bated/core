@@ -38,7 +38,7 @@ extend type organization
     define can_manage_group: group_manager or full_access
     define group_manager: [service, user, group#member]
 
-    # @crud: trust_center
+    # @crud: trust_center, trust_center_doc, trust_center_faq, trust_center_subprocessor, trust_center_compliance, trust_center_entity, trust_center_nda_request, trust_center_faq, trust_center_watermark_config
     define can_manage_trust_center: trust_center_manager or full_access
     define trust_center_manager: [service, user, group#member]
 

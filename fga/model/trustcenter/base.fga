@@ -2,136 +2,198 @@ module trustcenter
 
 type trust_center
   relations
-    define can_view: [user:*, service:*] or parent_viewer or viewer
-    define can_edit: [user, service] or parent_editor or editor or system_admin from system
-    define can_delete: [user, service] or parent_deleter
-    define parent_viewer: can_edit from parent or can_view from parent
-    define parent_editor: can_edit from parent or can_manage_trust_center from parent
-    define parent_deleter:  full_access from parent
-    define parent: [organization]
-    define nda_signed: [user]
-    # allow group permissions for trust center editors, this will give them
-    # edit access to any child objects as well
-    define editor: [group#member]
-    define viewer: editor
-    define member: member from parent
+    # base permissions - these should all be derived permissions except public tuples
+    define can_view: [user:*, service:*] or (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: deleter
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    # only allow org admins and super admins to delete the trust center parent object
+    define deleter: full_access from parent_context
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent_context) and can_view
     define system: [system]
 
+    # trust_center specific permissions, used for child objects such as trust_center_docs that need to check for nda_signed
+    define nda_signed: [user]
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_trust_center from parent_context
+    define parent_viewer: can_view from parent_context or can_view_trust_center from parent_context
+    define parent_context: [organization]
 
 type trust_center_setting
   relations
-    define can_view: [user, service] or parent_viewer or viewer
-    define can_edit: [user, service] or parent_editor or editor
-    define can_delete: [user, service] or parent_deleter
-    define parent_viewer: can_delete or can_edit or can_view from parent
-    define parent_editor: can_delete or can_edit from parent
-    define parent_deleter:  can_delete from parent
-    define editor: [group#member]
-    define viewer: editor
-    define parent: [trust_center, user, service]
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent
+    define parent_viewer: can_view from parent
+    define parent: [trust_center]
 
 type trust_center_compliance
   relations
-    define can_view: [user, service] or parent_viewer or viewer
-    define can_edit: [user, service] or parent_editor or editor
-    define can_delete: [user, service] or parent_deleter or editor
-    define parent_viewer: can_delete or can_edit or can_view from parent
-    define parent_editor: can_delete or can_edit from parent
-    define parent_deleter:  can_delete from parent
-    define editor: [group#member]
-    define viewer: editor
-    define parent: [trust_center, user, service]
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent
+    define parent_viewer: can_view from parent
+    define parent: [trust_center]
 
 type subprocessor
   relations
-    #  user:* is used for system-owned public subprocessors that are available to all users
-    define can_view: [user:*, service:*] or viewer or system_admin from system
-    define can_edit: editor or system_admin from system
-    define can_delete: editor or parent_editor or system_admin from system
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
-    define admin: [user,service] or can_delete from parent
-    # can_view from parent allows anon trust centers users to see subprocessors associated with the trust center
-    define parent_viewer: member from parent or can_view from parent
-    define parent_editor: admin from parent or full_access from parent
-    define viewer: [user, service] or editor or parent_viewer
-    define editor: [user, service, organization#owner, organization#super_admin] or admin or parent_editor
-    define parent: [organization, user, trust_center_subprocessor]
+    # base permissions - these should all be derived permissions except public tuples
+    # user:* is used for system-owned public subprocessors that are available to all users
+    define can_view: [user:*, service:*] or (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor or system_admin from system
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent or audit_log_viewer from parent_context) and can_view
     define system: [system]
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_subprocessor from parent_context or can_edit from parent
+    define parent_viewer: can_view from parent_context or can_view_subprocessor from parent_context or can_view from parent
+    define parent_context: [organization]
+    define parent: [trust_center_subprocessor]
 
 type trust_center_subprocessor
   relations
-    define can_view: [user, service] or parent_viewer or viewer
-    define can_edit: [user, service] or parent_editor or editor
-    define can_delete: [user, service] or parent_deleter or editor
-    define parent_viewer: can_delete or can_edit or can_view from parent
-    define parent_editor: can_delete or can_edit from parent
-    define parent_deleter:  can_delete from parent
-    define editor: [group#member]
-    define viewer: editor
-    define parent: [trust_center, user, service]
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent
+    define parent_viewer: can_view from parent
+    define parent: [trust_center]
 
 type trust_center_doc
   relations
+    # base permissions - these should all be derived permissions except public tuples
     # wildcard to allow public trust center documents to be viewed by all users vs
     # protected documents that require nda_signed
-    define can_view: [user, service, user:*, service:*] or parent_viewer or viewer
-    define can_edit: [user, service] or parent_editor or editor
-    define can_delete: [user, service] or parent_deleter or editor
-    define parent_viewer: can_delete or can_edit or member from parent
-    define parent_editor: can_delete or can_edit from parent
-    define parent_deleter:  can_delete from parent
-    define parent: [trust_center, user, service]
+    define can_view: [user:*, service:*] or (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent or audit_log_viewer from parent_context) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_trust_center_doc from parent_context or can_edit from parent
+    define parent_viewer: can_view from parent_context or can_view_trust_center_doc from parent_context or can_view from parent
+    define parent_context: [organization]
+    define parent: [trust_center]
+
+    # in order to allow anon users to get the doc name, but not the file without the nda signed need a separate definition
+    define public_viewer: parent_viewer from parent
+
+    # specific for trust center doc inheritance
     define nda_signed: nda_signed from parent
-    define member: member from parent
-    define editor: [group#member]
-    define viewer: editor
 
 type trust_center_entity
   relations
-    define can_view: [user, service] or parent_viewer or viewer
-    define can_edit: [user, service] or parent_editor or editor
-    define can_delete: [user, service] or parent_deleter or editor
-    define parent_viewer: can_delete or can_edit or can_view from parent
-    define parent_editor: can_delete or can_edit from parent
-    define parent_deleter:  can_delete from parent
-    define parent: [trust_center, user, service]
-    define editor: [group#member]
-    define viewer: editor
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent
+    define parent_viewer: can_view from parent
+    define parent: [trust_center]
 
 type trust_center_nda_request
   relations
-    define can_view: [user, service] or parent_viewer or viewer
-    define can_edit: [user, service] or parent_editor or editor
-    define can_delete: [user, service] or parent_deleter or editor
-    define parent_viewer: can_delete or can_edit or can_view from parent
-    define parent_editor: can_delete or can_edit from parent
-    define parent_deleter:  can_delete from parent
-    define parent: [trust_center, user, service]
-    define editor: [group#member]
-    define viewer: editor
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent
+    define parent_viewer: can_view from parent
+    define parent: [trust_center]
 
 type trust_center_faq
   relations
-    define can_view: [user, service] or parent_viewer or viewer
-    define can_edit: [user, service] or parent_editor or editor
-    define can_delete: [user, service] or parent_deleter or editor
-    define parent_viewer: can_delete or can_edit or can_view from parent
-    define parent_editor: can_delete or can_edit from parent
-    define parent_deleter:  can_delete from parent
-    define parent: [trust_center, user, service]
-    define editor: [group#member]
-    define viewer: editor
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent
+    define parent_viewer: can_view from parent
+    define parent: [trust_center]
 
 type trust_center_watermark_config
   relations
-    define can_view: [user, service] or parent_viewer or viewer
-    define can_edit: [user, service] or parent_editor or editor
-    define can_delete: [user, service] or parent_deleter or editor
-    # only allow org members to view the trust_center_watermark_config.
-    # anonymous users should not be able to view this information.
-    define parent_viewer: can_delete or can_edit or parent_viewer from parent
-    define parent_editor: can_delete or can_edit from parent
-    define parent_deleter:  can_delete from parent
-    define parent: [trust_center, user, service]
-    define editor: [group#member, organization#owner, organization#super_admin] or can_edit from parent
-    define viewer: editor
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent
+    define parent_viewer: can_view from parent
+    define parent: [trust_center]

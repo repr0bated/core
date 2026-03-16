@@ -251,7 +251,7 @@ func (r Risk) Mixin() []ent.Mixin {
 			// it will also create program parent tuples for the risk when a program is associated to the risk
 			newObjectOwnedMixin[generated.Risk](r,
 				withParents(
-					Program{}, Control{}, Procedure{}, ControlObjective{}, InternalPolicy{}, Subcontrol{}, Platform{}),
+					Organization{}, Program{}, Control{}, Procedure{}, ControlObjective{}, InternalPolicy{}, Subcontrol{}, Platform{}),
 				withOrganizationOwner(true),
 			),
 			// add groups permissions with viewer, editor, and blocked groups

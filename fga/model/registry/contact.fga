@@ -1,16 +1,20 @@
 module registry
 
 # contacts are always assigned to an organization and permissions are inherited from the organization
-# individual users or groups can also be given permission to a contact but they must be a member of the organization
 type contact
   relations
-    define can_view: ([user, service] and member from parent) or can_edit or (viewer but not blocked)
-    define can_edit: ([user, service] and member from parent) or (editor but not blocked)
-    define can_delete: ([user] and member from parent) or (editor but not blocked)
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
-    # allow a group to be assigned to add edit permissions for a set of users
-    define editor: [group#member, organization#owner, organization#super_admin] or can_edit from parent
-    define viewer: [group#member] or editor or can_view from parent
-    # allow users or groups to be blocked from view + edit access
-    define blocked: [user, group#member]
-    define parent: [organization]
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent_context) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_contact from parent_context
+    define parent_viewer: can_view from parent_context or can_view_contact from parent_context
+    define parent_context: [organization]

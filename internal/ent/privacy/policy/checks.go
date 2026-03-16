@@ -95,7 +95,7 @@ func CheckOrgReadAccess() privacy.QueryRule {
 			return privacy.Deny
 		}
 
-		if err := rule.CheckAPITokenScope(ctx, generated.TypeOrganization, fgax.CanView, nil); err != nil {
+		if err := rule.CheckSubjectScope(ctx, generated.TypeOrganization, fgax.CanView, nil); err != nil {
 			if !errors.Is(err, privacy.Skip) {
 				return err
 			}
@@ -122,7 +122,7 @@ func CheckOrgReadAccess() privacy.QueryRule {
 // some query operations
 func CheckOrgEditAccess() privacy.QueryRule {
 	return privacy.QueryRuleFunc(func(ctx context.Context, _ ent.Query) error {
-		if err := rule.CheckAPITokenScope(ctx, generated.TypeOrganization, fgax.CanEdit, nil); err != nil {
+		if err := rule.CheckSubjectScope(ctx, generated.TypeOrganization, fgax.CanEdit, nil); err != nil {
 			if !errors.Is(err, privacy.Skip) {
 				return err
 			}
@@ -146,7 +146,7 @@ func CheckOrgAccess() privacy.MutationRule {
 	return privacy.MutationRuleFunc(func(ctx context.Context, m ent.Mutation) error {
 		logx.FromContext(ctx).Debug().Msg("checking org read access")
 
-		if err := rule.CheckAPITokenScope(ctx, m.Type(), fgax.CanView, nil); err != nil {
+		if err := rule.CheckSubjectScope(ctx, m.Type(), fgax.CanView, nil); err != nil {
 			if !errors.Is(err, privacy.Skip) {
 				return err
 			}
@@ -269,7 +269,7 @@ func checkEdgesEditAccess(ctx context.Context, m ent.Mutation, edges []string, a
 			}
 
 			// check api token scope first, as api tokens will have full access to object types they have scope for
-			if err := rule.CheckAPITokenScope(ctx, edgeMap.ObjectType, relationCheck, nil); err != nil {
+			if err := rule.CheckSubjectScope(ctx, edgeMap.ObjectType, relationCheck, nil); err != nil {
 				if errors.Is(err, privacy.Allow) {
 					return nil
 				}
@@ -284,7 +284,7 @@ func checkEdgesEditAccess(ctx context.Context, m ent.Mutation, edges []string, a
 				Context:     utils.NewOrganizationContextKey(actor.SubjectEmail),
 			}
 
-			if allow, err := utils.AuthzClient(ctx, m).CheckAccess(ctx, ac); err != nil || !allow {
+			if allow, err := utils.AuthzClient(ctx, m).CheckAccessWithParentContext(ctx, ac, actor.OrganizationID); err != nil || !allow {
 				logx.FromContext(ctx).Error().Err(err).Str("edge", edge).Str("relation", ac.Relation).Str("object_id", ac.ObjectID).Str("object_type", edgeMap.ObjectType).Msg("user does not have access to the object for edge permissions")
 
 				return generated.ErrPermissionDenied

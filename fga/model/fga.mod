@@ -27,7 +27,7 @@ contents:
     - registry/asset.fga
     - registry/contact.fga
     - registry/entity.fga
-    - registry/identity.fga
+    - registry/identity_holder.fga
     - registry/platform.fga
 
     - trustcenter/base.fga

@@ -1,81 +1,125 @@
 module compliance
 
-# risks are associated with an organization but do not inherit access from the organization
-# the risk creator will be made the admin of the risk and all other access will be assigned via
-# a group
+# risks permissions can be inherited from parent objects or based on the organization in context
 type risk
   relations
-    define can_view: [user, service] or can_edit or (viewer but not blocked)
-    define can_edit: [user, service] or stakeholder or delegate or (editor but not blocked)
-    define can_delete: [user, service] or stakeholder or (editor but not blocked)
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
-    define parent: [user, service, program, control, control_objective, subcontrol, procedure, internal_policy]
-    define viewer: [group#member] or editor or can_view from parent
-    define editor: [group#member, organization#owner] or can_edit from parent
-    define blocked: [user, group#member]
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
     # stakeholder is the group of users that are responsible for the risk, they will have full access to the risk
     define stakeholder: [group#member]
     # delegate is a group of users that are given temporary access to the risk, they will have edit but not delete access
     define delegate: [group#member]
 
-# findings can be associated with programs, controls, subcontrols, risks, assets, entities,
-# scans, directory accounts, or identity holders
-# permissions are inherited from the parent object or organization
+    # determine edit vs view
+    define editor: [user, service, group#member] or parent_editor or stakeholder or delegate
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_risk from parent_context or can_edit from parent
+    define parent_viewer: can_view from parent_context or can_view_risk from parent_context or can_view from parent
+    define parent_context: [organization]
+    define parent: [program, control, control_objective, subcontrol, procedure, internal_policy]
+
+# findings permissions can be inherited from parent objects or based on the organization in context
 type finding
   relations
-    define can_view: [user, service] or can_edit or (viewer but not blocked)
-    define can_edit: [user, service] or (editor but not blocked)
-    define can_delete: [user, service] or (editor but not blocked)
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
-    define editor: [group#member, organization#owner, organization#super_admin] or can_edit from parent
-    define viewer: [group#member] or editor or can_view from parent or member from parent
-    define blocked: [user, group#member]
-    define parent: [user, service, organization, program, control, subcontrol, risk, asset, entity, scan, directory_account, identity_holder]
+  # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
 
-# vulnerabilities can be associated with programs, controls, subcontrols, risks, assets, entities, or scans
-# permissions are inherited from the parent object or organization
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent or audit_log_viewer from parent_context) and can_view
+
+     # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_finding from parent_context or can_edit from parent
+    define parent_viewer: can_view from parent_context or can_view_finding from parent_context or can_view from parent
+    define parent_context: [organization]
+    define parent: [program, control, subcontrol, risk, asset, entity, scan, directory_account, identity_holder]
+
+# vulnerabilities permissions can be inherited from parent objects or based on the organization in context
 type vulnerability
   relations
-    define can_view: [user, service] or can_edit or (viewer but not blocked)
-    define can_edit: [user, service] or (editor but not blocked)
-    define can_delete: [user, service] or (editor but not blocked)
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
-    define editor: [group#member, organization#owner, organization#super_admin] or can_edit from parent
-    define viewer: [group#member] or editor or can_view from parent or member from parent
-    define blocked: [user, group#member]
-    define parent: [user, service, organization, program, control, subcontrol, risk, asset, entity, scan]
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
 
-# reviews can be associated with programs, controls, subcontrols, risks, action_plans, findings, vulnerabilities, assets, entities, or tasks
-# permissions are inherited from the parent object or organization
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent or audit_log_viewer from parent_context) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_view_vulnerability from parent_context or can_edit from parent
+    define parent_viewer: can_view from parent_context or can_edit_vulnerability from parent_context or can_view from parent
+    define parent_context: [organization]
+    define parent: [program, control, subcontrol, risk, asset, entity, scan]
+
+# review permissions can be inherited from parent objects or based on the organization in context
 type review
   relations
-    define can_view: [user, service] or can_edit or (viewer but not blocked)
-    define can_edit: [user, service] or (editor but not blocked)
-    define can_delete: [user, service] or (editor but not blocked)
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
-    define editor: [group#member, organization#owner, organization#super_admin] or can_edit from parent
-    define viewer: [group#member] or editor or can_view from parent or member from parent
-    define blocked: [user, group#member]
-    define parent: [user, service, organization, program, control, subcontrol, risk, action_plan, finding, vulnerability, asset, entity, task]
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
 
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent or audit_log_viewer from parent_context) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_review from parent_context or can_edit from parent
+    define parent_viewer: can_view from parent_context or can_view_review from parent_context or can_view from parent
+    define parent_context: [organization]
+    define parent: [program, control, subcontrol, risk, action_plan, finding, vulnerability, asset, entity, task]
+
+# remediation permissions can be inherited from parent objects or based on the organization in context
 type remediation
   relations
-    define can_view: [user, service] or can_edit or (viewer but not blocked)
-    define can_edit: [user, service] or (editor but not blocked)
-    define can_delete: [user, service] or (editor but not blocked)
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
-    define editor: [group#member, organization#owner, organization#super_admin] or can_edit from parent
-    define viewer: [group#member] or editor or can_view from parent or member from parent
-    define blocked: [user, group#member]
-    define parent: [user, service, organization, action_plan, program, control, subcontrol, risk, finding, vulnerability, asset, entity, task]
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
 
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent or audit_log_viewer from parent_context) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_remediation from parent_context or can_edit from parent
+    define parent_viewer: can_view from parent_context or can_view_remediation from parent_context or can_view from parent
+    define parent_context: [organization]
+    define parent: [action_plan, program, control, subcontrol, risk, finding, vulnerability, asset, entity, task]
+
+# scan permissions can be inherited from parent objects or based on the organization in context
 type scan
   relations
-    define can_view: [user, service] or can_edit or (viewer but not blocked)
-    define can_edit: [user, service] or (editor but not blocked)
-    define can_delete: [user, service] or (editor but not blocked)
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
-    define editor: [group#member, organization#owner, organization#super_admin] or can_edit from parent
-    define viewer: [group#member] or editor or can_view from parent or member from parent
-    define blocked: [user, group#member]
-    define parent: [user, service, organization, platform, asset]
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: (editor but not blocked)
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define editor: [user, service, group#member] or parent_editor
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent or audit_log_viewer from parent_context) and can_view
+
+     # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_scan from parent_context or can_edit from parent
+    define parent_viewer: can_view from parent_context or can_view_scan from parent_context or can_view from parent
+    define parent_context: [organization]
+    define parent: [platform, asset]

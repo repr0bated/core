@@ -4,13 +4,24 @@ module base
 # tasks can also be associated with a parent object (like a control or a procedure) and inherit access from that object
 type task
   relations
-    define can_view: [user, service] or assignee or assigner or can_delete or can_edit or viewer
-    define can_edit: [user, service] or assignee or assigner or editor or can_delete
-    # assignee cannot delete the task, only the original creator (can_delete from parent) or the assigner
-    define can_delete: [user, service] or assigner or can_delete from parent
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: deleter
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define deleter: assigner or parent_editor or parent_deleter
+    define editor: [user, service, group#member] or parent_editor or assignee or assigner
+    define viewer: [user, service, group#member] or editor or parent_viewer
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent or audit_log_viewer from parent_context) and can_view
+
     define assignee: [user]
     define assigner: [user]
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit from parent_context or can_edit_task from parent_context or can_edit from parent
+    define parent_viewer: can_view from parent_context or can_view_task from parent_context or can_view from parent
+    define parent_deleter: can_delete_task from parent_context
+    define parent_context: [organization]
     define parent: [user, service, program, control, procedure, internal_policy, subcontrol, control_objective, risk, task, asset, platform, identity_holder, scan, action_plan]
-    define viewer: can_view from parent
-    define editor: [organization#owner, organization#super_admin] or can_edit from parent

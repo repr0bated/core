@@ -51,8 +51,8 @@ func AddIDPredicate(ctx context.Context, q Query) error {
 
 	objectType := rule.GetFGAObjectType(q)
 
-	// skip filter if the api token has full organization view access for the object type
-	if err := rule.CheckAPITokenScope(ctx, objectType, fgax.CanView, nil); err != nil {
+	// skip filter if th subject has full organization view access for the object type
+	if err := rule.CheckSubjectScope(ctx, objectType, fgax.CanView, nil); err != nil {
 		if errors.Is(err, privacy.Allow) {
 			return nil
 		}
@@ -105,11 +105,7 @@ func GetAuthorizedObjectIDs(ctx context.Context, queryType string, relation fgax
 
 	if strings.Contains(queryType, "History") {
 		logx.FromContext(ctx).Debug().Msg("adding history relation to list request")
-
-		// this was audit_log_viewer but changed to CanView to be consistent
-		// if you can view an object, you should be able to see the history of it
-		// TODO(sfunk): clean-up this in FGA policies
-		req.Relation = fgax.CanView
+		req.Relation = "audit_log_viewer"
 	}
 
 	logx.FromContext(ctx).Debug().Interface("req", req).Msg("getting authorized object ids")
@@ -229,9 +225,9 @@ func skipFilter(ctx context.Context, q intercept.Query, customSkipperFunc ...ski
 		return true
 	}
 
-	// skip filter if the api token has full organization view access for the object type
+	// skip filter if the subject has full organization view access for the object type
 	objectType := rule.GetFGAObjectType(q)
-	if err := rule.CheckAPITokenScope(ctx, objectType, fgax.CanView, nil); err != nil {
+	if err := rule.CheckSubjectScope(ctx, objectType, fgax.CanView, nil); err != nil {
 		if errors.Is(err, privacy.Allow) {
 			return true
 		}

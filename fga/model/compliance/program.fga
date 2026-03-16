@@ -2,32 +2,30 @@ module compliance
 
 type program
   relations
-    # main roles
-    define admin: ([user] or owner from parent) and member from parent
-    define member: [user] and member from parent
-    # auditor role will not have access to everything in the program by default
-    # but can be assigned access to specific objects
+    # base permissions - these should all be derived permissions
+    define can_view: (viewer but not blocked)
+    define can_edit: (editor but not blocked) or can_delete
+    define can_delete: deletor
+
+    # tuple based permissions for edit, view, blocked, and audit log viewing
+    define deletor: admin or parent_editor
+    define editor: [user, service, group#member] or admin or parent_editor
+    define viewer: [user, service, group#member] or member or editor or parent_viewer or auditor
+    define blocked: [user, service, group#member]
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent_context) and can_view
+
+    # roles in the program membership
+    define admin: ([user] or full_access from parent_context) and member from parent_context
+    define member: [user] and member from parent_context
     define auditor: [user]
-    # main permission sets based on roles
-    define can_delete: [service] or admin or parent_deleter
-    define can_edit: [service] or admin or parent_editor or (editor but not blocked)
-    define can_view: [service] or member or can_edit or parent_viewer or ((editor or viewer) but not blocked)
-    # parent relation, only the organization owner will have access to the program by default
-    define parent: [organization]
-    # permissions inherited from the parent organization
-    define parent_viewer: owner from parent
-    define parent_editor: owner from parent
-    define parent_deleter: owner from parent
-    # additional fine-grained permissions
-    # allow a group to be assigned to add edit permissions for a set of users
-    define editor: [group#member]
-    define viewer: [group#member]
-    # allow users or groups to be blocked from view + edit access
-    define blocked: [user, group#member]
-    # allow owner and assigned users to view audit logs
-    define audit_log_viewer: ([user, service] or admin or audit_log_viewer from parent) and can_view
+
     # allow members to invite other members
     define can_invite_members: member or can_edit
     # only allow users with edit access to the org to invite other admins
     define can_invite_admins: can_edit
-    # additional relations
+
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit_program from parent_context
+    define parent_viewer: can_edit from parent_context or can_view_program from parent_context
+    define parent_context: [organization]
+

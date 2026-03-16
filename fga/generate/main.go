@@ -28,6 +28,7 @@ var parentObjectMap = map[string][]string{
 	"org_membership":       {"organization"},
 	"program_membership":   {"program"},
 	"subcontrol":           {"control"},
+	"user_setting":         {"user"},
 }
 
 // schemaInfo holds information about an ent schema that is relevant for generating FGA permissions, such as the name of the schema and whether it has create access rules defined in its Policy function.
@@ -42,6 +43,10 @@ const (
 	checkServiceCreateAccess = "CheckServiceCreateAccess"
 	// checkCreateAccess is the name of the function in the policy that checks if the user has create access (either service or user)
 	checkCreateAccess = "CheckCreateAccess"
+	// fullAccessRelation is the name of the relation for org owners and super admins
+	fullAccessRelation = "full_access"
+	// ownerRelation is the name of the relation for only organization owner
+	ownerRelation = "owner"
 )
 
 // this generator looks at all the ent schemas and their policy functions to determine the organization-level CRUD access for each schema and generates a crud.fga file that defines the appropriate relations for each schema based on that access. This allows us to have a consistent set of permissions for each schema in FGA that are automatically generated based on the presence of certain rules in the ent policies, which reduces the likelihood of human error in defining permissions and ensures that all schemas have a consistent permission structure in FGA.
@@ -76,7 +81,6 @@ func main() {
 		canEditRelations := []string{fmt.Sprintf("can_delete_%s", fgaType)}
 		canDeleteRelations := []string{}
 		creatorRelations := []string{fmt.Sprintf("%s_creator", fgaType)}
-		canCreateRelations := []string{}
 
 		canViewRelations = append(canViewRelations, roles.crudRoles[fgaType]...)
 		canEditRelations = append(canEditRelations, roles.crudRoles[fgaType]...)
@@ -84,7 +88,6 @@ func main() {
 		creatorRelations = append(creatorRelations, roles.crudRoles[fgaType]...)
 
 		canViewRelations = append(canViewRelations, roles.viewRoles[fgaType]...)
-		canCreateRelations = append(canCreateRelations, roles.createRoles[fgaType]...)
 
 		if additionalRelations, ok := parentObjectMap[fgaType]; ok {
 			for _, r := range additionalRelations {
@@ -95,19 +98,29 @@ func main() {
 			}
 		}
 
+		canEditRelations = append(canEditRelations, fullAccessRelation)
+		canViewRelations = append(canViewRelations, fullAccessRelation)
+
+		// only org owners can delete the organization
+		if !strings.EqualFold(fgaType, "organization") {
+			canDeleteRelations = append(canDeleteRelations, fullAccessRelation)
+		} else {
+			canDeleteRelations = append(canDeleteRelations, ownerRelation)
+		}
+
 		// sort the relations to ensure consistent output
 		slices.Sort(canViewRelations)
 		slices.Sort(canEditRelations)
 		slices.Sort(canDeleteRelations)
 		slices.Sort(creatorRelations)
-		slices.Sort(canCreateRelations)
 
-		buf.WriteString(fmt.Sprintf("    define can_view_%s: [service, user] or %s\n", fgaType, strings.Join(canViewRelations, " or ")))
-		buf.WriteString(fmt.Sprintf("    define can_edit_%s: [service, user] or %s\n", fgaType, strings.Join(canEditRelations, " or ")))
+		buf.WriteString(fmt.Sprintf("    define can_view_%s: [service, user, group#member] or %s\n", fgaType, strings.Join(canViewRelations, " or ")))
+		buf.WriteString(fmt.Sprintf("    define can_edit_%s: [service, user, group#member] or %s\n", fgaType, strings.Join(canEditRelations, " or ")))
 		if len(canDeleteRelations) > 0 {
-			buf.WriteString(fmt.Sprintf("    define can_delete_%s: [service, user] or %s\n", fgaType, strings.Join(canDeleteRelations, " or ")))
+
+			buf.WriteString(fmt.Sprintf("    define can_delete_%s: [service, user, group#member] or %s\n", fgaType, strings.Join(canDeleteRelations, " or ")))
 		} else {
-			buf.WriteString(fmt.Sprintf("    define can_delete_%s: [service, user]\n", fgaType))
+			buf.WriteString(fmt.Sprintf("    define can_delete_%s: [service, user, group#member]\n", fgaType))
 		}
 		if typeName.canCreateAccess {
 			buf.WriteString(fmt.Sprintf("    define %s_creator: [group#member]\n", fgaType))
@@ -115,7 +128,8 @@ func main() {
 
 		var createExpr []string
 		if typeName.canCreateAccess {
-			createExpr = append(createExpr, "can_edit", fmt.Sprintf("%s_creator", fgaType))
+			// add access for org level can_edit and can_edit_object for the object, this allows api tokens to create objects if they have "write" access to the object type.
+			createExpr = append(createExpr, "can_edit", fmt.Sprintf("can_edit_%s", fgaType), fmt.Sprintf("%s_creator", fgaType))
 		}
 
 		createExpr = append(createExpr, roles.createRoles[fgaType]...)
@@ -242,6 +256,7 @@ func (r *roleInfo) addInheritedRoles() {
 					}
 				}
 			}
+
 			for obj := range r.viewRoles {
 				for _, rr := range r.viewRoles[obj] {
 					if rr == in {
@@ -250,6 +265,7 @@ func (r *roleInfo) addInheritedRoles() {
 					}
 				}
 			}
+
 			for obj := range r.createRoles {
 				for _, rr := range r.createRoles[obj] {
 					if rr == in {

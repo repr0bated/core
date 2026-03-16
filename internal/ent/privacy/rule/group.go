@@ -15,10 +15,6 @@ import (
 	"github.com/theopenlane/core/pkg/logx"
 )
 
-const (
-	CanCreatePrefix = "can_create_"
-)
-
 // CheckServiceScopeCreationAccess is a wrapper on CheckGroupBasedObjectCreationAccess that indicates to automation
 // that only service tokens should be checked for create access
 func CheckServiceScopeCreationAccess() privacy.MutationRuleFunc {
@@ -37,7 +33,7 @@ func CheckGroupBasedObjectCreationAccess() privacy.MutationRuleFunc {
 
 func checkCreateAccess(ctx context.Context, m generated.Mutation, serviceOnly bool) error {
 	op := m.Op()
-	if err := CheckAPITokenScope(ctx, m.Type(), "", &op); err != nil {
+	if err := CheckSubjectScope(ctx, m.Type(), "", &op); err != nil {
 		if !errors.Is(err, privacy.Skip) {
 			return err
 		}

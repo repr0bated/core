@@ -7,20 +7,20 @@ module base
 # groups are commonly used to assigned view/edit permissions to other objects within the organization for group members
 type group
   relations
-    # main roles
+    # base permissions - these should all be derived permissions
+    define can_view: viewer
+    define can_edit: editor
+    define can_delete: editor
+
+    # base roles for the group
     define admin: [user]
     define member: [user] or admin
-    # parent inheritance
-    define parent: [organization with public_group]
-    define parent_admin: [organization#owner, organization#super_admin]
-    # permissions inherited from the organization
-    define parent_viewer: can_view from parent or parent_admin
-    define parent_editor: parent_admin or can_manage_group from parent
-    define parent_deleter: parent_admin or can_manage_group from parent
-    # main permission sets based on roles
-    define can_delete: [service] or admin or parent_deleter
-    define can_edit: [service] or admin or parent_editor
-    define can_view: [service] or can_edit or member  or parent_viewer
-    # additional fine-grained permissions
-    define audit_log_viewer: ([user, service] or audit_log_viewer from parent) and can_view
+    define editor: admin or parent_editor or parent_admin
+    define viewer: member or parent_viewer
+    define audit_log_viewer: ([user, service, group#member] or audit_log_viewer from parent_context) and can_view
 
+    # parent permissions derived based on `crud` permissions or parents
+    define parent_editor: can_edit_group from parent_context
+    define parent_viewer: can_view from parent_context or can_view_group from parent_context
+    define parent_admin: full_access from parent_context
+    define parent_context: [organization with public_group]

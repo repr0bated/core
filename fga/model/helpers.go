@@ -107,18 +107,18 @@ func RelationsForService() ([]string, error) {
 			continue
 		}
 
-		for rel, meta := range *td.Metadata.Relations {
+		for rel, _ := range *td.Metadata.Relations {
 			parts := strings.SplitN(rel, "_", relationPartsCount)
 			if len(parts) != relationPartsCount || parts[0] != "can" {
 				continue
 			}
 
-			for _, ref := range meta.GetDirectlyRelatedUserTypes() {
-				if ref.Type == "service" {
-					relations = append(relations, rel)
-					break
-				}
-			}
+			// for _, ref := range meta.GetDirectlyRelatedUserTypes() {
+			// if ref.Type == "service" {
+			relations = append(relations, rel)
+			// break
+			// }
+			// }
 		}
 	}
 
@@ -153,10 +153,6 @@ func getRelations(relationType string, modelName string) ([]string, error) {
 		}
 
 		for rel := range *td.Metadata.Relations {
-			if relationType == "manage" {
-				log.Printf("rel: %s", rel)
-			}
-
 			parts := strings.SplitN(rel, "_", relationPartsCount)
 			if len(parts) == relationPartsCount && parts[0] == "can" && parts[1] == relationType {
 				relations = append(relations, rel)
@@ -171,13 +167,11 @@ func getRelations(relationType string, modelName string) ([]string, error) {
 
 // roleRelations returns relations shaped like can_manage_<role> that indicates role management
 func roleRelations() ([]string, error) {
-	log.Printf("Parsing roles model for roleRelations")
 	return getRelations("manage", "role")
 }
 
 // createRelations returns relations shaped like can_create_<object> that are used for group-based creation access
 func createRelations() ([]string, error) {
-	log.Printf("Parsing crud model for createRelations")
 	return getRelations("create", "crud")
 }
 

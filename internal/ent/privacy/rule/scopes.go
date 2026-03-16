@@ -18,8 +18,15 @@ import (
 	"github.com/theopenlane/core/pkg/logx"
 )
 
-// scopedRelationForAPIToken returns the scoped relation for an api token based on the object type, relation, and operation. A operation is checked for for create, update, delete. If instead a specific relation should be checked, that should be passed instead of the operation
-func scopedRelationForAPIToken(objectType string, relation string, op *ent.Op) string {
+const (
+	CanCreatePrefix = "can_create_"
+	CanEditPrefix   = "can_edit_"
+	CanDeletePrefix = "can_delete_"
+	CanViewPrefix   = "can_view_"
+)
+
+// scopedRelation returns the scoped relation based on the object type, relation, and operation. A operation is checked for for create, update, delete. If instead a specific relation should be checked, that should be passed instead of the operation
+func scopedRelation(objectType string, relation string, op *ent.Op) string {
 	object := strcase.SnakeCase(objectType)
 	if object == "" {
 		return ""
@@ -27,20 +34,22 @@ func scopedRelationForAPIToken(objectType string, relation string, op *ent.Op) s
 
 	if op != nil {
 		switch {
-		case op.Is(ent.OpCreate), op.Is(ent.OpUpdate | ent.OpUpdateOne):
-			return fmt.Sprintf("can_edit_%s", object)
+		case op.Is(ent.OpCreate):
+			return fmt.Sprintf("%s%s", CanCreatePrefix, object)
+		case op.Is(ent.OpUpdate | ent.OpUpdateOne):
+			return fmt.Sprintf("%s%s", CanEditPrefix, object)
 		case op.Is(ent.OpDelete | ent.OpDeleteOne):
-			return fmt.Sprintf("can_delete_%s", object)
+			return fmt.Sprintf("%s%s", CanDeletePrefix, object)
 		}
 	}
 
 	switch relation {
 	case fgax.CanEdit:
-		return fmt.Sprintf("can_edit_%s", object)
+		return fmt.Sprintf("%s%s", CanEditPrefix, object)
 	case fgax.CanView:
-		return fmt.Sprintf("can_view_%s", object)
+		return fmt.Sprintf("%s%s", CanViewPrefix, object)
 	case fgax.CanDelete:
-		return fmt.Sprintf("can_delete_%s", object)
+		return fmt.Sprintf("%s%s", CanDeletePrefix, object)
 	default:
 		return ""
 	}
@@ -76,24 +85,25 @@ func AllowIfTokenHasMutationScope() privacy.MutationRuleFunc {
 		objectType = strings.TrimSuffix(objectType, "History")
 
 		op := m.Op()
-		return CheckAPITokenScope(ctx, objectType, "", &op)
+		return CheckSubjectScope(ctx, objectType, "", &op)
 	})
 }
 
-// CheckAPITokenScope enforces that the api token has the required scope for the given object type, relation, and operation.
-// Returns nil if the rule should be skipped (not an API token or no scoped relation), privacy.Allow if access is granted, or an error if denied
-func CheckAPITokenScope(ctx context.Context, objectType string, relation string, op *ent.Op) error {
-	if !auth.IsAPITokenAuthentication(ctx) {
-		return privacy.Skip
-	}
-
-	// allow api token access to api tokens and organizations, as they are needed for for requests
-	// filters will be enforced elsewhere
-	if objectType == generated.TypeAPIToken || objectType == generated.TypeOrganization {
+// CheckSubjectScope enforces that the authorized subject has the required scope for the given object type, relation, and operation.
+// Returns nil if the rule should be skipped (no scoped relation), privacy.Allow if access is granted, or an error if denied
+func CheckSubjectScope(ctx context.Context, objectType string, relation string, op *ent.Op) error {
+	// allow api token access to api tokens
+	if auth.IsAPITokenAuthentication(ctx) && objectType == generated.TypeAPIToken {
 		return privacy.Allow
 	}
 
-	scopedRelation := scopedRelationForAPIToken(objectType, relation, op)
+	// allow organizations, as they are needed for for requests
+	// filters will be enforced elsewhere
+	if objectType == generated.TypeOrganization {
+		return privacy.Allow
+	}
+
+	scopedRelation := scopedRelation(objectType, relation, op)
 	if scopedRelation == "" {
 		return privacy.Skip
 	}
@@ -104,28 +114,29 @@ func CheckAPITokenScope(ctx context.Context, objectType string, relation string,
 	}
 
 	if _, ok := scopeSet[scopedRelation]; !ok {
-		logx.FromContext(ctx).Error().Str("relation", scopedRelation).Str("object_type", objectType).Msg("invalid scoped relation for api token")
+		logx.FromContext(ctx).Debug().Str("relation", scopedRelation).Str("object_type", objectType).Msg("invalid scoped relation, skipping scope check")
 
-		return fmt.Errorf("%w: invalid scoped relation %s for object type %s", generated.ErrPermissionDenied, scopedRelation, objectType)
+		return privacy.Skip
 	}
 
 	caller, ok := auth.CallerFromContext(ctx)
 	if !ok || caller == nil {
-		logx.FromContext(ctx).Error().Msg("unable to get caller from context for api token scope check")
+		logx.FromContext(ctx).Debug().Msg("unable to get caller from context for scope check, skipping scope check")
 
-		return generated.ErrPermissionDenied
+		return privacy.Skip
 	}
 
+	// this could happen before user is logged in, or if the token is missing organization scope, so we will log and skip the scope check in this case
 	orgID := caller.OrganizationID
 	if orgID == "" {
-		logx.FromContext(ctx).Error().Str("relation", scopedRelation).Msg("api token missing organization scope")
+		logx.FromContext(ctx).Debug().Str("relation", scopedRelation).Msg("subject missing organization scope, skipping scope check")
 
-		return generated.ErrPermissionDenied
+		return privacy.Skip
 	}
 
 	authzClient := utils.AuthzClientFromContext(ctx)
 	if authzClient == nil {
-		logx.FromContext(ctx).Error().Msg("missing authz client for api token scope check")
+		logx.FromContext(ctx).Error().Msg("missing authz client for scope check")
 
 		return generated.ErrPermissionDenied
 	}
@@ -138,18 +149,24 @@ func CheckAPITokenScope(ctx context.Context, objectType string, relation string,
 		ObjectID:    orgID,
 	}
 
-	hasAccess, err := authzClient.CheckAccess(ctx, ac)
+	hasAccess, err := authzClient.CheckAccessWithParentContext(ctx, ac, orgID)
 	if err != nil {
-		logx.FromContext(ctx).Err(err).Interface("check", ac).Msg("failed api token scope check")
+		logx.FromContext(ctx).Debug().Err(err).Interface("check", ac).Msg("failed scope check, unable to determine access")
 
-		return fmt.Errorf("%w: token not scoped for %s", generated.ErrPermissionDenied, scopedRelation)
+		return privacy.Skip
 	}
 
 	if hasAccess {
 		return privacy.Allow
 	}
 
-	logx.FromContext(ctx).Info().Str("required_relation", scopedRelation).Msg("token not scoped for required relation")
+	if auth.IsAPITokenAuthentication(ctx) {
+		logx.FromContext(ctx).Info().Interface("check", ac).Msg("api token missing required scope for access")
 
-	return generated.ErrPermissionDenied
+		return generated.ErrPermissionDenied
+	}
+
+	logx.FromContext(ctx).Debug().Str("required_relation", scopedRelation).Msg("subject not scoped for required relation")
+
+	return privacy.Skip
 }

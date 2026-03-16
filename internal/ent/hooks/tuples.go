@@ -121,6 +121,8 @@ func roleToRelation(r enums.Role) (string, error) {
 		return strings.ToLower(r.String()), nil
 	case fgax.ParentRelation:
 		return r.String(), nil
+	case "parent_context":
+		return "parent_context", nil
 	default:
 		return "", ErrUnsupportedFGARole
 	}
