@@ -18,7 +18,8 @@ extend type organization
     define can_view_assessment: [service, user, group#member] or can_edit_assessment or can_manage_campaigns or full_access
     define can_edit_assessment: [service, user, group#member] or can_delete_assessment or can_manage_campaigns or full_access
     define can_delete_assessment: [service, user, group#member] or can_manage_campaigns or full_access
-    define can_create_assessment: can_manage_campaigns
+    define assessment_creator: [group#member]
+    define can_create_assessment: can_edit or can_edit_assessment or assessment_creator or can_manage_campaigns
 
     define can_view_assessment_response: [service, user, group#member] or can_edit_assessment_response or can_manage_campaigns or full_access
     define can_edit_assessment_response: [service, user, group#member] or can_delete_assessment_response or full_access

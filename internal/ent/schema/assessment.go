@@ -84,7 +84,7 @@ func (a Assessment) Mixin() []ent.Mixin {
 		additionalMixins: []ent.Mixin{
 			newObjectOwnedMixin[generated.Assessment](a,
 				withParents(Campaign{}),
-				withOrganizationOwner(true),
+				withOrganizationOwner(false),
 			),
 			newGroupPermissionsMixin(),
 		},
@@ -110,9 +110,10 @@ func (a Assessment) Edges() []ent.Edge {
 
 func (Assessment) Policy() ent.Policy {
 	return policy.NewPolicy(
-		policy.WithOnMutationRules(
-			ent.OpDelete|ent.OpDeleteOne,
+		policy.WithMutationRules(
+			policy.CheckCreateAccess(),
 			policy.CheckOrgWriteAccess(),
+			entfga.CheckEditAccess[*generated.AssessmentMutation](),
 		),
 	)
 }

@@ -67,7 +67,7 @@ func (Review) Fields() []ent.Field {
 				entx.FieldSearchable(),
 				entgql.OrderField("title"),
 			),
-		field.String("x").
+		field.String("state").
 			Comment("state of the review").
 			Optional().
 			Annotations(

@@ -258,7 +258,7 @@ func createGroupParentTuple(orgID, groupID string, isPublic bool) ([]fgax.TupleK
 		},
 	}
 
-	groupTuple, err := getTupleKeyFromRole(req, "parent_context")
+	groupTuple, err := getTupleKeyFromRole(req, fgax.ParentContextRelation)
 	if err != nil {
 		return nil, err
 	}
