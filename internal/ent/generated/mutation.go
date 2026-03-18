@@ -107354,6 +107354,7 @@ type IntegrationMutation struct {
 	integration_type              *string
 	provider_metadata             *openapi.IntegrationProviderMetadata
 	_config                       *openapi.IntegrationConfig
+	installation_metadata         *openapi.IntegrationInstallationMetadata
 	provider_state                *openapi.IntegrationProviderState
 	metadata                      *map[string]interface{}
 	definition_id                 *string
@@ -108613,6 +108614,55 @@ func (m *IntegrationMutation) ConfigCleared() bool {
 func (m *IntegrationMutation) ResetConfig() {
 	m._config = nil
 	delete(m.clearedFields, integration.FieldConfig)
+}
+
+// SetInstallationMetadata sets the "installation_metadata" field.
+func (m *IntegrationMutation) SetInstallationMetadata(oim openapi.IntegrationInstallationMetadata) {
+	m.installation_metadata = &oim
+}
+
+// InstallationMetadata returns the value of the "installation_metadata" field in the mutation.
+func (m *IntegrationMutation) InstallationMetadata() (r openapi.IntegrationInstallationMetadata, exists bool) {
+	v := m.installation_metadata
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldInstallationMetadata returns the old "installation_metadata" field's value of the Integration entity.
+// If the Integration object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *IntegrationMutation) OldInstallationMetadata(ctx context.Context) (v openapi.IntegrationInstallationMetadata, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldInstallationMetadata is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldInstallationMetadata requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldInstallationMetadata: %w", err)
+	}
+	return oldValue.InstallationMetadata, nil
+}
+
+// ClearInstallationMetadata clears the value of the "installation_metadata" field.
+func (m *IntegrationMutation) ClearInstallationMetadata() {
+	m.installation_metadata = nil
+	m.clearedFields[integration.FieldInstallationMetadata] = struct{}{}
+}
+
+// InstallationMetadataCleared returns if the "installation_metadata" field was cleared in this mutation.
+func (m *IntegrationMutation) InstallationMetadataCleared() bool {
+	_, ok := m.clearedFields[integration.FieldInstallationMetadata]
+	return ok
+}
+
+// ResetInstallationMetadata resets all changes to the "installation_metadata" field.
+func (m *IntegrationMutation) ResetInstallationMetadata() {
+	m.installation_metadata = nil
+	delete(m.clearedFields, integration.FieldInstallationMetadata)
 }
 
 // SetProviderState sets the "provider_state" field.
@@ -110108,7 +110158,7 @@ func (m *IntegrationMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *IntegrationMutation) Fields() []string {
-	fields := make([]string, 0, 30)
+	fields := make([]string, 0, 31)
 	if m.created_at != nil {
 		fields = append(fields, integration.FieldCreatedAt)
 	}
@@ -110174,6 +110224,9 @@ func (m *IntegrationMutation) Fields() []string {
 	}
 	if m._config != nil {
 		fields = append(fields, integration.FieldConfig)
+	}
+	if m.installation_metadata != nil {
+		fields = append(fields, integration.FieldInstallationMetadata)
 	}
 	if m.provider_state != nil {
 		fields = append(fields, integration.FieldProviderState)
@@ -110251,6 +110304,8 @@ func (m *IntegrationMutation) Field(name string) (ent.Value, bool) {
 		return m.ProviderMetadata()
 	case integration.FieldConfig:
 		return m.Config()
+	case integration.FieldInstallationMetadata:
+		return m.InstallationMetadata()
 	case integration.FieldProviderState:
 		return m.ProviderState()
 	case integration.FieldMetadata:
@@ -110320,6 +110375,8 @@ func (m *IntegrationMutation) OldField(ctx context.Context, name string) (ent.Va
 		return m.OldProviderMetadata(ctx)
 	case integration.FieldConfig:
 		return m.OldConfig(ctx)
+	case integration.FieldInstallationMetadata:
+		return m.OldInstallationMetadata(ctx)
 	case integration.FieldProviderState:
 		return m.OldProviderState(ctx)
 	case integration.FieldMetadata:
@@ -110499,6 +110556,13 @@ func (m *IntegrationMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetConfig(v)
 		return nil
+	case integration.FieldInstallationMetadata:
+		v, ok := value.(openapi.IntegrationInstallationMetadata)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetInstallationMetadata(v)
+		return nil
 	case integration.FieldProviderState:
 		v, ok := value.(openapi.IntegrationProviderState)
 		if !ok {
@@ -110648,6 +110712,9 @@ func (m *IntegrationMutation) ClearedFields() []string {
 	if m.FieldCleared(integration.FieldConfig) {
 		fields = append(fields, integration.FieldConfig)
 	}
+	if m.FieldCleared(integration.FieldInstallationMetadata) {
+		fields = append(fields, integration.FieldInstallationMetadata)
+	}
 	if m.FieldCleared(integration.FieldProviderState) {
 		fields = append(fields, integration.FieldProviderState)
 	}
@@ -110746,6 +110813,9 @@ func (m *IntegrationMutation) ClearField(name string) error {
 	case integration.FieldConfig:
 		m.ClearConfig()
 		return nil
+	case integration.FieldInstallationMetadata:
+		m.ClearInstallationMetadata()
+		return nil
 	case integration.FieldProviderState:
 		m.ClearProviderState()
 		return nil
@@ -110840,6 +110910,9 @@ func (m *IntegrationMutation) ResetField(name string) error {
 		return nil
 	case integration.FieldConfig:
 		m.ResetConfig()
+		return nil
+	case integration.FieldInstallationMetadata:
+		m.ResetInstallationMetadata()
 		return nil
 	case integration.FieldProviderState:
 		m.ResetProviderState()
