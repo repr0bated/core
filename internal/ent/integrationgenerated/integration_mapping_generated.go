@@ -27,28 +27,6 @@ type IntegrationMappingSchema struct {
 	UpsertKeys []string
 }
 
-// IntegrationIngestSchema describes schema-scoped ingest event contracts
-type IntegrationIngestSchema struct {
-	Name string
-	Topic string
-	Table string
-	LookupFields []IntegrationIngestLookupField
-	RuntimeDefaults []IntegrationIngestRuntimeDefault
-	StockPersist bool
-}
-
-// IntegrationIngestLookupField describes one stock ingest lookup field
-type IntegrationIngestLookupField struct {
-	Field string
-	GoField string
-}
-
-// IntegrationIngestRuntimeDefault describes one integration-injected field for stock ingest persistence
-type IntegrationIngestRuntimeDefault struct {
-	Field string
-	GoField string
-}
-
 // IntegrationIngestSource identifies how a typed ingest request entered the ingest pipeline
 type IntegrationIngestSource string
 
@@ -88,18 +66,6 @@ const (
 	IntegrationMappingSchemaVulnerability = "Vulnerability"
 )
 
-// Integration ingest topics by schema.
-const (
-	IntegrationIngestTopicAssetRequested = "integration.ingest.asset.requested"
-	IntegrationIngestTopicContactRequested = "integration.ingest.contact.requested"
-	IntegrationIngestTopicDirectoryAccountRequested = "integration.ingest.directory_account.requested"
-	IntegrationIngestTopicDirectoryGroupRequested = "integration.ingest.directory_group.requested"
-	IntegrationIngestTopicDirectoryMembershipRequested = "integration.ingest.directory_membership.requested"
-	IntegrationIngestTopicEntityRequested = "integration.ingest.entity.requested"
-	IntegrationIngestTopicRiskRequested = "integration.ingest.risk.requested"
-	IntegrationIngestTopicVulnerabilityRequested = "integration.ingest.vulnerability.requested"
-)
-
 // IntegrationIngestAssetRequested is the typed second-stage ingest contract for Asset records
 type IntegrationIngestAssetRequested struct {
 	Metadata IntegrationIngestMetadata `json:"metadata"`
@@ -108,7 +74,7 @@ type IntegrationIngestAssetRequested struct {
 
 // IntegrationIngestAssetRequestedTopic is the typed Gala topic for Asset ingest requests
 var IntegrationIngestAssetRequestedTopic = gala.Topic[IntegrationIngestAssetRequested]{
-	Name: IntegrationIngestTopicAssetRequested,
+	Name: "integration.ingest.asset.requested",
 }
 
 // IntegrationIngestContactRequested is the typed second-stage ingest contract for Contact records
@@ -119,7 +85,7 @@ type IntegrationIngestContactRequested struct {
 
 // IntegrationIngestContactRequestedTopic is the typed Gala topic for Contact ingest requests
 var IntegrationIngestContactRequestedTopic = gala.Topic[IntegrationIngestContactRequested]{
-	Name: IntegrationIngestTopicContactRequested,
+	Name: "integration.ingest.contact.requested",
 }
 
 // IntegrationIngestDirectoryAccountRequested is the typed second-stage ingest contract for DirectoryAccount records
@@ -130,7 +96,7 @@ type IntegrationIngestDirectoryAccountRequested struct {
 
 // IntegrationIngestDirectoryAccountRequestedTopic is the typed Gala topic for DirectoryAccount ingest requests
 var IntegrationIngestDirectoryAccountRequestedTopic = gala.Topic[IntegrationIngestDirectoryAccountRequested]{
-	Name: IntegrationIngestTopicDirectoryAccountRequested,
+	Name: "integration.ingest.directory_account.requested",
 }
 
 // IntegrationIngestDirectoryGroupRequested is the typed second-stage ingest contract for DirectoryGroup records
@@ -141,7 +107,7 @@ type IntegrationIngestDirectoryGroupRequested struct {
 
 // IntegrationIngestDirectoryGroupRequestedTopic is the typed Gala topic for DirectoryGroup ingest requests
 var IntegrationIngestDirectoryGroupRequestedTopic = gala.Topic[IntegrationIngestDirectoryGroupRequested]{
-	Name: IntegrationIngestTopicDirectoryGroupRequested,
+	Name: "integration.ingest.directory_group.requested",
 }
 
 // IntegrationIngestDirectoryMembershipRequested is the typed second-stage ingest contract for DirectoryMembership records
@@ -152,7 +118,7 @@ type IntegrationIngestDirectoryMembershipRequested struct {
 
 // IntegrationIngestDirectoryMembershipRequestedTopic is the typed Gala topic for DirectoryMembership ingest requests
 var IntegrationIngestDirectoryMembershipRequestedTopic = gala.Topic[IntegrationIngestDirectoryMembershipRequested]{
-	Name: IntegrationIngestTopicDirectoryMembershipRequested,
+	Name: "integration.ingest.directory_membership.requested",
 }
 
 // IntegrationIngestEntityRequested is the typed second-stage ingest contract for Entity records
@@ -163,7 +129,7 @@ type IntegrationIngestEntityRequested struct {
 
 // IntegrationIngestEntityRequestedTopic is the typed Gala topic for Entity ingest requests
 var IntegrationIngestEntityRequestedTopic = gala.Topic[IntegrationIngestEntityRequested]{
-	Name: IntegrationIngestTopicEntityRequested,
+	Name: "integration.ingest.entity.requested",
 }
 
 // IntegrationIngestRiskRequested is the typed second-stage ingest contract for Risk records
@@ -174,7 +140,7 @@ type IntegrationIngestRiskRequested struct {
 
 // IntegrationIngestRiskRequestedTopic is the typed Gala topic for Risk ingest requests
 var IntegrationIngestRiskRequestedTopic = gala.Topic[IntegrationIngestRiskRequested]{
-	Name: IntegrationIngestTopicRiskRequested,
+	Name: "integration.ingest.risk.requested",
 }
 
 // IntegrationIngestVulnerabilityRequested is the typed second-stage ingest contract for Vulnerability records
@@ -185,7 +151,7 @@ type IntegrationIngestVulnerabilityRequested struct {
 
 // IntegrationIngestVulnerabilityRequestedTopic is the typed Gala topic for Vulnerability ingest requests
 var IntegrationIngestVulnerabilityRequestedTopic = gala.Topic[IntegrationIngestVulnerabilityRequested]{
-	Name: IntegrationIngestTopicVulnerabilityRequested,
+	Name: "integration.ingest.vulnerability.requested",
 }
 
 // Integration mapping keys for Asset.
@@ -2892,178 +2858,6 @@ var IntegrationMappingSchemas = map[string]IntegrationMappingSchema{
 			"cveID",
 			"externalID",
 		},
-	},
-}
-
-// IntegrationIngestSchemas maps schema names to schema-scoped ingest event contracts
-var IntegrationIngestSchemas = map[string]IntegrationIngestSchema{
-	"Asset": {
-		Name: "Asset",
-		Topic: "integration.ingest.asset.requested",
-		Table: "asset",
-		LookupFields: []IntegrationIngestLookupField{
-			{
-				Field: "source_identifier",
-				GoField: "SourceIdentifier",
-			},
-		},
-		RuntimeDefaults: []IntegrationIngestRuntimeDefault{
-			{
-				Field: "integration_id",
-				GoField: "IntegrationID",
-			},
-			{
-				Field: "owner_id",
-				GoField: "OwnerID",
-			},
-		},
-		StockPersist: true,
-	},
-	"Contact": {
-		Name: "Contact",
-		Topic: "integration.ingest.contact.requested",
-		Table: "contact",
-		LookupFields: []IntegrationIngestLookupField{
-			{
-				Field: "email",
-				GoField: "Email",
-			},
-			{
-				Field: "external_id",
-				GoField: "ExternalID",
-			},
-		},
-		RuntimeDefaults: []IntegrationIngestRuntimeDefault{
-			{
-				Field: "integration_id",
-				GoField: "IntegrationID",
-			},
-		},
-		StockPersist: true,
-	},
-	"DirectoryAccount": {
-		Name: "DirectoryAccount",
-		Topic: "integration.ingest.directory_account.requested",
-		Table: "directory_account",
-		LookupFields: []IntegrationIngestLookupField{
-			{
-				Field: "external_id",
-				GoField: "ExternalID",
-			},
-		},
-		RuntimeDefaults: []IntegrationIngestRuntimeDefault{
-			{
-				Field: "integration_id",
-				GoField: "IntegrationID",
-			},
-			{
-				Field: "platform_id",
-				GoField: "PlatformID",
-			},
-		},
-		StockPersist: true,
-	},
-	"DirectoryGroup": {
-		Name: "DirectoryGroup",
-		Topic: "integration.ingest.directory_group.requested",
-		Table: "directory_group",
-		LookupFields: []IntegrationIngestLookupField{
-			{
-				Field: "external_id",
-				GoField: "ExternalID",
-			},
-		},
-		RuntimeDefaults: []IntegrationIngestRuntimeDefault{
-			{
-				Field: "integration_id",
-				GoField: "IntegrationID",
-			},
-			{
-				Field: "platform_id",
-				GoField: "PlatformID",
-			},
-		},
-		StockPersist: true,
-	},
-	"DirectoryMembership": {
-		Name: "DirectoryMembership",
-		Topic: "integration.ingest.directory_membership.requested",
-		Table: "directory_membership",
-		LookupFields: []IntegrationIngestLookupField{
-			{
-				Field: "directory_account_id",
-				GoField: "DirectoryAccountID",
-			},
-			{
-				Field: "directory_group_id",
-				GoField: "DirectoryGroupID",
-			},
-		},
-		RuntimeDefaults: []IntegrationIngestRuntimeDefault{
-			{
-				Field: "integration_id",
-				GoField: "IntegrationID",
-			},
-		},
-		StockPersist: true,
-	},
-	"Entity": {
-		Name: "Entity",
-		Topic: "integration.ingest.entity.requested",
-		Table: "entity",
-		LookupFields: []IntegrationIngestLookupField{
-			{
-				Field: "external_id",
-				GoField: "ExternalID",
-			},
-		},
-		RuntimeDefaults: []IntegrationIngestRuntimeDefault{
-			{
-				Field: "owner_id",
-				GoField: "OwnerID",
-			},
-		},
-		StockPersist: true,
-	},
-	"Risk": {
-		Name: "Risk",
-		Topic: "integration.ingest.risk.requested",
-		Table: "risk",
-		LookupFields: []IntegrationIngestLookupField{
-			{
-				Field: "external_id",
-				GoField: "ExternalID",
-			},
-		},
-		RuntimeDefaults: []IntegrationIngestRuntimeDefault{
-			{
-				Field: "integration_id",
-				GoField: "IntegrationID",
-			},
-			{
-				Field: "owner_id",
-				GoField: "OwnerID",
-			},
-		},
-		StockPersist: true,
-	},
-	"Vulnerability": {
-		Name: "Vulnerability",
-		Topic: "integration.ingest.vulnerability.requested",
-		Table: "vulnerability",
-		LookupFields: []IntegrationIngestLookupField{
-			{
-				Field: "external_id",
-				GoField: "ExternalID",
-			},
-		},
-		RuntimeDefaults: []IntegrationIngestRuntimeDefault{
-			{
-				Field: "owner_id",
-				GoField: "OwnerID",
-			},
-		},
-		StockPersist: true,
 	},
 }
 
