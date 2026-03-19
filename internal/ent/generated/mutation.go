@@ -113752,6 +113752,7 @@ type IntegrationWebhookMutation struct {
 	provider             *string
 	name                 *string
 	status               *enums.IntegrationWebhookStatus
+	endpoint_id          *string
 	endpoint_url         *string
 	secret_token         *string
 	allowed_events       *[]string
@@ -114389,6 +114390,55 @@ func (m *IntegrationWebhookMutation) ResetStatus() {
 	m.status = nil
 }
 
+// SetEndpointID sets the "endpoint_id" field.
+func (m *IntegrationWebhookMutation) SetEndpointID(s string) {
+	m.endpoint_id = &s
+}
+
+// EndpointID returns the value of the "endpoint_id" field in the mutation.
+func (m *IntegrationWebhookMutation) EndpointID() (r string, exists bool) {
+	v := m.endpoint_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEndpointID returns the old "endpoint_id" field's value of the IntegrationWebhook entity.
+// If the IntegrationWebhook object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *IntegrationWebhookMutation) OldEndpointID(ctx context.Context) (v *string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEndpointID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEndpointID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEndpointID: %w", err)
+	}
+	return oldValue.EndpointID, nil
+}
+
+// ClearEndpointID clears the value of the "endpoint_id" field.
+func (m *IntegrationWebhookMutation) ClearEndpointID() {
+	m.endpoint_id = nil
+	m.clearedFields[integrationwebhook.FieldEndpointID] = struct{}{}
+}
+
+// EndpointIDCleared returns if the "endpoint_id" field was cleared in this mutation.
+func (m *IntegrationWebhookMutation) EndpointIDCleared() bool {
+	_, ok := m.clearedFields[integrationwebhook.FieldEndpointID]
+	return ok
+}
+
+// ResetEndpointID resets all changes to the "endpoint_id" field.
+func (m *IntegrationWebhookMutation) ResetEndpointID() {
+	m.endpoint_id = nil
+	delete(m.clearedFields, integrationwebhook.FieldEndpointID)
+}
+
 // SetEndpointURL sets the "endpoint_url" field.
 func (m *IntegrationWebhookMutation) SetEndpointURL(s string) {
 	m.endpoint_url = &s
@@ -114934,7 +114984,7 @@ func (m *IntegrationWebhookMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *IntegrationWebhookMutation) Fields() []string {
-	fields := make([]string, 0, 20)
+	fields := make([]string, 0, 21)
 	if m.created_at != nil {
 		fields = append(fields, integrationwebhook.FieldCreatedAt)
 	}
@@ -114967,6 +115017,9 @@ func (m *IntegrationWebhookMutation) Fields() []string {
 	}
 	if m.status != nil {
 		fields = append(fields, integrationwebhook.FieldStatus)
+	}
+	if m.endpoint_id != nil {
+		fields = append(fields, integrationwebhook.FieldEndpointID)
 	}
 	if m.endpoint_url != nil {
 		fields = append(fields, integrationwebhook.FieldEndpointURL)
@@ -115025,6 +115078,8 @@ func (m *IntegrationWebhookMutation) Field(name string) (ent.Value, bool) {
 		return m.Name()
 	case integrationwebhook.FieldStatus:
 		return m.Status()
+	case integrationwebhook.FieldEndpointID:
+		return m.EndpointID()
 	case integrationwebhook.FieldEndpointURL:
 		return m.EndpointURL()
 	case integrationwebhook.FieldSecretToken:
@@ -115074,6 +115129,8 @@ func (m *IntegrationWebhookMutation) OldField(ctx context.Context, name string) 
 		return m.OldName(ctx)
 	case integrationwebhook.FieldStatus:
 		return m.OldStatus(ctx)
+	case integrationwebhook.FieldEndpointID:
+		return m.OldEndpointID(ctx)
 	case integrationwebhook.FieldEndpointURL:
 		return m.OldEndpointURL(ctx)
 	case integrationwebhook.FieldSecretToken:
@@ -115177,6 +115234,13 @@ func (m *IntegrationWebhookMutation) SetField(name string, value ent.Value) erro
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetStatus(v)
+		return nil
+	case integrationwebhook.FieldEndpointID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEndpointID(v)
 		return nil
 	case integrationwebhook.FieldEndpointURL:
 		v, ok := value.(string)
@@ -115298,6 +115362,9 @@ func (m *IntegrationWebhookMutation) ClearedFields() []string {
 	if m.FieldCleared(integrationwebhook.FieldName) {
 		fields = append(fields, integrationwebhook.FieldName)
 	}
+	if m.FieldCleared(integrationwebhook.FieldEndpointID) {
+		fields = append(fields, integrationwebhook.FieldEndpointID)
+	}
 	if m.FieldCleared(integrationwebhook.FieldEndpointURL) {
 		fields = append(fields, integrationwebhook.FieldEndpointURL)
 	}
@@ -115366,6 +115433,9 @@ func (m *IntegrationWebhookMutation) ClearField(name string) error {
 	case integrationwebhook.FieldName:
 		m.ClearName()
 		return nil
+	case integrationwebhook.FieldEndpointID:
+		m.ClearEndpointID()
+		return nil
 	case integrationwebhook.FieldEndpointURL:
 		m.ClearEndpointURL()
 		return nil
@@ -115433,6 +115503,9 @@ func (m *IntegrationWebhookMutation) ResetField(name string) error {
 		return nil
 	case integrationwebhook.FieldStatus:
 		m.ResetStatus()
+		return nil
+	case integrationwebhook.FieldEndpointID:
+		m.ResetEndpointID()
 		return nil
 	case integrationwebhook.FieldEndpointURL:
 		m.ResetEndpointURL()

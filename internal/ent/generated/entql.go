@@ -1624,6 +1624,7 @@ var schemaGraph = func() *sqlgraph.Schema {
 			integrationwebhook.FieldProvider:           {Type: field.TypeString, Column: integrationwebhook.FieldProvider},
 			integrationwebhook.FieldName:               {Type: field.TypeString, Column: integrationwebhook.FieldName},
 			integrationwebhook.FieldStatus:             {Type: field.TypeEnum, Column: integrationwebhook.FieldStatus},
+			integrationwebhook.FieldEndpointID:         {Type: field.TypeString, Column: integrationwebhook.FieldEndpointID},
 			integrationwebhook.FieldEndpointURL:        {Type: field.TypeString, Column: integrationwebhook.FieldEndpointURL},
 			integrationwebhook.FieldSecretToken:        {Type: field.TypeString, Column: integrationwebhook.FieldSecretToken},
 			integrationwebhook.FieldAllowedEvents:      {Type: field.TypeJSON, Column: integrationwebhook.FieldAllowedEvents},
@@ -29765,6 +29766,11 @@ func (f *IntegrationWebhookFilter) WhereName(p entql.StringP) {
 // WhereStatus applies the entql string predicate on the status field.
 func (f *IntegrationWebhookFilter) WhereStatus(p entql.StringP) {
 	f.Where(p.Field(integrationwebhook.FieldStatus))
+}
+
+// WhereEndpointID applies the entql string predicate on the endpoint_id field.
+func (f *IntegrationWebhookFilter) WhereEndpointID(p entql.StringP) {
+	f.Where(p.Field(integrationwebhook.FieldEndpointID))
 }
 
 // WhereEndpointURL applies the entql string predicate on the endpoint_url field.
